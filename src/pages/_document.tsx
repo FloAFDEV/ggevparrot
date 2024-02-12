@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/Global/Header";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

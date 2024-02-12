@@ -25,7 +25,7 @@ export const FeaturesServices: React.FC<FeaturesServicesInterface> = ({
 				{title}
 			</h4>
 			<Image
-				className="p-2"
+				className="rounded-2xl shadow-2xl object-contain h-64 w-full md:h-96 md:w-full"
 				src={image}
 				alt={title}
 				width={768}
