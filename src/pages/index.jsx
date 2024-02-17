@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import Annonces from "@/components/Global/Annonces/Annonces";
 import { useEffect, useState } from "react";
+import Footer from "@/components/Global/Footer.tsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,7 +52,7 @@ export default function Home({ annonces }) {
 								confiance inégalée
 							</h2>
 							<span className="btn btn-secondary rounded-box mb-5">
-								Explorez maintenant
+								Parcourez nos annonces
 							</span>
 						</div>
 					</div>
@@ -85,6 +86,9 @@ export default function Home({ annonces }) {
 						<Annonces annonces={annonces} />
 					</div>
 				</section>
+				<footer>
+					<Footer />
+				</footer>
 			</main>
 		</>
 	);

@@ -1,4 +1,4 @@
-import Header from "@/components/Global/Header";
+import Navbar from "@/components/Global/Navbar";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -6,7 +6,7 @@ export default function Document() {
 		<Html lang="fr" data-theme="corporate">
 			<Head />
 			<body>
-				<Header />
+				<Navbar />
 				<Main />
 				<NextScript />
 			</body>

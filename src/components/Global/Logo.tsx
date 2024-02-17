@@ -6,7 +6,7 @@ interface Logo {
 	className: string;
 }
 
-export const Logo: React.FC<Logo> = ({ src, className }) => {
+export const Logo: React.FunctionComponent<Logo> = ({ src, className }) => {
 	return (
 		<Link href="/">
 			<div className="p-2">
