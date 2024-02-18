@@ -71,10 +71,10 @@ const Annonces = () => {
 
 	return (
 		<div className="flex flex-col">
-			<h1 className="flex min-h-full items-center justify-center p-4 text-center">
+			<h1 id="annonces" className="text-5xl bg-base-1 font-bold m-4 p-6">
 				Nos annonces
 			</h1>
-			<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
 					<p>Chargement...</p>
@@ -84,7 +84,7 @@ const Annonces = () => {
 							annonce.annonce_valid === 1 && (
 								<div
 									key={annonce.annonce_title}
-									className="card w-96 mx-auto bg-gray-100 rounded-lg border-2 border-gray-200 shadow-md text-black flex flex-col justify-center items-center relative"
+									className="cardrounded-lg border-2 shadow-lg flex flex-col justify-around items-center relative sm:max-w-s mx-auto rounded-lg"
 								>
 									<figure>
 										<img
@@ -97,13 +97,13 @@ const Annonces = () => {
 										<h2 className="card-title text-xl font-semibold mb-2 text-start">
 											{annonce.annonce_title}{" "}
 										</h2>
-										<p className="text-gray-800 text-end">
+										<p className="text-end">
 											{annonce.color} {annonce.fuel_type}
 											{" / "}
 											{annonce.mileage} km
 										</p>
 										<div className="card-actions justify-end mt-4">
-											<p className="text-gray-800 text-center text-xl">
+											<p className="text-center text-xl">
 												Prix:{" "}
 												{Math.round(annonce.price)} €
 											</p>
@@ -111,7 +111,7 @@ const Annonces = () => {
 												onClick={() =>
 													handleOpenModal(annonce)
 												}
-												className="btn btn-primary justify-end"
+												className="btn btn-secondary justify-end text-lg"
 											>
 												En savoir plus
 											</button>

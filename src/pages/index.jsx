@@ -1,135 +1,99 @@
-import { FeaturesServices } from "@/components/Global/FeaturesServices";
-import { Inter } from "next/font/google";
+import React from "react";
+import Hero from "@/components/Global/Hero";
 import Image from "next/image";
+import FeaturesServices from "@/components/Global/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
-import { useEffect, useState } from "react";
-import Footer from "@/components/Global/Footer.tsx";
+import Footer from "@/components/Global/Footer";
+import ThemeSwitcher from "@/components/Global/ThemeSwitcher";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home({ annonces }) {
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch(
-			"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/annonces"
-		)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(
-						`La réponse du réseau n'est pas correcte ${response.status}`
-					);
-				}
-				return response.json();
-			})
-			.then((data) => setData(data))
-			.catch((error) =>
-				console.error(
-					"There has been a problem with your fetch operation: ",
-					error
-				)
-			);
-	}, []);
-
+export default function Home({ servicesData, annonces }) {
 	return (
 		<>
 			<main>
-				<section className="hero">
-					<div className="hero-content flex-col md:flex-row">
-						<Image
-							className="w-full pt-5 md:w-1/2 rounded-2xl shadow-2xl"
-							src="/heroVParrot.webp"
-							width={1024}
-							height={1024}
-							alt="Image principale représentant un perroquet mécanicien"
-						/>
-						<div className="w-full md:w-1/2">
-							<h1 className="text-5xl font-bold py-3">
-								L'Élite Automobile avec V.PARROT
-							</h1>
-							<h2 className="text-xl pb-3">
-								Des véhicules d'occasion exceptionnels, une
-								confiance inégalée
-							</h2>
-							<span className="btn btn-secondary rounded-box mb-5">
-								Parcourez nos annonces
-							</span>
-						</div>
-					</div>
-				</section>
+				<Hero />
 				<section className="text-center mt-4">
-					<h3 className="text-5xl bg-base-1 font-bold m-8">
+					<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
 						Nos services
 					</h3>
-					<div className="flex w-full md:justify-around flex-col md:flex-row">
-						<FeaturesServices
-							className="w-full md:w-1/4 text-xl"
-							title="Véhicules d'occasion de qualité"
-							description="Explorez notre sélection soigneusement révisée de voitures d'occasion, toutes garanties pour assurer une conduite fiable et satisfaisante."
-							image="/preparationVParrot.webp"
-						/>
-						<FeaturesServices
-							className="w-full md:w-1/4 text-xl"
-							title="Garanties et tranquillité"
-							description="Profitez de nos options de garantie étendue pour une protection supplémentaire, offrant une expérience d'achat sans souci."
-							image="/garantieVParrot.webp"
-						/>
-						<FeaturesServices
-							className="w-full md:w-1/4 text-xl"
-							title="Entretien spécialisé"
-							description="Bénéficiez de notre service d'entretien professionnel pour assurer la longévité de votre véhicule. Nous sommes là pour vous, même après l'achat."
-							image="/entretienVParrot.webp"
-						/>
+					<div className="flex flex-wrap justify-center md:justify-around">
+						{servicesData.map((service) => (
+							<div
+								key={service.Id_GarageService}
+								className="w-full md:w-1/4 text-xl mb-8 md:mx-2"
+							>
+								<FeaturesServices
+									title={service.serviceName}
+									description={service.description}
+									image={`/assets/service_image1.webp`}
+									alt={`Image de ${service.serviceName}`}
+									titleClassName="text-4xl md:text-xl"
+									descriptionClassName="text-lg md:text-base mt-4"
+								/>
+							</div>
+						))}
 					</div>
+				</section>
+				<section>
 					<div className="w-full text-center font-bold mt-4">
-						{/* <ButtonLink href="">Contactez-nous</ButtonLink> */}
 						<Annonces annonces={annonces} />
 					</div>
 				</section>
-				<footer>
-					<Footer />
-				</footer>
 			</main>
+			<footer>
+				<Footer />
+				<ThemeSwitcher />
+			</footer>
 		</>
 	);
 }
 
 export async function getServerSideProps(context) {
-	// Récupére les données du garage
-	const garageResponse = await fetch(
-		"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/garage",
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				query: "",
-			}),
-		}
-	);
-	const garageData = await garageResponse.json(); // Extrait les données JSON
+	try {
+		const [garageResponse, servicesResponse] = await Promise.all([
+			fetch(
+				"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/garage",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						query: "",
+					}),
+				}
+			),
+			fetch(
+				"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/services",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						query: "",
+					}),
+				}
+			),
+		]);
 
-	// Récupére les données des services
-	const servicesResponse = await fetch(
-		"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/services",
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				query: "",
-			}),
-		}
-	);
-	const servicesData = await servicesResponse.json(); // Extrait les données JSON
+		const [garageData, servicesData] = await Promise.all([
+			garageResponse.json(),
+			servicesResponse.json(),
+		]);
 
-	// Retourne les données du garage et des services comme props
-	return {
-		props: {
-			garageData: garageData,
-			servicesData: servicesData,
-		},
-	};
+		return {
+			props: {
+				garageData,
+				servicesData,
+			},
+		};
+	} catch (error) {
+		console.error("Error fetching data:", error);
+		return {
+			props: {
+				garageData: [],
+				servicesData: [],
+			},
+		};
+	}
 }

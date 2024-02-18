@@ -5,7 +5,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 const Navbar: React.FunctionComponent = () => {
 	return (
-		<header className="navbar bg-primary text-primary-content">
+		<header className="navbar bg-neutral text-neutral-content">
 			<div className="navbar h-5">
 				<div className="navbar-start">
 					<div className="dropdown">

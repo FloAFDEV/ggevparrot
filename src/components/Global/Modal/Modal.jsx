@@ -14,9 +14,9 @@ const Modal = ({ annonce, handleCloseModal, imagesData }) => {
 	};
 
 	return (
-		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto">
 			<div
-				className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 max-w-4xl w-full relative sm:max-w-lg sm:w-auto"
+				className="dark:bg-gray-400 rounded-lg shadow-md p-8 max-w-4xl w-full relative sm:max-w-lg sm:w-auto"
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button

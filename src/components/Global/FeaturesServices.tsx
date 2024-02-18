@@ -1,19 +1,23 @@
+// components/Global/FeaturesServices.tsx
+import React from "react";
 import Image from "next/image";
 
-interface FeaturesServicesInterface {
+interface FeaturesServicesProps {
 	title: string;
 	description: string;
 	image: string;
 	className?: string;
 	titleClassName?: string;
+	descriptionClassName?: string;
 }
 
-export const FeaturesServices: React.FC<FeaturesServicesInterface> = ({
+const FeaturesServices: React.FC<FeaturesServicesProps> = ({
 	title,
 	description,
 	image,
 	className,
 	titleClassName,
+	descriptionClassName,
 }) => {
 	return (
 		<div className={`flex flex-col ${className || ""}`}>
@@ -24,14 +28,23 @@ export const FeaturesServices: React.FC<FeaturesServicesInterface> = ({
 			>
 				{title}
 			</h4>
-			<Image
-				className="rounded-2xl shadow-2xl object-contain h-64 w-full md:h-96 md:w-full"
-				src={image}
-				alt={title}
-				width={768}
-				height={512}
-			/>
-			<span className="pb-26 mt-4">{description}</span>
+			<div className="flex justify-center">
+				<div className="rounded-xl overflow-hidden sm:rounded-10 sm:overflow-visible p-4">
+					<Image
+						src={image}
+						alt={title}
+						width={450}
+						height={300}
+						className="rounded-b-xl"
+						priority
+					/>
+				</div>
+			</div>
+			<span className={`pb-26 mt-4 ${descriptionClassName || ""}`}>
+				{description}
+			</span>
 		</div>
 	);
 };
+
+export default FeaturesServices;

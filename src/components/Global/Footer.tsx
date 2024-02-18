@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const Footer: React.FunctionComponent = () => {
 	return (
-		<footer className="footer footer-center p-10 bg-primary text-primary-content rounded">
+		<footer className="footer footer-center p-10 bg-neutral text-white rounded">
 			<nav className="grid grid-flow-col gap-4">
-				<a className="link link-hover">About us</a>
+				<a className="link link-hover">À propos</a>
 				<a className="link link-hover">Contact</a>
 				<a className="link link-hover">Jobs</a>
 				<a className="link link-hover">Press kit</a>
