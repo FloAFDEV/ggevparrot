@@ -16,12 +16,12 @@ const Modal = ({ annonce, handleCloseModal, imagesData }) => {
 	return (
 		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto">
 			<div
-				className="dark:bg-gray-400 rounded-lg shadow-md p-8 max-w-4xl w-full relative sm:max-w-lg sm:w-auto"
+				className="dark:bg-gray-400 bg-slate-800 rounded-lg shadow-md p-8 max-w-4xl w-full relative sm:max-w-lg sm:w-auto"
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button
 					onClick={closeModal}
-					className="absolute top-0 right-0 m-4 text-red-600 hover:text-gray-800 dark:text-gray-300 hover:dark:text-red-600"
+					className="absolute top-0 right-0 m-4 text-white hover:text-red-600 dark:text-white dark:hover:text-red-600"
 				>
 					&times;
 				</button>

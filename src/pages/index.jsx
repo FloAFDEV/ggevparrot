@@ -1,37 +1,20 @@
+// Home.jsx
 import React from "react";
+import Navbar from "@/components/Global/Navbar";
 import Hero from "@/components/Global/Hero";
-import Image from "next/image";
 import FeaturesServices from "@/components/Global/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
+
 import Footer from "@/components/Global/Footer";
-import ThemeSwitcher from "@/components/Global/ThemeSwitcher";
 
 export default function Home({ servicesData, annonces }) {
 	return (
 		<>
+			<Navbar />
 			<main>
 				<Hero />
-				<section className="text-center mt-4">
-					<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
-						Nos services
-					</h3>
-					<div className="flex flex-wrap justify-center md:justify-around">
-						{servicesData.map((service) => (
-							<div
-								key={service.Id_GarageService}
-								className="w-full md:w-1/4 text-xl mb-8 md:mx-2"
-							>
-								<FeaturesServices
-									title={service.serviceName}
-									description={service.description}
-									image={`/assets/service_image1.webp`}
-									alt={`Image de ${service.serviceName}`}
-									titleClassName="text-4xl md:text-xl"
-									descriptionClassName="text-lg md:text-base mt-4"
-								/>
-							</div>
-						))}
-					</div>
+				<section className="mt-16">
+					<FeaturesServices servicesData={servicesData} />
 				</section>
 				<section>
 					<div className="w-full text-center font-bold mt-4">
@@ -41,7 +24,6 @@ export default function Home({ servicesData, annonces }) {
 			</main>
 			<footer>
 				<Footer />
-				<ThemeSwitcher />
 			</footer>
 		</>
 	);

@@ -71,10 +71,13 @@ const Annonces = () => {
 
 	return (
 		<div className="flex flex-col">
-			<h1 id="annonces" className="text-5xl bg-base-1 font-bold m-4 p-6">
+			<h1
+				id="annonces"
+				className="text-5xl bg-neutral-content font-bold m-4 p-6"
+			>
 				Nos annonces
 			</h1>
-			<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+			<div className=" bg-base-100 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
 					<p>Chargement...</p>

@@ -2,9 +2,9 @@
 import React from "react";
 import Image from "next/image";
 
-const Hero: React.FC = () => {
+const Hero: React.FunctionComponent = () => {
 	return (
-		<section className="hero">
+		<section className="hero pt-20">
 			<div className="hero-content flex-col md:flex-row">
 				<Image
 					className="w-full pt-5 md:w-1/2 rounded-2xl shadow-2xl"
