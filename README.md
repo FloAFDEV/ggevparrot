@@ -1,3 +1,53 @@
+Voici une traduction en français :
+
+---
+
+Ce projet est créé avec [Next.js](https://nextjs.org/) en utilisant [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Démarrage
+
+Pour commencer, lancez le serveur de développement :
+
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+# ou
+bun dev
+```
+
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour voir le résultat.
+
+Vous pouvez commencer à modifier la page en éditant `pages/index.tsx`. La page se met à jour automatiquement lorsque vous modifiez le fichier.
+
+Les [routes API](https://nextjs.org/docs/api-routes/introduction) peuvent être accédées sur [http://localhost:3000/api/hello](http://localhost:3000/api/hello). Vous pouvez modifier ce point de terminaison dans `pages/api/hello.ts`.
+
+Le répertoire `pages/api` est mappé sur `/api/*`. Les fichiers de ce répertoire sont traités comme des [routes API](https://nextjs.org/docs/api-routes/introduction) au lieu de pages React.
+
+Ce projet utilise [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) pour optimiser et charger automatiquement Inter, une police Google personnalisée.
+
+## Pour en savoir plus
+
+Pour en savoir plus sur Next.js, consultez les ressources suivantes :
+
+- [Documentation de Next.js](https://nextjs.org/docs) - apprenez les fonctionnalités et l'API de Next.js.
+- [Apprendre Next.js](https://nextjs.org/learn) - un tutoriel interactif Next.js.
+
+Vous pouvez consulter [le dépôt GitHub de Next.js](https://github.com/vercel/next.js/) - vos retours et contributions sont les bienvenus !
+
+## Déploiement sur Vercel
+
+La manière la plus simple de déployer votre application Next.js est d'utiliser la [plateforme Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) des créateurs de Next.js.
+
+Consultez notre [documentation de déploiement Next.js](https://nextjs.org/docs/deployment) pour plus de détails.
+
+--- 
+
+Cela devrait vous aider à comprendre le projet et à démarrer avec Next.js.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
