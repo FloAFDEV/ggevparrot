@@ -77,7 +77,7 @@ const Annonces = () => {
 			>
 				Nos annonces
 			</h1>
-			<div className=" bg-base-100 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
 					<p>Chargement...</p>
@@ -91,9 +91,18 @@ const Annonces = () => {
 								>
 									<figure>
 										<img
-											src={annonce.main_image_url}
+											src={
+												annonce.main_image_url &&
+												annonce.main_image_url !== ""
+													? annonce.main_image_url
+													: "/assets/CarDefaultImage.webp"
+											}
 											alt={annonce.annonce_title}
 											className="rounded-t-lg"
+											style={{
+												width: "465px",
+												height: "auto",
+											}}
 										/>
 									</figure>
 									<div className="card-body p-1">
@@ -130,6 +139,7 @@ const Annonces = () => {
 					annonce={modalAnnonce}
 					handleCloseModal={handleCloseModal}
 					imagesData={imagesData}
+					Id_CarAnnonce={modalAnnonce.Id_CarAnnonce}
 				/>
 			)}
 		</div>

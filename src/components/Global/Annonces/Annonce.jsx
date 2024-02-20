@@ -35,12 +35,12 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 		options_name,
 	} = annonce;
 
-	// Extraire les 6 premiers mots de la description
+	// Affiche es 6 premiers mots de la description
 	const firstHeightWords = description.split(" ").slice(0, 8).join(" ");
-	// Extraire le reste de la description à partir du 7ème mot
+	// Affiche le reste de la description à partir du 7ème mot
 	const remainingDescription = description.split(" ").slice(8).join(" ");
 
-	// Si la description est plus longue que 6 mots et l'utilisateur n'a pas encore cliqué pour afficher la description complète
+	// Si la description est plus longue que 6 mots
 	const descriptionToShow =
 		!showFullDescription && remainingDescription
 			? `${firstHeightWords}...`
@@ -63,9 +63,9 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 			</div>
 			<div className="">
 				<img
+					className="w-full max-h-64 object-cover rounded-lg my-4"
 					src={main_image_url}
 					alt={annonce_title}
-					className="w-full max-h-64 object-cover rounded-lg my-4"
 				/>{" "}
 				<p
 					className="cursor-pointer font-extrabold color-primary-500 text-center hover:text-secondary"

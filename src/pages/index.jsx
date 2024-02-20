@@ -4,7 +4,6 @@ import Navbar from "@/components/Global/Navbar";
 import Hero from "@/components/Global/Hero";
 import FeaturesServices from "@/components/Global/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
-
 import Footer from "@/components/Global/Footer";
 
 export default function Home({ servicesData, annonces }) {
