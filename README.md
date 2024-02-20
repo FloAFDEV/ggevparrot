@@ -1,5 +1,3 @@
-Voici une traduction en français :
-
 ---
 
 Ce projet est créé avec [Next.js](https://nextjs.org/) en utilisant [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
