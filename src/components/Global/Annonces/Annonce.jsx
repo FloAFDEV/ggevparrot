@@ -12,7 +12,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 	if (!annonce) {
 		return (
 			<div className="p-4 bg-gray-300">
-				Détails de l'annonce incomplets
+				Détails de l&apos;annonce incomplets
 			</div>
 		);
 	}
@@ -82,7 +82,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				<p className="text-start">
 					{descriptionToShow}
 					{remainingDescription && (
-						<span className="color-primary-500 font-extra-bold curser-pointer hover:text-secondary">
+						<span className="color-primary-900 font-extra-bold curser-pointer hover:text-secondary">
 							{" "}
 							<button onClick={toggleDescription}>
 								{showFullDescription

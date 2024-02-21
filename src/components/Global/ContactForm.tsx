@@ -47,14 +47,16 @@ const ContactForm = ({
 				setError(errorData.message);
 				setSuccess(false);
 				console.error(
-					"Échec de l'envoi du message :",
+					"Échec de l&apos;envoi du message :",
 					errorData.message
 				);
 			}
 		} catch (error) {
-			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
+			setError(
+				"Erreur lors de l&apos;envoi du message. Veuillez réessayer."
+			);
 			setSuccess(false);
-			console.error("Erreur lors de l'envoi du message :", error);
+			console.error("Erreur lors de l&apos;envoi du message :", error);
 		}
 	};
 

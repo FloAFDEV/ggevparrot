@@ -59,7 +59,7 @@ const Annonces = () => {
 			);
 			if (!response.ok) {
 				throw new Error(
-					`Erreur lors de la récupération des images pour l'annonce ${annonceId}: ${response.status}`
+					`Erreur lors de la récupération des images pour l&apos;annonce ${annonceId}: ${response.status}`
 				);
 			}
 			const data = await response.json();
