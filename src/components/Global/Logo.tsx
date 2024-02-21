@@ -6,24 +6,20 @@ interface Logo {
 	className: string;
 }
 
-export const Logo: React.FunctionComponent<Logo> = ({ src, className }) => {
+export const Logo: React.FunctionComponent<Logo> = ({ src }) => {
 	return (
 		<div className="p-2">
-			<Image
-				className="w-full h-auto rounded-full"
-				src={src}
-				alt="logo vparrot"
-				width={50}
-				height={50}
-			/>
+			<Link href="/" legacyBehavior>
+				<Image
+					className="w-full h-auto rounded-full"
+					src={src}
+					alt="logo vparrot"
+					width={50}
+					height={50}
+				/>
+			</Link>
 		</div>
 	);
 };
 
 export default Logo;
-
-<Logo
-	href="/"
-	src="/favicon.ico"
-	className="p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
-/>;

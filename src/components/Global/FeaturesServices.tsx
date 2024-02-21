@@ -35,7 +35,7 @@ const FeaturesServices: React.FC<FeaturesServicesProps> = ({
 										width={450}
 										height={450}
 										className="rounded-b-xl"
-										priority
+										priority={true}
 									/>
 								</div>
 							</div>

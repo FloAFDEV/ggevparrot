@@ -8,7 +8,11 @@ const Footer: React.FunctionComponent = () => {
 				<Link href="/about" className="link link-hover">
 					À propos
 				</Link>
-				<Link href="/contact" className="link link-hover">
+				<Link
+					href="/contact"
+					className="link link-hover"
+					prefetch={false}
+				>
 					Contact
 				</Link>
 				<Link href="/jobs" className="link link-hover">
