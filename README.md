@@ -20,8 +20,6 @@ Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour
 
 Vous pouvez commencer à modifier la page en éditant `pages/index.tsx`. La page se met à jour automatiquement lorsque vous modifiez le fichier.
 
-Les [routes API](https://nextjs.org/docs/api-routes/introduction) peuvent être accédées sur [http://localhost:3000/api/hello](http://localhost:3000/api/hello). Vous pouvez modifier ce point de terminaison dans `pages/api/hello.ts`.
-
 Le répertoire `pages/api` est mappé sur `/api/*`. Les fichiers de ce répertoire sont traités comme des [routes API](https://nextjs.org/docs/api-routes/introduction) au lieu de pages React.
 
 Ce projet utilise [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) pour optimiser et charger automatiquement Inter, une police Google personnalisée.
@@ -65,8 +63,6 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
