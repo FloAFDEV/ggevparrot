@@ -5,11 +5,20 @@ const Footer: React.FunctionComponent = () => {
 	return (
 		<footer className="footer footer-center p-10 bg-neutral text-white rounded">
 			<nav className="grid grid-flow-col gap-4">
-				<a className="link link-hover">À propos</a>
-				<a className="link link-hover">Contact</a>
-				<a className="link link-hover">Jobs</a>
-				<a className="link link-hover">Press kit</a>
+				<Link href="/about" className="link link-hover">
+					À propos
+				</Link>
+				<Link href="/contact" className="link link-hover">
+					Contact
+				</Link>
+				<Link href="/jobs" className="link link-hover">
+					Jobs
+				</Link>
+				<Link href="/press-kit" className="link link-hover">
+					Press kit
+				</Link>
 			</nav>
+
 			<nav>
 				<div className="grid grid-flow-col gap-4">
 					<a>

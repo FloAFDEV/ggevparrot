@@ -33,7 +33,7 @@ const FeaturesServices: React.FC<FeaturesServicesProps> = ({
 										src={`/assets/service_image1.webp`}
 										alt={`Image de ${service.serviceName}`}
 										width={450}
-										height={300}
+										height={450}
 										className="rounded-b-xl"
 										priority
 									/>
