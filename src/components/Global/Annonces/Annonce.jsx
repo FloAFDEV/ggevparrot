@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 const Annonce = ({ annonce, toggleCarousel }) => {
 	const [showFullDescription, setShowFullDescription] = useState(false);
@@ -51,10 +52,12 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 		<div className="p-4 bg-white text-blue-950 rounded-lg shadow-md">
 			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>
 			<div className="flex items-center mb-4">
-				<img
+				<Image
 					src={brand_logo_url}
 					alt="Logo de la marque"
 					className="w-auto h-16 mr-2"
+					width={128}
+					height={128}
 				/>
 				<p className="text-lg font-semibold">
 					{brand_name} {model_name} {color}
@@ -62,10 +65,12 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				</p>
 			</div>
 			<div className="">
-				<img
-					className="w-full max-h-64 object-cover rounded-lg my-4"
+				<Image
 					src={main_image_url}
 					alt={annonce_title}
+					className="w-full max-h-64 object-cover rounded-lg my-4"
+					width={256}
+					height={256}
 				/>{" "}
 				<p
 					className="cursor-pointer font-extrabold color-primary-500 text-center hover:text-secondary"
@@ -89,54 +94,66 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				</p>
 				<p className="mt-6 text-start">
 					Équipements et options:
-					<img
+					<Image
 						src="/assets/icons/energyIcon.svg"
 						alt="Energy Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>
 				</p>
 				<p className="mb-4 text-left">{options_name}</p>
 			</div>
 			<div className="flex justify-between mt-4">
 				<p>
-					<img
+					<Image
 						src="/assets/icons/Year.svg"
 						alt="Power Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>{" "}
 					{manufacture_year}
 				</p>
 				<p>
-					<img
+					<Image
 						src="/assets/icons/powerIcon.svg"
 						alt="Power Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>
 					{power} {power_unit}
 				</p>
 				<p>
-					<img
+					<Image
 						src="/assets/icons/priceIcon.svg"
 						alt="Price Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>{" "}
 					{price} €
 				</p>
 			</div>
 			<div className="flex justify-around mt-4">
 				<p>
-					<img
+					<Image
 						src="/assets/icons/carIcon.svg"
 						alt="Car Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>
 					{mileage} km
 				</p>
 				<p>
-					<img
+					<Image
 						src="/assets/icons/fuelTypeIcon.svg"
 						alt="Fuel Type Icon"
 						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
 					/>
 					{fuel_type}{" "}
 				</p>

@@ -5,7 +5,6 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "@/components/Global/Context/ThemeContext";
 import ClientThemeWrapper from "@/components/Global/Context/ClientThemeWrapper";
 import Head from "next/head";
-import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();

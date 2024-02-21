@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import Annonce from "../Annonces/Annonce";
+import Image from "next/image";
 
 const Annonces = () => {
 	const [allAnnonces, setAllAnnonces] = useState([]);
@@ -90,7 +91,7 @@ const Annonces = () => {
 									className="cardrounded-lg border-2 shadow-lg flex flex-col justify-around items-center relative sm:max-w-s mx-auto rounded-lg"
 								>
 									<figure>
-										<img
+										<Image
 											src={
 												annonce.main_image_url &&
 												annonce.main_image_url !== ""
@@ -99,10 +100,8 @@ const Annonces = () => {
 											}
 											alt={annonce.annonce_title}
 											className="rounded-t-lg"
-											style={{
-												width: "465px",
-												height: "auto",
-											}}
+											width={465}
+											height={465}
 										/>
 									</figure>
 									<div className="card-body p-1">

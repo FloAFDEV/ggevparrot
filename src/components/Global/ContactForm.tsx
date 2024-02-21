@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -15,7 +16,7 @@ const ContactForm = ({
 		userPhone: "",
 		message: "",
 	});
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
 
 	const handleChange = (
@@ -58,23 +59,27 @@ const ContactForm = ({
 	};
 
 	return (
-		<div className="max-w-md mx-auto p-4 text-white text-start">
-			<h2 className="text-xl font-bold mb-4">
+		<div className="max-w-md mx-auto p-4 text-start">
+			<h2 className="text-xl font-bold mb-4 text-gray-300">
 				Envoyer un message à propos de cette annonce
 			</h2>
 			{success && (
 				<p className="text-green-600">Message envoyé avec succès !</p>
 			)}
 			{error && <p className="text-red-600">Erreur : {error}</p>}
-			<img
+			<Image
 				src={brand_logo_url}
 				alt="Logo de la marque"
-				className="w-auto h-16 mr-2"
+				className="w-auto h-16 mr-2 p-2"
+				width={64}
+				height={64}
 			/>
-			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>
-			<form onSubmit={handleSubmit} className="space-y-4">
+			<h3 className="font-bold text-2xl mb-2 text-white">
+				{annonce_title}
+			</h3>
+			<form onSubmit={handleSubmit} className="space-y-4 ">
 				<div>
-					<label htmlFor="userName" className="block mb-1">
+					<label htmlFor="userName" className="block mb-1 text-white">
 						Nom:
 					</label>
 					<input
@@ -88,7 +93,10 @@ const ContactForm = ({
 					/>
 				</div>
 				<div>
-					<label htmlFor="userEmail" className="block mb-1">
+					<label
+						htmlFor="userEmail"
+						className="block mb-1 text-white"
+					>
 						Email:
 					</label>
 					<input
@@ -102,7 +110,10 @@ const ContactForm = ({
 					/>
 				</div>
 				<div>
-					<label htmlFor="userPhone" className="block mb-1">
+					<label
+						htmlFor="userPhone"
+						className="block mb-1 text-white"
+					>
 						Téléphone:
 					</label>
 					<input
@@ -116,7 +127,7 @@ const ContactForm = ({
 					/>
 				</div>
 				<div>
-					<label htmlFor="message" className="block mb-1">
+					<label htmlFor="message" className="block mb-1 text-white">
 						Message:
 					</label>
 					<textarea
