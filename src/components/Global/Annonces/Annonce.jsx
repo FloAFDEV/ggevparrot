@@ -59,10 +59,10 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					width={128}
 					height={128}
 				/>
-				<p className="text-lg font-semibold">
+				<div className="text-lg font-semibold">
 					{brand_name} {model_name} {color}
 					<p>Catégorie: {category_model}</p>
-				</p>
+				</div>
 			</div>
 			<div className="">
 				<Image
@@ -76,7 +76,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					className="cursor-pointer font-extrabold color-primary-500 text-center hover:text-secondary"
 					onClick={toggleCarousel}
 				>
-					Plus d'images
+					Plus d&apos;images
 				</p>
 				<p className="text-start pt-3">Description:</p>
 				<p className="text-start">
