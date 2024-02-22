@@ -13,7 +13,7 @@ const Logo: React.FunctionComponent<LogoProps> = ({ src }) => {
 			<Link href="/" legacyBehavior>
 				<Image
 					className="w-full h-auto rounded-full"
-					src={src}
+					src="/assets/logo_vparrot.webp"
 					alt="logo vparrot"
 					width={50}
 					height={50}
