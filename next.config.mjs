@@ -9,6 +9,7 @@ const nextConfig = {
 			{
 				hostname: "img.paruvendu.fr",
 			},
+			{ hostname: "images.unsplash.com" },
 		],
 	},
 };
