@@ -9,7 +9,7 @@ interface FeaturesServicesProps {
 	}>;
 }
 
-const FeaturesServices: React.FC<FeaturesServicesProps> = ({
+const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 	servicesData,
 }) => {
 	return (
