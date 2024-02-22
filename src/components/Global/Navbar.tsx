@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
+
 import { ThemeContext } from "./Context/ThemeContext";
 
 const Navbar: React.FunctionComponent = () => {
