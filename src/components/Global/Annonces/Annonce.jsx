@@ -149,7 +149,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				</p>
 				<p>
 					<Image
-						src="/assets/icons/fuelTypeIcon.svg"
+						src="/assets/icons/fueltypeIcon.svg"
 						alt="Fuel Type Icon"
 						className="w-auto h-10 inline-block"
 						width={32}
