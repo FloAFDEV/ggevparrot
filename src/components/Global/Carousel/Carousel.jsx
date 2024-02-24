@@ -16,7 +16,7 @@ const Carousel = ({ isOpen, images, currentCarAnnonceId }) => {
 
 	return (
 		<div className={`carousel ${isOpen ? "open" : ""}`}>
-			<div className="h-96 carousel carousel-vertical">
+			<div className="h-96 carousel-vertical">
 				{filteredImages.map((image, index) => (
 					<div
 						key={index}

@@ -28,7 +28,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 			>
 				<button
 					onClick={closeModal}
-					className="absolute top-0 right-0 mr-2 text-white hover:text-red-600 dark:text-white dark:hover:text-red-600"
+					className="absolute top-0 right-0 mr-1 text-white hover:text-red-600 dark:text-white dark:hover:text-red-600"
 				>
 					&times;
 				</button>

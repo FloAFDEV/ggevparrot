@@ -52,33 +52,33 @@ const ContactForm = ({
 				);
 			}
 		} catch (error) {
-			setError(
-				"Erreur lors de l&apos;envoi du message. Veuillez réessayer."
-			);
+			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
 			setSuccess(false);
-			console.error("Erreur lors de l&apos;envoi du message :", error);
+			console.error("Erreur lors de l'envoi du message :", error);
 		}
 	};
 
 	return (
 		<div className="max-w-md mx-auto p-4 text-start">
-			<h2 className="text-xl font-bold mb-4 text-gray-300">
+			<h2 className="text-xl font-bold mb-4 text-gray-100">
 				Envoyer un message à propos de cette annonce
 			</h2>
 			{success && (
 				<p className="text-green-600">Message envoyé avec succès !</p>
 			)}
 			{error && <p className="text-red-600">Erreur : {error}</p>}
-			<Image
-				src={brand_logo_url}
-				alt="Logo de la marque"
-				className="w-auto h-16 mr-2 p-2"
-				width={64}
-				height={64}
-			/>
-			<h3 className="font-bold text-2xl mb-2 text-white">
-				{annonce_title}
-			</h3>
+			<div className="flex items-center">
+				<Image
+					src={brand_logo_url}
+					alt="Logo de la marque"
+					className="w-auto h-16 mr-2 p-2"
+					width={64}
+					height={64}
+				/>
+				<h3 className="font-bold text-2xl mb-2 text-white">
+					{annonce_title}
+				</h3>
+			</div>
 			<form onSubmit={handleSubmit} className="space-y-4 ">
 				<div>
 					<label htmlFor="userName" className="block mb-1 text-white">

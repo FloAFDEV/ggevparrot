@@ -109,13 +109,14 @@ const Annonces = () => {
 											{annonce.annonce_title}{" "}
 										</h2>
 										<p className="text-end">
-											{annonce.color} {annonce.fuel_type}
-											{" / "}
+											{annonce.color} -{" "}
+											{annonce.fuel_type} / <br />
 											{annonce.mileage} km
 										</p>
 										<div className="card-actions justify-end mt-4">
-											<p className="text-center text-xl">
-												Prix:{" "}
+											<p className="text-start">Prix:</p>
+											<p className="text-end text-xl">
+												{" "}
 												{Math.round(annonce.price)} €
 											</p>
 											<button
