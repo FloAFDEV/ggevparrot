@@ -23,7 +23,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto">
 			<div
 				className="dark:bg-gray-600 bg-gray-500 rounded-lg shadow-md p-4 max-w-md w-full relative sm:max-w-lg sm:w-auto"
-				style={{ maxHeight: "90vh" }} // hauteur relative maximale de la modal
+				style={{ maxHeight: "90vh", overflowY: "auto" }} // Ajout de la propriété CSS overflow-y:auto;
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button
