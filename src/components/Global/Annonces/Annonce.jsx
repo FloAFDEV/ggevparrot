@@ -49,7 +49,10 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 
 	// Rendu du composant Annonce
 	return (
-		<div className="p-4 bg-white text-blue-950 rounded-lg shadow-md">
+		<div
+			className="p-4 bg-white text-blue-950 rounded-lg shadow-md"
+			style={{ maxHeight: "70vh", overflowY: "auto" }} // Limite la hauteur d'affichage de ma modal
+		>
 			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>
 			<div className="flex items-center mb-4">
 				<Image
