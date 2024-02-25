@@ -1,14 +1,21 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 
 const Annonce = ({ annonce, toggleCarousel }) => {
 	const [showFullDescription, setShowFullDescription] = useState(false);
+	const [carouselVisible, setCarouselVisible] = useState(false);
 
 	const toggleDescription = () => {
 		setShowFullDescription(!showFullDescription);
 	};
 
-	// Vérifier si l'objet annonce est défini
+	const handleToggleCarousel = () => {
+		toggleCarousel(); // Appel de la fonction de basculement du carousel
+		setCarouselVisible(!carouselVisible); // Inversion de l'état du carousel
+	};
+
 	if (!annonce) {
 		return (
 			<div className="p-4 bg-gray-300">
@@ -17,41 +24,35 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 		);
 	}
 
-	// Extraire les détails de l'annonce
 	const {
 		annonce_title,
-		power,
-		mileage,
-		price,
-		description,
 		main_image_url,
-		color,
+		description,
+		brand_logo_url,
+		options_name,
+		manufacture_year,
+		power,
+		power_unit,
+		mileage,
+		fuel_type,
 		model_name,
 		category_model,
 		brand_name,
-		manufacture_year,
-		fuel_type,
-		power_unit,
-		brand_logo_url,
-		options_name,
+		color,
+		price,
 	} = annonce;
 
-	// Affiche les 6 premiers mots de la description
 	const firstEightWords = description.split(" ").slice(0, 8).join(" ");
-	// Affiche le reste de la description à partir du 7ème mot
 	const remainingDescription = description.split(" ").slice(8).join(" ");
-
-	// Si la description est plus longue que 6 mots, afficher "Afficher la suite"
 	const descriptionToShow =
 		!showFullDescription && remainingDescription
 			? `${firstEightWords}...`
 			: description;
 
-	// Rendu du composant Annonce
 	return (
 		<div
 			className="p-4 bg-white text-blue-950 rounded-lg shadow-md"
-			style={{ maxHeight: "70vh", overflowY: "auto" }} // Limite la hauteur d'affichage de ma modal
+			style={{ maxHeight: "80vh", overflowY: "auto" }}
 		>
 			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>
 			<div className="flex items-center mb-4">
@@ -76,10 +77,10 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					height={256}
 				/>
 				<button
-					className="absolute top-0 right-0 p-2 m-2 bg-blue-500 text-white rounded-md"
-					onClick={toggleCarousel}
+					className="absolute top-0 right-0 p-2 m-2 text-secondary hover:text-primary rounded-md"
+					onClick={handleToggleCarousel}
 				>
-					Plus d'images
+					{carouselVisible ? "Moins d'images" : "Plus d'images"}
 				</button>
 			</div>
 			<p className="text-start pt-3">Description:</p>
@@ -97,7 +98,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				)}
 			</p>
 			<p className="mt-6 text-start">
-				Équipements et options:
+				Équipements et options:{" "}
 				<Image
 					src="/assets/icons/energyIcon.svg"
 					alt="Energy Icon"
@@ -136,7 +137,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 						width={32}
 						height={32}
 					/>{" "}
-					{Math.round(annonce.price)} €
+					{Math.round(price)} €
 				</p>
 			</div>
 			<div className="flex justify-around mt-4">

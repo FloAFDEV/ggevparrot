@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { sendMessage } from "../../pages/api/apiService";
 
 const ContactForm = ({
 	Id_CarAnnonce,
 	annonce_title,
 	brand_logo_url,
+	closeForm,
 }: {
 	Id_CarAnnonce: number;
 	annonce_title: string;
 	brand_logo_url: string;
+	closeForm: () => void;
 }) => {
 	const [formData, setFormData] = useState({
 		userName: "",
@@ -28,28 +31,19 @@ const ContactForm = ({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const response = await fetch(
-				"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/message",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ Id_CarAnnonce, ...formData }),
-				}
-			);
+			const response = await sendMessage(Id_CarAnnonce, formData);
 			if (response.ok) {
 				setSuccess(true);
 				setError(null);
 				console.log("Message envoyé avec succès !");
 			} else {
-				const errorData = await response.json();
-				setError(errorData.message);
+				const errorMessage =
+					response.status === 400
+						? (await response.json()).message
+						: "Erreur lors de l'envoi du message. Veuillez réessayer.";
+				setError(errorMessage);
 				setSuccess(false);
-				console.error(
-					"Échec de l&apos;envoi du message :",
-					errorData.message
-				);
+				console.error("Échec de l'envoi du message :", errorMessage);
 			}
 		} catch (error) {
 			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
@@ -63,6 +57,12 @@ const ContactForm = ({
 			<h2 className="text-xl font-bold mb-4 text-gray-100">
 				Envoyer un message à propos de cette annonce
 			</h2>
+			<button
+				onClick={closeForm}
+				className="text-secondary hover:text-green-600 mb-4"
+			>
+				Revenir à l'annonce
+			</button>
 			{success && (
 				<p className="text-green-600">Message envoyé avec succès !</p>
 			)}
@@ -143,7 +143,7 @@ const ContactForm = ({
 				</div>
 				<button
 					type="submit"
-					className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+					className="w-full bg-secondary text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
 				>
 					Envoyer
 				</button>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
-import Annonce from "../Annonces/Annonce";
 import Image from "next/image";
+import {
+	fetchAllAnnonces,
+	fetchAllImages,
+} from "../../../pages/api/apiService";
 
 const Annonces = () => {
 	const [allAnnonces, setAllAnnonces] = useState([]);
@@ -10,22 +13,13 @@ const Annonces = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
-	const [isCarouselOpen, setIsCarouselOpen] = useState(false);
 
 	useEffect(() => {
-		const fetchAnnonces = async () => {
+		const fetchData = async () => {
 			try {
 				setIsLoading(true);
-				const response = await fetch(
-					"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/annonces"
-				);
-				if (!response.ok) {
-					throw new Error(
-						`Erreur lors de la récupération des annonces: ${response.status}`
-					);
-				}
-				const data = await response.json();
-				setAllAnnonces(data);
+				const annoncesData = await fetchAllAnnonces();
+				setAllAnnonces(annoncesData);
 			} catch (error) {
 				setError(error.message);
 			} finally {
@@ -34,40 +28,19 @@ const Annonces = () => {
 		};
 
 		if (allAnnonces.length === 0) {
-			fetchAnnonces();
+			fetchData();
 		}
 	}, [allAnnonces]);
 
-	const handleOpenModal = (annonce) => {
+	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
-		fetchImageDataForAnnonce(annonce.Id_CarAnnonce);
+		const images = await fetchAllImages(annonce.Id_CarAnnonce);
+		setImagesData(images);
 	};
 
 	const handleCloseModal = () => {
 		setShowModal(false);
-	};
-
-	const toggleCarousel = () => {
-		setIsCarouselOpen(!isCarouselOpen);
-	};
-
-	const fetchImageDataForAnnonce = async (annonceId) => {
-		try {
-			const response = await fetch(
-				`http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/images?annonceId=${annonceId}`
-			);
-			if (!response.ok) {
-				throw new Error(
-					`Erreur lors de la récupération des images pour l&apos;annonce ${annonceId}: ${response.status}`
-				);
-			}
-			const data = await response.json();
-			setImagesData(data);
-		} catch (error) {
-			console.error("Erreur lors de la récupération des images:", error);
-			setImagesData([]);
-		}
 	};
 
 	return (
@@ -110,7 +83,8 @@ const Annonces = () => {
 										</h2>
 										<p className="text-end">
 											{annonce.color} -{" "}
-											{annonce.fuel_type} / <br />
+											{annonce.fuel_type}
+											<br />
 											{annonce.mileage} km
 										</p>
 										<div className="card-actions justify-end mt-4">
@@ -139,7 +113,7 @@ const Annonces = () => {
 					annonce={modalAnnonce}
 					handleCloseModal={handleCloseModal}
 					imagesData={imagesData}
-					Id_CarAnnonce={modalAnnonce.Id_CarAnnonce}
+					// Ajoutez ici les autres props nécessaires pour le modal
 				/>
 			)}
 		</div>

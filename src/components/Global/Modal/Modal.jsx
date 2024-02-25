@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Annonce from "../Annonces/Annonce";
 import Carousel from "../Carousel/Carousel";
@@ -38,6 +40,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 							Id_CarAnnonce={annonce.Id_CarAnnonce}
 							annonce_title={annonce.annonce_title}
 							brand_logo_url={annonce.brand_logo_url} // URL du logo de la marque comme prop
+							closeForm={toggleContactForm}
 						/>
 					) : (
 						<>
@@ -55,6 +58,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 									toggleCarousel={toggleCarousel}
 								/>
 							)}
+
 							<button
 								onClick={toggleContactForm}
 								className="btn btn-secondary mt-4"
