@@ -25,9 +25,9 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 						key={service.Id_GarageService}
 						className="w-full md:w-1/4 text-xl mb-8 md:mx-2"
 					>
-						<div className={`flex flex-col`}>
+						<div className={`flex flex-col max-w-full md:max-w-md`}>
 							<h4
-								className={`text-xl font-bold pb-5 pt-8`}
+								className={`text-2xl font-bold pb-5 pt-8`}
 								style={{ whiteSpace: "nowrap" }}
 							>
 								{service.serviceName}
@@ -35,12 +35,12 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 							<div className="flex justify-center">
 								<div className="rounded-xl overflow-hidden sm:rounded-10 sm:overflow-visible p-4">
 									<Image
-										src={`/assets/service_image1.webp`}
-										// src={service.image_url}
+										// src={`/assets/service_image1.webp`}
+										src={service.image_url}
 										alt={`Image de ${service.serviceName}`}
 										width={450}
 										height={450}
-										className="rounded-b-xl"
+										className="rounded-b-xl rounded-t-3xl shadow-lg"
 										priority={true}
 									/>
 								</div>

@@ -44,10 +44,10 @@ const Annonces = () => {
 	};
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col pb-40">
 			<h1
 				id="annonces"
-				className="text-5xl bg-neutral-content font-bold m-4 p-6"
+				className="text-5xl bg-base-100 font-bold m-8 p-6"
 			>
 				Nos annonces
 			</h1>

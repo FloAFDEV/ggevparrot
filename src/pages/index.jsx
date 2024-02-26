@@ -5,12 +5,12 @@ import Hero from "@/components/Global/Hero";
 import FeaturesServices from "@/components/Global/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
 import Footer from "@/components/Global/Footer";
+import BossSection from "@/components/Global/BossSection";
 import {
 	fetchGarageInfo,
 	fetchAllServices,
 	fetchOpeningHours,
 } from "@/pages/api/apiService";
-
 export default function Home({
 	servicesData,
 	annonces,
@@ -24,6 +24,9 @@ export default function Home({
 				<Hero />
 				<section className="mt-16">
 					<FeaturesServices servicesData={servicesData} />
+				</section>
+				<section>
+					<BossSection />
 				</section>
 				<section>
 					<div className="w-full text-center font-bold mt-4">
@@ -45,10 +48,6 @@ export async function getServerSideProps() {
 			fetchAllServices(),
 			fetchOpeningHours(),
 		]);
-
-		console.log("Garage Data:", garageData);
-		console.log("Services Data:", servicesData);
-		console.log("Opening Hours:", openingHours);
 
 		return {
 			props: {
