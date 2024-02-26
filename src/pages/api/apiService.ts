@@ -64,8 +64,8 @@ export async function fetchServiceById(serviceId: number) {
 	}
 }
 
-// Récupérer les horaires
-export async function fetchAllGarage() {
+// Récupérer les info du garage
+export async function fetchGarageInfo() {
 	try {
 		const response = await fetch(`${BASE_URL}garage`);
 		if (!response.ok) {

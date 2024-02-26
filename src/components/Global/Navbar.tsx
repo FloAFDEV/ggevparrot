@@ -28,7 +28,7 @@ const Navbar: React.FunctionComponent = () => {
 
 	return (
 		<header
-			className={`navbar bg-neutral text-neutral-content ${
+			className={`navbar z-50 fixed bg-neutral text-neutral-content ${
 				isMobile ? "fixed top-0 left-0 w-full z-50" : ""
 			}`}
 		>

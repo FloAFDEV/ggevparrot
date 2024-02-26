@@ -1,12 +1,22 @@
-// Home.jsx
+// index.jsx
 import React from "react";
 import Navbar from "@/components/Global/Navbar";
 import Hero from "@/components/Global/Hero";
 import FeaturesServices from "@/components/Global/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
 import Footer from "@/components/Global/Footer";
+import {
+	fetchGarageInfo,
+	fetchAllServices,
+	fetchOpeningHours,
+} from "@/pages/api/apiService";
 
-export default function Home({ servicesData, annonces }) {
+export default function Home({
+	servicesData,
+	annonces,
+	garageData,
+	openingHours,
+}) {
 	return (
 		<>
 			<Navbar />
@@ -22,50 +32,29 @@ export default function Home({ servicesData, annonces }) {
 				</section>
 			</main>
 			<footer>
-				<Footer />
+				<Footer garageInfo={garageData} openingHours={openingHours} />
 			</footer>
 		</>
 	);
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
 	try {
-		const [garageResponse, servicesResponse] = await Promise.all([
-			fetch(
-				"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/garage",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						query: "",
-					}),
-				}
-			),
-			fetch(
-				"http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/services",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						query: "",
-					}),
-				}
-			),
+		const [garageData, servicesData, openingHours] = await Promise.all([
+			fetchGarageInfo(),
+			fetchAllServices(),
+			fetchOpeningHours(),
 		]);
 
-		const [garageData, servicesData] = await Promise.all([
-			garageResponse.json(),
-			servicesResponse.json(),
-		]);
+		console.log("Garage Data:", garageData);
+		console.log("Services Data:", servicesData);
+		console.log("Opening Hours:", openingHours);
 
 		return {
 			props: {
 				garageData,
 				servicesData,
+				openingHours,
 			},
 		};
 	} catch (error) {
@@ -74,6 +63,7 @@ export async function getServerSideProps(context) {
 			props: {
 				garageData: [],
 				servicesData: [],
+				openingHours: [],
 			},
 		};
 	}

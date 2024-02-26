@@ -28,22 +28,28 @@ const ContactForm = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (
+		e: React.FormEvent<HTMLFormElement>,
+		Id_CarAnnonce: number,
+		formData: any
+	) => {
 		e.preventDefault();
 		try {
 			const response = await sendMessage(Id_CarAnnonce, formData);
-			if (response.ok) {
-				setSuccess(true);
-				setError(null);
-				console.log("Message envoyé avec succès !");
+			if (typeof response === "boolean") {
+				if (response) {
+					setSuccess(true);
+					setError(null);
+					console.log("Message envoyé avec succès !");
+				} else {
+					setError(
+						"Erreur lors de l'envoi du message. Veuillez réessayer."
+					);
+					setSuccess(false);
+					console.error("Échec de l'envoi du message.");
+				}
 			} else {
-				const errorMessage =
-					response.status === 400
-						? (await response.json()).message
-						: "Erreur lors de l'envoi du message. Veuillez réessayer.";
-				setError(errorMessage);
-				setSuccess(false);
-				console.error("Échec de l'envoi du message :", errorMessage);
+				console.error("Réponse invalide:", response);
 			}
 		} catch (error) {
 			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
@@ -79,7 +85,10 @@ const ContactForm = ({
 					{annonce_title}
 				</h3>
 			</div>
-			<form onSubmit={handleSubmit} className="space-y-4 ">
+			<form
+				onSubmit={(e) => handleSubmit(e, Id_CarAnnonce, formData)}
+				className="space-y-4 "
+			>
 				<div>
 					<label htmlFor="userName" className="block mb-1 text-white">
 						Nom:
