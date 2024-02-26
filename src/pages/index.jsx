@@ -2,15 +2,16 @@
 import React from "react";
 import Navbar from "@/components/Global/Navbar";
 import Hero from "@/components/Global/Hero";
-import FeaturesServices from "@/components/Global/FeaturesServices";
+import FeaturesServices from "@/components/Global/FeaturesServices/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";
-import Footer from "@/components/Global/Footer";
-import BossSection from "@/components/Global/BossSection";
+import Footer from "@/components/Global/Footer/Footer";
+import BossSection from "@/components/Global/BossSection/BossSection";
 import {
 	fetchGarageInfo,
 	fetchAllServices,
 	fetchOpeningHours,
 } from "@/pages/api/apiService";
+
 export default function Home({
 	servicesData,
 	annonces,

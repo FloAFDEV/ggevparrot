@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import Logo from "./Logo";
+import Logo from "@/components/Global/Logo";
 import Link from "next/link";
 
 import { ThemeContext } from "./Context/ThemeContext";

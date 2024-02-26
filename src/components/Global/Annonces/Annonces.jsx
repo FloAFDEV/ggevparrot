@@ -44,11 +44,8 @@ const Annonces = () => {
 	};
 
 	return (
-		<div className="flex flex-col pb-40">
-			<h1
-				id="annonces"
-				className="text-5xl bg-base-100 font-bold m-8 p-6"
-			>
+		<div id="annonces" className="flex flex-col pb-40 pt-10">
+			<h1 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h1>
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">

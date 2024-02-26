@@ -23,7 +23,9 @@
 		"src/pages/api/hello.js",
 		"src/pages/index.tsx",
 		"src/pages/api/users.js",
-		"src/components/Global/Header-Navbar.js"
+		"src/components/Global/Header-Navbar.js",
+		"src/components/Global/FeaturesServices/FeaturesServices.jsx",
+		"src/components/Global/BossSection/BossSection.jsx"
 	],
 	"exclude": ["node_modules"]
 }
