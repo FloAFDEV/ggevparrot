@@ -49,7 +49,8 @@ const Footer: React.FunctionComponent = () => {
 	const formatHour = (hour: string | null) => {
 		return hour && hour !== "Fermé" ? hour.substring(0, 2) + "h" : "Fermé";
 	};
-	console.log("Garage Info:", garageInfo);
+
+	// console.log("Garage Info:", garageInfo);
 	return (
 		<footer className="footer footer-center p-10 bg-neutral text-white rounded">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

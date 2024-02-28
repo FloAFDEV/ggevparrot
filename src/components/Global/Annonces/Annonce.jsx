@@ -75,6 +75,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					className="w-full max-h-64 object-cover rounded-lg my-4"
 					width={256}
 					height={256}
+					priority={true}
 				/>
 				<button
 					className="absolute top-0 right-0 p-2 m-2 text-primary hover:text-secondary rounded-md"

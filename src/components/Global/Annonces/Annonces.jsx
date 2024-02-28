@@ -8,11 +8,13 @@ import {
 
 const Annonces = () => {
 	const [allAnnonces, setAllAnnonces] = useState([]);
+	const [filteredAnnonces, setFilteredAnnonces] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [modalAnnonce, setModalAnnonce] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -20,6 +22,7 @@ const Annonces = () => {
 				setIsLoading(true);
 				const annoncesData = await fetchAllAnnonces();
 				setAllAnnonces(annoncesData);
+				setFilteredAnnonces(annoncesData);
 			} catch (error) {
 				setError(error.message);
 			} finally {
@@ -43,11 +46,29 @@ const Annonces = () => {
 		setShowModal(false);
 	};
 
+	const handleSearch = (event) => {
+		const searchTerm = event.target.value.toLowerCase();
+		setSearchTerm(searchTerm);
+		const filtered = allAnnonces.filter((annonce) =>
+			annonce.annonce_title.toLowerCase().includes(searchTerm)
+		);
+		setFilteredAnnonces(filtered);
+	};
+
 	return (
 		<div id="annonces" className="flex flex-col pb-40 pt-10">
 			<h1 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h1>
+			<div className="flex justify-center mb-6">
+				<input
+					type="text"
+					placeholder="Recherche..."
+					value={searchTerm}
+					onChange={handleSearch}
+					className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
+				/>
+			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
@@ -55,7 +76,7 @@ const Annonces = () => {
 						<p>Chargement...</p>
 					</span>
 				) : (
-					allAnnonces.map(
+					filteredAnnonces.map(
 						(annonce) =>
 							annonce.annonce_valid === 1 && (
 								<div
@@ -74,6 +95,7 @@ const Annonces = () => {
 											className="rounded-t-lg"
 											width={465}
 											height={465}
+											priority={true}
 										/>
 									</figure>
 									<div className="card-body p-1">

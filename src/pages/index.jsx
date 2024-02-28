@@ -23,11 +23,11 @@ export default function Home({
 			<Navbar />
 			<main>
 				<Hero />
-				<section className="mt-16">
-					<FeaturesServices servicesData={servicesData} />
-				</section>
 				<section>
 					<BossSection />
+				</section>
+				<section className="mt-16">
+					<FeaturesServices servicesData={servicesData} />
 				</section>
 				<section>
 					<div className="w-full text-center font-bold mt-4">
