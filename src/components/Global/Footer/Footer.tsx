@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchOpeningHours } from "@/pages/api/apiService";
 import { fetchGarageInfo } from "@/pages/api/apiService";
+import Logo from "@/components/Global/Logo";
 
 interface OpeningHour {
 	Id_Opening: number;
@@ -51,33 +52,13 @@ const Footer: React.FunctionComponent = () => {
 	console.log("Garage Info:", garageInfo);
 	return (
 		<footer className="footer footer-center p-10 bg-neutral text-white rounded">
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<div className="col-span-1 md:col-span-2 lg:col-span-1">
-					{garageInfo ? (
-						<div className="font-bold">
-							<p>{garageInfo.garageName}</p>
-							<p>{garageInfo.address}</p>
-							<p>{garageInfo.phoneNumber}</p>
-							<a
-								className="font-extrabold text-secondary"
-								href={`https://www.google.com/maps?q=${encodeURIComponent(
-									garageInfo.address
-								)}`}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Voir sur Google Maps
-							</a>
-						</div>
-					) : (
-						<p>Chargement des informations du garage...</p>
-					)}
-				</div>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				<div className="col-span-1">
-					<h3 className="text-lg font-bold mb-4">
+					<p className="text-3xl pb-4">{garageInfo?.garageName}</p>
+					<h3 className="text-lg font-extrabold mb-8">
 						Horaires d'ouverture :
 					</h3>
-					<ul>
+					<ul className="font-thin">
 						{openingHours.map(
 							(hour: OpeningHour, index: number) => (
 								<li key={index} className="mb-2">
@@ -92,11 +73,39 @@ const Footer: React.FunctionComponent = () => {
 					</ul>
 				</div>
 				<div className="col-span-1">
+					{garageInfo ? (
+						<div className="font-extrabold uppercase m-4 text-xl">
+							<p className="p-4">{garageInfo.address}</p>
+							<p>
+								<a
+									href={`tel:${garageInfo.phoneNumber}`}
+									className="hero-overlay hover:text-secondary text-2xl"
+								>
+									{garageInfo.phoneNumber}
+								</a>
+							</p>
+							<div className="flex justify-center p-4">
+								<iframe
+									className="rounded-3xl"
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.629497220637!2d1.3886775999999874!3d43.572602800000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb9906686201%3A0xe6bb691bb3194fcf!2s4%20Imp.%20Paul%20Mespl%C3%A9%2C%2031100%20Toulouse!5e0!3m2!1sfr!2sfr!4v1709111311494!5m2!1sfr!2sfr"
+									width="300"
+									height="300"
+									allowFullScreen
+									loading="lazy"
+									referrerPolicy="no-referrer-when-downgrade"
+								></iframe>
+							</div>
+						</div>
+					) : (
+						<p>Chargement des informations du garage...</p>
+					)}
+				</div>
+				<div className="col-span-1">
 					<nav>
 						<h3 className="text-lg font-bold mb-4">
 							Liens rapides :
 						</h3>
-						<ul>
+						<ul className="text-lg font-thin">
 							<li>
 								<Link href="/about" className="link link-hover">
 									À propos
@@ -127,7 +136,14 @@ const Footer: React.FunctionComponent = () => {
 					</nav>
 				</div>
 			</div>
-			<div className="mt-8">
+			<div className="mt-2 flex flex-wrap gap-4">
+				{" "}
+				<Link href="/">
+					<Logo
+						src="/favicon.ico"
+						className="p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+					/>
+				</Link>
 				<nav>
 					<div className="grid grid-flow-col gap-4">
 						<a>
@@ -166,8 +182,7 @@ const Footer: React.FunctionComponent = () => {
 					</div>
 				</nav>{" "}
 			</div>
-
-			<div className="mt-8 text-center">
+			<div className="text-center">
 				<p>Copyright © 2024 - All right reserved by AFDeVFlo</p>
 			</div>
 		</footer>

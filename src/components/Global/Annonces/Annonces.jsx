@@ -8,7 +8,7 @@ import {
 
 const Annonces = () => {
 	const [allAnnonces, setAllAnnonces] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [modalAnnonce, setModalAnnonce] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
@@ -51,7 +51,9 @@ const Annonces = () => {
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
-					<p>Chargement...</p>
+					<span className="loading loading-infinity loading-lg">
+						<p>Chargement...</p>
+					</span>
 				) : (
 					allAnnonces.map(
 						(annonce) =>

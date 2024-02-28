@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 
 	useEffect(() => {
-		// Exécuter des actions globales basées sur la navigation
+		// Exécute des actions globales basées sur la navigation
 		console.log("La page a changé :", router.pathname);
 	}, [router.pathname]);
 

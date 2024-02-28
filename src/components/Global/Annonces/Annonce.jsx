@@ -77,7 +77,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					height={256}
 				/>
 				<button
-					className="absolute top-0 right-0 p-2 m-2 text-secondary hover:text-primary rounded-md"
+					className="absolute top-0 right-0 p-2 m-2 text-primary hover:text-secondary rounded-md"
 					onClick={handleToggleCarousel}
 				>
 					{carouselVisible ? "Moins d'images" : "Plus d'images"}

@@ -33,14 +33,14 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								{service.serviceName}
 							</h4>
 							<div className="flex justify-center">
-								<div className="rounded-xl overflow-hidden sm:rounded-10 sm:overflow-visible p-4">
+								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center">
 									<Image
 										// src={`/assets/service_image1.webp`}
 										src={service.image_url}
 										alt={`Image de ${service.serviceName}`}
-										width={450}
-										height={450}
-										className="rounded-b-xl rounded-t-3xl shadow-lg"
+										width={225}
+										height={225}
+										className="rounded-xl shadow-lg w-full"
 										priority={true}
 									/>
 								</div>

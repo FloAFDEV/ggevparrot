@@ -65,7 +65,7 @@ const ContactForm = ({
 			</h2>
 			<button
 				onClick={closeForm}
-				className="text-secondary hover:text-green-600 mb-4"
+				className="text-primary hover:text-secondary mb-4"
 			>
 				Revenir à l'annonce
 			</button>

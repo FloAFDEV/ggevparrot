@@ -21,11 +21,21 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 		handleCloseModal();
 	};
 
+	//l'événement de défilement est géré dans le useEffect enregistrant un écouteur d'événements sur window. L'option
+	// { passive: true } est utilisée pour rendre l'écouteur passif et éviter l'avertissement "Violation".
+	useEffect(() => {
+		const handleScroll = () => {};
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
 		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto">
 			<div
 				className="dark:bg-gray-600 bg-gray-500 rounded-lg shadow-md p-4 max-w-md w-full relative sm:max-w-lg sm:w-auto"
-				style={{ maxHeight: "90vh", overflowY: "auto" }} // Ajout de la propriété CSS overflow-y:auto;
+				style={{ maxHeight: "90vh", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button
@@ -58,7 +68,6 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 									toggleCarousel={toggleCarousel}
 								/>
 							)}
-
 							<button
 								onClick={toggleContactForm}
 								className="btn btn-secondary mt-4"
