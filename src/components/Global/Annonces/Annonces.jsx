@@ -69,7 +69,7 @@ const Annonces = () => {
 					className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
 				/>
 			</div>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
 					<span className="loading loading-infinity loading-lg">
@@ -93,8 +93,8 @@ const Annonces = () => {
 											}
 											alt={annonce.annonce_title}
 											className="rounded-t-lg"
-											width={465}
-											height={465}
+											width={310}
+											height={310}
 											priority={true}
 										/>
 									</figure>

@@ -61,7 +61,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					width={128}
 					height={128}
 				/>
-				<div className="text-lg font-semibold">
+				<div className="text-lg font-semibold p4">
 					{brand_name} {model_name} {color}
 					<p>Catégorie: {category_model}</p>
 				</div>
@@ -76,19 +76,22 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					priority={true}
 				/>
 				<button
-					className="absolute top-0 right-0 p-2 m-2 text-primary hover:text-secondary rounded-md"
+					className="btn absolute top-0 right-0 p-2 m-2 text-primary hover:text-secondary rounded-md bg-opacity-50"
 					onClick={handleToggleCarousel}
 				>
 					{carouselVisible ? "Moins d'images" : "Plus d'images"}
 				</button>
 			</div>
 			<p className="text-start pt-3">Description:</p>
-			<p className="text-start">
+			<p className="text-start font-light">
 				{descriptionToShow}
 				{remainingDescription && (
 					<span className="color-primary-900 font-extra-bold cursor-pointer hover:text-secondary">
 						{" "}
-						<button onClick={toggleDescription}>
+						<button
+							className="font-bold"
+							onClick={toggleDescription}
+						>
 							{showFullDescription
 								? " / Réduire"
 								: "Afficher la suite"}
@@ -106,7 +109,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					height={32}
 				/>
 			</p>
-			<p className="mb-4 text-left">{options_name}</p>
+			<p className="mb-4 text-left font-light">{options_name}</p>
 			<div className="flex justify-between mt-4">
 				<p>
 					<Image
