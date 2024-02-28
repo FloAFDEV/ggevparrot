@@ -10,7 +10,7 @@ import {
 	fetchGarageInfo,
 	fetchAllServices,
 	fetchOpeningHours,
-} from "@/pages/api/apiService";
+} from "@/components/utils/apiService";
 
 export default function Home({
 	servicesData,

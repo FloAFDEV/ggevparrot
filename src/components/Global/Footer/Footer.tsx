@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { fetchOpeningHours } from "@/pages/api/apiService";
-import { fetchGarageInfo } from "@/pages/api/apiService";
+import { fetchOpeningHours } from "@/components/utils/apiService";
+import { fetchGarageInfo } from "@/components/utils/apiService";
 import Logo from "@/components/Global/Logo";
 
 interface OpeningHour {

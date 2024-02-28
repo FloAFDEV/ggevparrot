@@ -9,7 +9,7 @@ const BossSection = () => {
 			style={{ backgroundImage: `url(${imagePath})` }}
 			className="h-1/2 mt-10 bg-no-repeat bg-center bg-cover relative flex items-center"
 		>
-			<div className="flex flex-col items-center justify-center bg-white bg-opacity-60 p-8 rounded-lg max-w-2xl">
+			<div className="flex flex-col items-center justify-center bg-white bg-opacity-100 p-8 rounded-lg max-w-2xl text-accent-content">
 				<h2 className="text-3xl font-bold mb-4">Rencontrez le Boss</h2>
 				<div className="flex flex-col lg:flex-row items-center lg:items-start">
 					<Image

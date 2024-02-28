@@ -4,7 +4,7 @@ import Image from "next/image";
 import {
 	fetchAllAnnonces,
 	fetchAllImages,
-} from "../../../pages/api/apiService";
+} from "@/components/utils/apiService";
 
 const Annonces = () => {
 	const [allAnnonces, setAllAnnonces] = useState([]);
