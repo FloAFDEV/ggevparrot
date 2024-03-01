@@ -98,8 +98,8 @@ const Annonces = () => {
 											priority={true}
 										/>
 									</figure>
-									<div className="card-body p-1">
-										<h2 className="card-title text-xl font-semibold mb-2 text-start">
+									<div className="card-body pt-2">
+										<h2 className="card-title text-xl font-semibold mb-1 text-start">
 											{annonce.annonce_title}{" "}
 										</h2>
 										<p className="text-end">
@@ -108,12 +108,14 @@ const Annonces = () => {
 											<br />
 											{annonce.mileage} km
 										</p>
-										<div className="card-actions justify-end mt-4">
+										<div className="card-actions justify-end mt-1">
 											<p className="text-start">Prix:</p>
 											<p className="text-end text-xl">
 												{" "}
 												{Math.round(annonce.price)} €
 											</p>
+										</div>
+										<div className="card-actions justify-end mt-2">
 											<button
 												onClick={() =>
 													handleOpenModal(annonce)

@@ -1,8 +1,8 @@
-// const BASE_URL = "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
+const BASE_URL = "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
 import process from "node:process";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-// process.env.BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// // process.env.BASE_URL;
 
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces() {

@@ -1,5 +1,5 @@
 // Importation du  dotenv pour charger les variables d'environnement
-import("dotenv").config();
+// import("dotenv").config();    Décommenter pour passer en prod et commenter pour passer en dev
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
