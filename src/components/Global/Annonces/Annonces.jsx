@@ -81,7 +81,7 @@ const Annonces = () => {
 							annonce.annonce_valid === 1 && (
 								<div
 									key={annonce.annonce_title}
-									className="cardrounded-lg border-2 shadow-lg flex flex-col justify-around items-center relative sm:max-w-s mx-auto rounded-lg"
+									className="cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-s mx-auto rounded-lg"
 								>
 									<figure>
 										<Image
@@ -92,30 +92,32 @@ const Annonces = () => {
 													: "/assets/CarDefaultImage.webp"
 											}
 											alt={annonce.annonce_title}
-											className="rounded-t-lg"
-											width={310}
-											height={310}
+											className="rounded-t-lg w-full rounded-lg"
+											width={320}
+											height={320}
 											priority={true}
 										/>
 									</figure>
-									<div className="card-body pt-2">
-										<h2 className="card-title text-xl font-semibold mb-1 text-start">
+									<div className="card-body p-1">
+										<h2 className="card-title text-xl font-semibold text-start m-2">
 											{annonce.annonce_title}{" "}
 										</h2>
-										<p className="text-end">
+										<p className="text-end font-medium">
 											{annonce.color} -{" "}
 											{annonce.fuel_type}
 											<br />
 											{annonce.mileage} km
 										</p>
-										<div className="card-actions justify-end mt-1">
-											<p className="text-start">Prix:</p>
+										<div className="card-actions justify-end mt-4">
+											<p className="text-end font-extrabold">
+												Prix:
+											</p>
 											<p className="text-end text-xl">
 												{" "}
 												{Math.round(annonce.price)} €
 											</p>
 										</div>
-										<div className="card-actions justify-end mt-2">
+										<div className="card-actions justify-end m-1">
 											<button
 												onClick={() =>
 													handleOpenModal(annonce)

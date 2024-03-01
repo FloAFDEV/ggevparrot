@@ -7,12 +7,12 @@ const BossSection = () => {
 	return (
 		<div className="flex flex-col lg:flex-row items-center m-10 rounded-lg">
 			<div className="w-full lg:w-1/2 flex flex-col items-center justify-center text-start p-4 rounded-lg max-w-2xl">
-				<h2 className="text-5xl bg-base-100 font-bold m-6 p-4 text-center justify-center">
+				<h2 className="text-5xl bg-base-100 font-bold m-6 sm:p-1 text-center justify-center">
 					Rencontrez le Boss
 				</h2>
 				<div className="flex flex-col lg:flex-row items-center lg:items-start">
 					{/* Photo du boss */}
-					<div className="lg:w-1/2">
+					<div className="lg:w-1/2 p-10">
 						<Image
 							className="rounded-full m-4 w-35 h-35 lg:w-40 lg:h-40 xl:w-48 xl:h-48 shadow-2xl"
 							src="/assets/bossImage.webp"

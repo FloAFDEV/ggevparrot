@@ -57,21 +57,33 @@ const Navbar: React.FunctionComponent = () => {
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu menu-xs dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral"
+							className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral"
 						>
 							<li>
 								<Link href="/">Accueil</Link>
-							</li>
-							<li>
-								<Link href="/">Parent</Link>
-								<ul className="p-2">
-									<li>
-										<Link href="/">Nos annonces</Link>
-									</li>
-									<li>
-										<Link href="/">Nos services</Link>
-									</li>
-								</ul>
+								<li>
+									<Link href="/">Nos annonces</Link>
+								</li>
+								<li>
+									<details>
+										<summary>Nos Services</summary>
+										<ul className="p-2 bg-neutral">
+											<li>
+												<Link href="/">
+													Mécanique & Réparations
+												</Link>
+											</li>
+											<li>
+												<Link href="/">
+													Expertises & Entretiens
+												</Link>
+											</li>
+											<li>
+												<Link href="/">Contact</Link>
+											</li>
+										</ul>
+									</details>
+								</li>
 							</li>
 						</ul>
 					</div>
@@ -92,10 +104,14 @@ const Navbar: React.FunctionComponent = () => {
 								<summary>Nos Services</summary>
 								<ul className="p-2 bg-neutral">
 									<li>
-										<Link href="/">Test</Link>
+										<Link href="/">
+											Mécanique & Réparations
+										</Link>
 									</li>
 									<li>
-										<Link href="/">Garanties</Link>
+										<Link href="/">
+											Expertises & Entretiens
+										</Link>
 									</li>
 									<li>
 										<Link href="/">Contact</Link>
