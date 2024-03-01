@@ -62,7 +62,7 @@ const Navbar: React.FunctionComponent = () => {
 							<li>
 								<Link href="/">Accueil</Link>
 								<li>
-									<Link href="/">Nos annonces</Link>
+									<Link href="annonces">Nos annonces</Link>
 								</li>
 								<li>
 									<details>
@@ -115,6 +115,9 @@ const Navbar: React.FunctionComponent = () => {
 									</li>
 									<li>
 										<Link href="/">Contact</Link>
+									</li>
+									<li>
+										<Link href="404">404</Link>
 									</li>
 								</ul>
 							</details>
