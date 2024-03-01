@@ -6,9 +6,8 @@ const BossSection = () => {
 
 	return (
 		<div className="flex flex-col lg:flex-row items-center m-10 rounded-lg">
-			{/* Contenu */}
-			<div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 rounded-lg max-w-2xl">
-				<h2 className="text-5xl bg-base-100 font-bold m-6 p-4">
+			<div className="w-full lg:w-1/2 flex flex-col items-center justify-center text-start p-4 rounded-lg max-w-2xl">
+				<h2 className="text-5xl bg-base-100 font-bold m-6 p-4 text-center justify-center">
 					Rencontrez le Boss
 				</h2>
 				<div className="flex flex-col lg:flex-row items-center lg:items-start">
@@ -25,21 +24,22 @@ const BossSection = () => {
 					</div>
 					{/* Texte */}
 					<div className="lg:w-1/2">
-						<h3 className="text-3xl font-bold mb-2">
+						<h3 className="text-3xl font-bold mb-2 text-center">
 							Vincent PARROT
 						</h3>
-						<p className="py-2">
-							<strong>Vincent</strong>, 45 ans, est passionné par
-							son travail depuis son plus jeune âge.{" "}
-							<strong>Originaire de la région</strong>, il a
+						<p className="py-2 w-auto">
+							<strong>Vincent</strong>, 45 ans, je suis passionné
+							par le <strong>monde automobile</strong> depuis mon
+							plus jeune âge.{" "}
+							<strong>Originaire de la région</strong>, j'ai
 							toujours eu une affinité particulière avec les
-							voitures. Son <strong>amour</strong> pour les
-							automobiles l'a conduit à créer ce garage, où il
-							propose à ses clients une{" "}
+							voitures. Mon <strong>amour</strong> pour les
+							automobiles m'a conduit à créer ce garage, où je
+							propose à mes clients une{" "}
 							<strong>large sélection</strong> de voitures
 							d'occasion de <strong>qualité</strong>. Toujours à
-							l'écoute de ses clients,{" "}
-							<strong>Vincent et ses équipes</strong> s'efforcent
+							l'écoute de mes clients,{" "}
+							<strong>mes équipes et moi même</strong> s'efforçons
 							de fournir un <strong>service exceptionnel</strong>{" "}
 							et de <strong>satisfaire</strong> les besoins de
 							chacun.
@@ -53,6 +53,7 @@ const BossSection = () => {
 				style={{
 					backgroundImage: `url(${imagePath})`,
 					minHeight: "18rem",
+					minWidth: "18rem",
 				}}
 			></div>
 		</div>

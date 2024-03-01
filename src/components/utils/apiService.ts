@@ -1,6 +1,6 @@
-const BASE_URL = "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
+// const BASE_URL = "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
 
-// const BASE_URL = "https://mysql-afdevflo.alwaysdata.net/";
+const BASE_URL = "https://mysql-afdevflo.alwaysdata.net/";
 // process.env.BASE_URL;
 
 // Récupérer toutes les annonces
