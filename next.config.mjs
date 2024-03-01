@@ -1,5 +1,5 @@
 // Importation du  dotenv pour charger les variables d'environnement
-require("dotenv").config();
+import("dotenv").config();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
