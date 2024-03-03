@@ -14,13 +14,14 @@ interface FeaturesServicesProps {
 const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 	servicesData,
 }) => {
+	console.log(servicesData);
 	return (
 		<section className="text-center mt-4">
 			<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos services
 			</h3>
 			<div className="flex flex-wrap justify-center md:justify-around">
-				{servicesData.map((service) => (
+				{servicesData?.map((service) => (
 					<div
 						key={service.Id_GarageService}
 						className="w-full md:w-1/2 lg:w-1/4 text-xl mb-8 md:mx-2"
