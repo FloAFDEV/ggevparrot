@@ -62,7 +62,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					height={128}
 				/>
 				<div className="text-lg font-semibold p4">
-					{brand_name} {model_name} {color}
+					{brand_name} {model_name} {color} {manufacture_year}
 					<p>Catégorie: {category_model}</p>
 				</div>
 			</div>
@@ -76,7 +76,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					priority={true}
 				/>
 				<button
-					className="btn absolute top-0 right-0 p-2 m-2 text-primary hover:text-secondary rounded-md bg-opacity-50"
+					className="btn absolute top-0 right-0 p-2 m-2 btn-primary hover:btn-secondary rounded-md "
 					onClick={handleToggleCarousel}
 				>
 					{carouselVisible ? "Moins d'images" : "Plus d'images"}

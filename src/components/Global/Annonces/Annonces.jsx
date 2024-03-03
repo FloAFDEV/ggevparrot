@@ -56,7 +56,7 @@ const Annonces = () => {
 	};
 
 	return (
-		<div id="annonces" className="flex flex-col pb-40 pt-10">
+		<div id="annonces" className="flex flex-col pb-10 pt-10">
 			<h1 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h1>
@@ -81,7 +81,7 @@ const Annonces = () => {
 							annonce.annonce_valid === 1 && (
 								<div
 									key={annonce.annonce_title}
-									className="cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-s mx-auto rounded-lg"
+									className="cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg"
 								>
 									<figure>
 										<Image
@@ -102,27 +102,25 @@ const Annonces = () => {
 										<h2 className="card-title text-xl font-semibold text-start m-2">
 											{annonce.annonce_title}{" "}
 										</h2>
-										<p className="text-end font-medium">
-											{annonce.color} -{" "}
-											{annonce.fuel_type}
+										<span className="text-end font-thin">
+											Année: {annonce.manufacture_year}{" "}
+											{annonce.color} {annonce.fuel_type}
 											<br />
 											{annonce.mileage} km
-										</p>
-										<div className="card-actions justify-end mt-4">
-											<p className="text-end font-extrabold">
-												Prix:
+											<p>
+												Catégorie:{" "}
+												{annonce.category_model}
 											</p>
-											<p className="text-end text-xl">
-												{" "}
+											<p className="text-end text-xl font-bold">
 												{Math.round(annonce.price)} €
 											</p>
-										</div>
+										</span>
 										<div className="card-actions justify-end m-1">
 											<button
 												onClick={() =>
 													handleOpenModal(annonce)
 												}
-												className="btn btn-secondary justify-end text-lg"
+												className="btn btn-secondary text-lg"
 											>
 												En savoir plus
 											</button>
@@ -138,7 +136,7 @@ const Annonces = () => {
 					annonce={modalAnnonce}
 					handleCloseModal={handleCloseModal}
 					imagesData={imagesData}
-					// Ajoutez ici les autres props nécessaires pour le modal
+					// -> props nécessaires pour la modal
 				/>
 			)}
 		</div>
