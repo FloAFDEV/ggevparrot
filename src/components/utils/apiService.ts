@@ -1,8 +1,12 @@
-// const BASE_URL = "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
-// import process from "node:process";
-
 const BASE_URL =
-	"https://afdevflo.alwaysdata.net/www/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
+	process.env.NODE_ENV === "development"
+		? process.env.NEXT_PUBLIC_BASE_URL_DEV
+		: process.env.NEXT_PUBLIC_BASE_URL_PROD ||
+		  "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
+
+export default {
+	BASE_URL,
+};
 
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces() {

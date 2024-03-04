@@ -14,7 +14,10 @@ interface FeaturesServicesProps {
 const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 	servicesData,
 }) => {
-	console.log(servicesData);
+	// Vérifier si servicesData est défini et s'il s'agit d'un tableau
+	if (!Array.isArray(servicesData) || servicesData.length === 0) {
+		return <div>Aucun service disponible pour le moment.</div>;
+	}
 	return (
 		<section className="text-center mt-4">
 			<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">

@@ -38,8 +38,13 @@ const Annonces = () => {
 	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
-		const images = await fetchAllImages(annonce.Id_CarAnnonce);
-		setImagesData(images);
+		try {
+			const images = await fetchAllImages();
+			setImagesData(images);
+		} catch (error) {
+			console.error("Erreur lors de la récupération des images :", error);
+			setImagesData([]);
+		}
 	};
 
 	const handleCloseModal = () => {

@@ -61,29 +61,29 @@ const Navbar: React.FunctionComponent = () => {
 						>
 							<li>
 								<Link href="/">Accueil</Link>
-								<li>
-									<Link href="annonces">Nos annonces</Link>
-								</li>
-								<li>
-									<details>
-										<summary>Nos Services</summary>
-										<ul className="p-2 bg-neutral">
-											<li>
-												<Link href="/">
-													Mécanique & Réparations
-												</Link>
-											</li>
-											<li>
-												<Link href="/">
-													Expertises & Entretiens
-												</Link>
-											</li>
-											<li>
-												<Link href="/">Contact</Link>
-											</li>
-										</ul>
-									</details>
-								</li>
+							</li>
+							<li>
+								<Link href="/annonces">Nos annonces</Link>
+							</li>
+							<li>
+								<details>
+									<summary>Nos Services</summary>
+									<ul className="p-2 bg-neutral">
+										<li>
+											<Link href="/">
+												Mécanique & Réparations
+											</Link>
+										</li>
+										<li>
+											<Link href="/">
+												Expertises & Entretiens
+											</Link>
+										</li>
+										<li>
+											<Link href="/">Contact</Link>
+										</li>
+									</ul>
+								</details>
 							</li>
 						</ul>
 					</div>
@@ -97,7 +97,7 @@ const Navbar: React.FunctionComponent = () => {
 				<div className="navbar-end px-3 hidden lg:flex">
 					<ul className="menu menu-horizontal px-">
 						<li>
-							<Link href="annonces">Nos annonces</Link>
+							<Link href="/annonces">Nos annonces</Link>
 						</li>
 						<li>
 							<details>
@@ -117,7 +117,7 @@ const Navbar: React.FunctionComponent = () => {
 										<Link href="/">Contact</Link>
 									</li>
 									<li>
-										<Link href="404">404</Link>
+										<Link href="/404">404</Link>
 									</li>
 								</ul>
 							</details>
