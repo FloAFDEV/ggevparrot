@@ -1,7 +1,7 @@
 const BASE_URL =
-	process.env.NODE_ENV === "development"
-		? process.env.NEXT_PUBLIC_BASE_URL_DEV
-		: process.env.NEXT_PUBLIC_BASE_URL_PROD ||
+	process.env.NODE_ENV === "production"
+		? process.env.NEXT_PUBLIC_BASE_URL_PROD
+		: process.env.NEXT_PUBLIC_BASE_URL_DEV ||
 		  "http://localhost:8888/ECF-Gge-PARROT/SERVEURGARAGE/backend/";
 
 export default {
