@@ -16,7 +16,11 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 }) => {
 	// Vérifier si servicesData est défini et s'il s'agit d'un tableau
 	if (!Array.isArray(servicesData) || servicesData.length === 0) {
-		return <div>Aucun service disponible pour le moment.</div>;
+		return (
+			<div className="flex flex-col justify-center text-center mt-4 font font-extrabold">
+				Aucun service disponible pour le moment.
+			</div>
+		);
 	}
 	return (
 		<section className="text-center mt-4">
