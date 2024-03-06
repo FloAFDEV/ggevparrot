@@ -5,23 +5,23 @@ const Custom404 = () => {
 	return (
 		<div className="flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0 h-screen">
 			<div className="w-full lg:w-1/2 flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center">
-				<p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-gray-400">
+				<p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-gray-500">
 					404
 				</p>
-				<p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-400 mt-2">
+				<p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-blue-950-600 mt-2">
 					Page non trouvée
 				</p>
-				<p className="text-lg md:text-xl lg:text-2xl text-gray-600 my-12 font-bold">
+				<p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12 font-bold">
 					Désolé, la page que vous avez demandée est introuvable.
 				</p>
 				<Link
 					href="/"
-					className="text-2xl flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded transition duration-150"
+					className=" rounded-3xl text-2xl flex items-center space-x-2 bg-sky-700 text-gray-200 hover:bg-sky-900 hover:text-white  px-4 py-2 transition duration-150"
 					title="Return Home"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						className="h-5 w-5"
+						className="h-8 w-8"
 						viewBox="0 0 20 20"
 						fill="currentColor"
 					>
@@ -40,9 +40,18 @@ const Custom404 = () => {
 					</Link>
 				</Link>
 			</div>
-			<div className="w-1/2 lg:h-full flex lg:items-end justify-center p-4">
+			<div className="w-1/2 flex-col lg:h-full flex lg:items-end justify-center p-4 bg-sky-700 rounded-b-xl">
+				<p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-gray-200">
+					404
+				</p>
+				<p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-lime-500 mt-2">
+					Page not found
+				</p>
+				<p className="text-lg md:text-xl lg:text-2xl text-gray-200 my-12 font-bold">
+					Sorry, the page you requested could not be found.
+				</p>
 				<svg
-					className="w-full text-blue-600"
+					className="w-full text-lime-500"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 1120.59226 777.91584"
 				>

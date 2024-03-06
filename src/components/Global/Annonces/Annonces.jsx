@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import Image from "next/image";
 import {
+	BASE_URL,
 	fetchAllAnnonces,
 	fetchAllImages,
 } from "@/components/utils/apiService";
@@ -20,7 +21,7 @@ const Annonces = () => {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true);
-				const annoncesData = await fetchAllAnnonces();
+				const annoncesData = await fetchAllAnnonces(BASE_URL);
 				setAllAnnonces(annoncesData);
 				setFilteredAnnonces(annoncesData);
 			} catch (error) {
@@ -39,7 +40,7 @@ const Annonces = () => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
 		try {
-			const images = await fetchAllImages();
+			const images = await fetchAllImages(BASE_URL);
 			setImagesData(images);
 		} catch (error) {
 			console.error("Erreur lors de la récupération des images :", error);
@@ -77,7 +78,7 @@ const Annonces = () => {
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
-					<span className="loading loading-spinner loading-lg w-20 h-20">
+					<span className="loading loading-spinner loading-lg h-20">
 						<p>Chargement...</p>
 					</span>
 				) : (
