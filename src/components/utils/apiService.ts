@@ -12,7 +12,7 @@ export async function fetchAllAnnonces() {
 				`Erreur dans la récupération des annonces: ${response.status}`
 			);
 		}
-		console.log(response);
+
 		return await response.json();
 	} catch (error) {
 		console.error(error);
