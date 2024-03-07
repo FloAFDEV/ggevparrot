@@ -3,24 +3,42 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const Login = () => {
+	// J'importe le hook useRouter pour la navigation
 	const router = useRouter();
+	// Je crée des états pour stocker l'email, le mot de passe et les erreurs de connexion
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const result = await signIn("credentials", {
-			email,
-			password,
-			redirect: false,
-		});
-
-		if (result && result.error) {
-			setError("Adresse e-mail ou mot de passe incorrect.");
-		} else {
-			router.push("/");
+	// Je définis une fonction pour gérer la connexion de l'utilisateur
+	const handleLogin = async () => {
+		try {
+			// J'appelle signIn pour authentifier l'utilisateur avec les informations fournies
+			const result = await signIn("credentials", {
+				email,
+				password,
+				redirect: false,
+			});
+			// Si une erreur survient lors de la connexion, je la stocke dans l'état d'erreur
+			if (result && result.error) {
+				setError("Adresse e-mail ou mot de passe incorrect.");
+			} else {
+				// Sinon, je redirige l'utilisateur vers la page d'accueil
+				router.push("/");
+			}
+		} catch (error) {
+			// Si une erreur se produit pendant le processus de connexion, je la logge et j'affiche un message d'erreur générique à l'utilisateur
+			console.error("Erreur lors de la connexion :", error);
+			setError("Une erreur s'est produite. Veuillez réessayer.");
 		}
+	};
+
+	// Je définis une fonction pour gérer la soumission du formulaire
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		// J'empêche le comportement par défaut du formulaire
+		e.preventDefault();
+		// J'appelle la fonction handleLogin pour gérer la connexion
+		await handleLogin();
 	};
 
 	return (

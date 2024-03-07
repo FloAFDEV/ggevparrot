@@ -15,7 +15,6 @@ const LoginModal = ({ closeModal }) => {
 				email,
 				password,
 			});
-
 			// Gestion des erreurs
 			if (result.error) {
 				setError("Adresse e-mail ou mot de passe incorrect.");
@@ -31,7 +30,7 @@ const LoginModal = ({ closeModal }) => {
 	return (
 		<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center overflow-y-auto z-50">
 			<div
-				className="dark:bg-gray-600 bg-gray-500 rounded-lg shadow-md p-4 max-w-md w-full relative sm:max-w-lg sm:w-auto"
+				className="dark:bg-gray-600 bg-gray-500 rounded-lg shadow-md p-4 max-w-md w-full relative sm:max-w-lg sm:w-auto border-4 border-white bg-opacity-95"
 				style={{ maxHeight: "85vh", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>
@@ -55,7 +54,7 @@ const LoginModal = ({ closeModal }) => {
 					</svg>
 				</button>
 				<h1 className="text-center text-3xl font-bold mb-4 text-gray-300">
-					Cet accès est réservé au personnel.
+					Cet accès est réservé au personnel
 				</h1>
 				{error && <p className="text-red-500">{error}</p>}
 				<Login handleLogin={handleLogin} />
