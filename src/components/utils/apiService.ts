@@ -2,11 +2,7 @@ const BASE_URL =
 	process.env.NODE_ENV === "production"
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
-
-export default {
-	BASE_URL,
-};
-
+console.log("BASE_URL", BASE_URL);
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces() {
 	try {
