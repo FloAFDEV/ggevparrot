@@ -88,7 +88,7 @@ const Annonces = () => {
 							annonce.annonce_valid === 1 && (
 								<div
 									key={annonce.annonce_title}
-									className="cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg"
+									className="max-w-[340px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg "
 								>
 									<figure>
 										<Image
@@ -100,8 +100,8 @@ const Annonces = () => {
 											}
 											alt={annonce.annonce_title}
 											className="rounded-t-lg w-full rounded-lg"
-											width={320}
-											height={320}
+											width={300}
+											height={300}
 											priority={true}
 										/>
 									</figure>

@@ -45,14 +45,14 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								{service.serviceName}
 							</h4>
 							<div className="flex justify-center">
-								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center">
+								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center max-w-[280px]">
 									<figure>
 										<Image
 											src={service.image_url}
 											alt={`Image de ${service.serviceName}`}
 											width={225}
 											height={225}
-											className="rounded-es-badge shadow-lg w-full h-full"
+											className="rounded-badge shadow-base-content w-full h-full"
 											priority={true}
 										/>
 									</figure>

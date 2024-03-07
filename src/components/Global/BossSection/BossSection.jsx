@@ -14,7 +14,7 @@ const BossSection = () => {
 					{/* Photo du boss */}
 					<div className="lg:w-1/2 p-10">
 						<Image
-							className="rounded-full m-4 w-35 h-35 lg:w-40 lg:h-40 xl:w-48 xl:h-48 shadow-2xl"
+							className="rounded-full mt-10 m-4 w-35 h-35 lg:w-40 lg:h-40 xl:w-48 xl:h-48 shadow-2xl"
 							src="/assets/bossImage.webp"
 							title="La photo du patron"
 							alt="Image du patron"
@@ -24,7 +24,7 @@ const BossSection = () => {
 					</div>
 					{/* Texte */}
 					<div className="lg:w-1/2">
-						<h3 className="text-3xl font-bold mb-2 text-center">
+						<h3 className="text-3xl font-bold m-4 text-center">
 							Vincent PARROT
 						</h3>
 						<p className="py-2 w-auto">
@@ -49,13 +49,13 @@ const BossSection = () => {
 			</div>
 			{/* Background */}
 			<div
-				className="lg:block w-1/2 bg-no-repeat bg-center bg-cover relative rounded-lg flex flex-wrap"
+				className="lg:block w-full bg-no-repeat bg-center bg-cover relative rounded-lg flex flex-wrap"
 				style={{
 					backgroundImage: `url(${imagePath})`,
 					minHeight: "18rem",
 					minWidth: "18rem",
 				}}
-			></div>
+			></div>{" "}
 		</div>
 	);
 };
