@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { sendMessage } from "../utils/apiService";
+import { sendMessage } from "../../utils/apiService";
 
 const ContactForm = ({
 	Id_CarAnnonce,

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchOpeningHours } from "@/components/utils/apiService";
 import { fetchGarageInfo } from "@/components/utils/apiService";
-import Logo from "@/components/Global/Logo";
+import Logo from "@/components/Global/Logo/Logo";
 
 interface OpeningHour {
 	Id_Opening: number;

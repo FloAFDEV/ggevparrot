@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Annonce from "../Annonces/Annonce";
 import Carousel from "../Carousel/Carousel";
-import ContactForm from "../ContactForm";
+import ContactForm from "../ContactForm/ContactForm";
 
 const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 	const [showCarousel, setShowCarousel] = useState(false);

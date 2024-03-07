@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ThemeContext } from "./Context/ThemeContext";
-import Logo from "@/components/Global/Logo";
+import { ThemeContext } from "../Context/ThemeContext";
+import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
 import LoginModal from "@/components/Global/Modal/LoginModal";
 

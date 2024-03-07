@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Logo from "@/components/Global/Logo";
+import Logo from "@/components/Global/Logo/Logo";
 
 const Custom404 = () => {
 	return (
