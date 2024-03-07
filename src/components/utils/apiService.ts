@@ -2,7 +2,7 @@ const BASE_URL =
 	process.env.NODE_ENV === "production"
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
-console.log("BASE_URL", BASE_URL);
+
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces() {
 	try {
@@ -12,6 +12,7 @@ export async function fetchAllAnnonces() {
 				`Erreur dans la récupération des annonces: ${response.status}`
 			);
 		}
+		console.log(response);
 		return await response.json();
 	} catch (error) {
 		console.error(error);
