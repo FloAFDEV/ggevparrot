@@ -73,6 +73,7 @@ const Annonces = () => {
 					value={searchTerm}
 					onChange={handleSearch}
 					className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
+					autoComplete="off"
 				/>
 			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">

@@ -70,7 +70,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				<Image
 					src={main_image_url}
 					alt={annonce_title}
-					className="w-full max-h-64 object-cover rounded-lg my-4"
+					className="w-full h-auto max-h-64 object-cover rounded-lg my-4"
 					width={256}
 					height={256}
 					priority={true}

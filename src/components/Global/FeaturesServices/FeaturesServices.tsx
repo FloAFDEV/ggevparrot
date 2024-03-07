@@ -27,7 +27,10 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 			<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos services
 			</h3>
-			<div className="flex flex-wrap justify-center md:justify-around">
+			<div
+				id="services"
+				className="flex flex-wrap justify-center md:justify-around"
+			>
 				{servicesData?.map((service) => (
 					<div
 						key={service.Id_GarageService}
