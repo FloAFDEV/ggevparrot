@@ -40,7 +40,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 			style={{ overflow: "hidden" }}
 		>
 			<div
-				className="dark:bg-gray-700 bg-gray-500 rounded-lg shadow-md p-0 max-w-md w-full relative sm:max-w-lg sm:w-auto "
+				className="dark:bg-gray-450 bg-gray-500 rounded-lg shadow-md p-0 max-w-md w-full relative sm:max-w-lg sm:w-auto "
 				style={{ maxHeight: "85vh", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>
