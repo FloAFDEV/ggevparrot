@@ -1,9 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const Annonce = ({ annonce, toggleCarousel }) => {
 	const [showFullDescription, setShowFullDescription] = useState(false);
 	const [carouselVisible, setCarouselVisible] = useState(false);
+	const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobileScreen(window.innerWidth <= 768); // On considère une largeur de 768px ou moins comme une taille d'écran mobile
+		};
+
+		handleResize(); // Appel initial pour définir la valeur initiale
+
+		window.addEventListener("resize", handleResize); // Ajoute un écouteur d'événements pour les changements de taille de l'écran
+
+		return () => {
+			window.removeEventListener("resize", handleResize); // Nettoie l'écouteur d'événements lors du démontage du composant
+		};
+	}, []);
 
 	const toggleDescription = () => {
 		setShowFullDescription(!showFullDescription);
@@ -49,8 +65,9 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 
 	return (
 		<div
-			className="p-4 bg-white text-blue-950 rounded-lg shadow-md"
-			style={{ maxHeight: "80vh", overflowY: "auto" }}
+			className={`p-2 dark:bg-slate-200 bg-white text-blue-950 rounded-lg shadow-md ${
+				isMobileScreen ? "max-w-[95%] mx-auto" : "" // applique la classe max-w-[#] pour réduire la largeur sur les écrans mobiles
+			}`}
 		>
 			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>
 			<div className="flex items-center mb-4">
@@ -71,8 +88,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					src={main_image_url}
 					alt={annonce_title}
 					className="w-full h-auto max-h-64 object-cover rounded-lg my-4"
-					width={256}
-					height={256}
+					width={300}
+					height={300}
 					priority={true}
 				/>
 				<button

@@ -22,20 +22,25 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 	//l'événement de défilement est géré dans le useEffect enregistrant un écouteur d'événements sur window. L'option
 	// { passive: true } est utilisée pour rendre l'écouteur passif et éviter l'avertissement "Violation".
 	useEffect(() => {
-		const handleScroll = () => {};
-		window.addEventListener("scroll", handleScroll, { passive: true });
+		const handleScroll = (e) => {
+			e.preventDefault(); // Empêche le défilement de l'arrière-plan
+		};
+		document.body.style.overflow = "hidden"; // Empêche le défilement de l'arrière-plan lorsque la modal est ouverte
+		window.addEventListener("scroll", handleScroll, { passive: false }); // Ajoute un écouteur d'événements pour le défilement
+
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("scroll", handleScroll); // Nettoie l'écouteur d'événements lors du démontage de la modal
+			document.body.style.overflow = "auto"; // Réactive le défilement de l'arrière-plan lorsque la modal est fermée
 		};
 	}, []);
 
 	return (
 		<div
-			className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto"
+			className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto z-50"
 			style={{ overflow: "hidden" }}
 		>
 			<div
-				className="dark:bg-gray-600 bg-gray-500 rounded-lg shadow-md p-4 max-w-md w-full relative sm:max-w-lg sm:w-auto "
+				className="dark:bg-gray-700 bg-gray-500 rounded-lg shadow-md p-0 max-w-md w-full relative sm:max-w-lg sm:w-auto "
 				style={{ maxHeight: "85vh", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>

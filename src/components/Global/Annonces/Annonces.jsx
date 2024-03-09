@@ -16,6 +16,19 @@ const Annonces = () => {
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobileScreen(window.innerWidth <= 768); // On considère une largeur de 768px ou moins comme une taille d'écran mobile
+		};
+		handleResize(); // Appel initial pour définir la valeur initiale
+		window.addEventListener("resize", handleResize); // Ajoute un écouteur d'événements pour les changements de taille de l'écran
+		return () => {
+			window.removeEventListener("resize", handleResize); // Nettoie l'écouteur d'événements lors du démontage du composant
+		};
+	}, []);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -88,7 +101,9 @@ const Annonces = () => {
 							annonce.annonce_valid === 1 && (
 								<div
 									key={annonce.annonce_title}
-									className="max-w-[340px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg "
+									className={`max-w-[300px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
+										isMobileScreen ? "p-2" : "" // Ajout de marges plus petites sur les écrans mobiles
+									}`}
 								>
 									<figure>
 										<Image
@@ -106,7 +121,7 @@ const Annonces = () => {
 										/>
 									</figure>
 									<div className="card-body p-1">
-										<h2 className="card-title text-xl font-semibold text-start m-2">
+										<h2 className="card-title text-lg font-semibold text-start m-1">
 											{annonce.annonce_title}{" "}
 										</h2>
 										<span className="text-end font-thin">
@@ -118,7 +133,7 @@ const Annonces = () => {
 												Catégorie:{" "}
 												{annonce.category_model}
 											</p>
-											<p className="text-end text-xl font-bold">
+											<p className="text-end text-lg font-bold">
 												{Math.round(annonce.price)} €
 											</p>
 										</span>
@@ -127,12 +142,13 @@ const Annonces = () => {
 												onClick={() =>
 													handleOpenModal(annonce)
 												}
-												className="btn btn-secondary text-lg"
+												className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2"
 											>
 												En savoir plus
 											</button>
 										</div>
 									</div>
+									<div className="h-9"></div>
 								</div>
 							)
 					)
