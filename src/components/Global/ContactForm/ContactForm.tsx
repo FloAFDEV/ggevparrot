@@ -59,13 +59,13 @@ const ContactForm = ({
 	};
 
 	return (
-		<div className="max-w-md mx-auto p-4 text-start">
-			<h2 className="text-xl font-bold mb-4 text-gray-100">
+		<div className="max-w-md mx-auto p-2 text-start">
+			<h2 className="text-lg font-bold mb-2 text-gray-100">
 				Envoyer un message à propos de cette annonce
 			</h2>
 			<button
 				onClick={closeForm}
-				className="text-primary hover:text-secondary mb-4"
+				className="text-primary hover:text-secondary mb-2"
 			>
 				Revenir à l'annonce
 			</button>
@@ -81,7 +81,7 @@ const ContactForm = ({
 					width={64}
 					height={64}
 				/>
-				<h3 className="font-bold text-2xl mb-2 text-white">
+				<h3 className="font-bold text-md mb-2 text-white">
 					{annonce_title}
 				</h3>
 			</div>

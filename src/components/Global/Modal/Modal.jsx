@@ -40,13 +40,13 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 			style={{ overflow: "hidden" }}
 		>
 			<div
-				className="dark:bg-gray-450 bg-gray-500 rounded-lg bg-opacity-90 shadow-md p-2 max-w-screen-lg w-10/12 relative"
-				style={{ maxHeight: "80vh", overflowY: "auto" }}
+				className="dark:bg-gray-450 bg-gray-500 rounded-t-2xl bg-opacity-90 shadow-md p-2 max-w-screen-sm w-10/12 relative"
+				style={{ maxHeight: "90vh", width: "95%", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button
 					onClick={closeModal}
-					className="btn btn-circle btn-outline top-0 right-0 m-2 text-3xl text-primary bg-slate-600 hover:text-red-600 dark:hover:text-red-600"
+					className="absolute top-2 right-2 m-1 text-primary bg-slate-600 hover:text-red-600 dark:hover:text-red-600"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -63,6 +63,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 						/>
 					</svg>
 				</button>
+
 				<div onClick={(e) => e.stopPropagation()}>
 					{showContactForm ? (
 						<ContactForm

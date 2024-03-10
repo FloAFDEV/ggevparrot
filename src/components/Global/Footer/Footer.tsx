@@ -87,7 +87,7 @@ const Footer: React.FunctionComponent = () => {
 							</p>
 							<div className="flex justify-center p-4">
 								<iframe
-									className="rounded-3xl"
+									className="rounded-lg w-5/6 h-5/6"
 									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.629497220637!2d1.3886775999999874!3d43.572602800000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb9906686201%3A0xe6bb691bb3194fcf!2s4%20Imp.%20Paul%20Mespl%C3%A9%2C%2031100%20Toulouse!5e0!3m2!1sfr!2sfr!4v1709111311494!5m2!1sfr!2sfr"
 									width="300"
 									height="300"
