@@ -89,7 +89,13 @@ const Annonces = () => {
 					autoComplete="off"
 				/>
 			</div>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">
+			<div
+				className={`grid grid-cols-1 ${
+					isMobileScreen
+						? "sm:grid-cols-2"
+						: "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+				} gap-4 px-4`}
+			>
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
 					<span className="loading loading-spinner loading-lg h-20">
@@ -102,7 +108,7 @@ const Annonces = () => {
 								<div
 									key={annonce.annonce_title}
 									className={`max-w-[300px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
-										isMobileScreen ? "p-2" : "" // Ajout de marges plus petites sur les écrans mobiles
+										isMobileScreen ? "p-2 text-sm" : "" // Ajout de marges plus petites sur les écrans mobiles
 									}`}
 								>
 									<figure>
@@ -115,8 +121,8 @@ const Annonces = () => {
 											}
 											alt={annonce.annonce_title}
 											className="rounded-t-lg w-full rounded-lg"
-											width={300}
-											height={300}
+											width={200}
+											height={200}
 											priority={true}
 										/>
 									</figure>
@@ -142,7 +148,7 @@ const Annonces = () => {
 												onClick={() =>
 													handleOpenModal(annonce)
 												}
-												className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2"
+												className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2 p-1"
 											>
 												En savoir plus
 											</button>

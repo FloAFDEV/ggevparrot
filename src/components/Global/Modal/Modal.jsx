@@ -36,12 +36,12 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 
 	return (
 		<div
-			className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 overflow-y-auto z-50"
+			className="fixed top-0 left-0 w-full h-full flex items-center justify-center overflow-y-auto z-50"
 			style={{ overflow: "hidden" }}
 		>
 			<div
-				className="dark:bg-gray-450 bg-gray-500 rounded-lg shadow-md p-0 max-w-md w-full relative sm:max-w-lg sm:w-auto "
-				style={{ maxHeight: "85vh", overflowY: "auto" }}
+				className="dark:bg-gray-450 bg-gray-500 rounded-lg bg-opacity-70 shadow-md p-2 max-w-screen-lg w-full relative"
+				style={{ maxHeight: "80vh", overflowY: "auto" }}
 				onClick={(e) => e.stopPropagation()}
 			>
 				<button

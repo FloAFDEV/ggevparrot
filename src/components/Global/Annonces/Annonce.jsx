@@ -65,8 +65,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 
 	return (
 		<div
-			className={`p-2 dark:bg-slate-200 bg-white text-blue-950 rounded-lg shadow-md ${
-				isMobileScreen ? "max-w-[95%] mx-auto" : "" // applique la classe max-w-[#] pour réduire la largeur sur les écrans mobiles
+			className={`p-4 dark:bg-slate-200 bg-white text-blue-950 rounded-lg shadow-md ${
+				isMobileScreen ? "max-w-[85%] mx-auto" : "" // applique la classe max-w-[#] pour réduire la largeur sur les écrans mobiles
 			}`}
 		>
 			<h3 className="font-bold text-2xl mb-2">{annonce_title}</h3>

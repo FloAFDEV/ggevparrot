@@ -25,7 +25,7 @@ const BossSection = () => {
 				<h3 className="text-3xl font-bold mb-2 text-center">
 					Vincent PARROT
 				</h3>
-				<p className="py-4">
+				<p className="p-6">
 					<strong>Vincent</strong>, 45 ans, je suis passionné par le{" "}
 					<strong>monde automobile</strong> depuis mon plus jeune âge.{" "}
 					<strong>Originaire de la région</strong>, j'ai toujours eu

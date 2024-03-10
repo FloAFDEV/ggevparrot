@@ -34,37 +34,42 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 				{servicesData?.map((service) => (
 					<div
 						key={service.Id_GarageService}
-						className="w-full md:w-1/2 lg:w-1/4 text-xl mb-8 md:mx-2"
+						className="w-full md:w-1/4 lg:w-1/4 text-xl mb-8 md:mx-2"
 					>
 						<div
 							className={`card card-side flex flex-col max-w-full md:max-w-md mx-4`}
 						>
-							<h4
-								className={`whitespace-nowrap overflow-ellipsis card-title text-2xl font-bold pb-5 pt-8 text-center justify-center`}
-							>
-								{service.serviceName}
-							</h4>
 							<div className="flex justify-center">
 								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center max-w-[280px]">
 									<figure>
 										<Image
 											src={service.image_url}
 											alt={`Image de ${service.serviceName}`}
-											width={225}
-											height={225}
+											width={200}
+											height={200}
 											className="rounded-badge shadow-base-content w-full h-full"
 											priority={true}
 										/>
 									</figure>
 								</div>
 							</div>
-							<div className={`pb-4 mt-4 text-center`}>
+							<h4
+								className={`whitespace-nowrap overflow-ellipsis card-title text-2xl font-bold pb-5 pt-8 text-center justify-center`}
+							>
+								{service.serviceName}
+							</h4>
+							<div className={`pb-2 mt-4 text-center`}>
 								<p>{service.description}</p>
 								<p className="font-bold">
-									Contacter le service au
+									Contacter le service au:
 								</p>
-								<p className="font-bold">
-									{service.phoneNumber}
+								<p>
+									<a
+										href={`tel:${service.phoneNumber}`}
+										className="font-bold text-lg hover:text-xl hover:text-secondary"
+									>
+										{service.phoneNumber}
+									</a>
 								</p>
 							</div>
 						</div>
