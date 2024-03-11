@@ -113,24 +113,16 @@ const Footer: React.FunctionComponent = () => {
 								</Link>
 							</li>
 							<li>
-								<Link
-									href="/contact"
-									className="link link-hover"
-								>
-									Contact
-								</Link>
-							</li>
-							<li>
 								<Link href="/jobs" className="link link-hover">
 									Jobs
 								</Link>
 							</li>
 							<li>
 								<Link
-									href="/press-kit"
+									href="/mentions_legales"
 									className="link link-hover"
 								>
-									Press kit
+									Mentions Légales
 								</Link>
 							</li>
 						</ul>

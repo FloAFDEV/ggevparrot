@@ -11,6 +11,7 @@ import {
 	fetchAllServices,
 	fetchOpeningHours,
 } from "@/components/utils/apiService";
+import Contact from "../components/Global/Contact/Contact";
 
 export default function Home({
 	servicesData,
@@ -40,6 +41,10 @@ export default function Home({
 					<div className="w-full text-center font-bold mt-4">
 						<Annonces annonces={annonces} />
 					</div>
+				</section>
+				<section>
+					{" "}
+					<Contact />
 				</section>
 			</main>
 			<footer>

@@ -90,7 +90,9 @@ const Navbar: React.FunctionComponent = () => {
 												</Link>
 											</li>
 											<li>
-												<Link href="/">Contact</Link>
+												<Link href="#contact">
+													Contact
+												</Link>
 											</li>
 										</ul>
 									</details>
@@ -130,7 +132,7 @@ const Navbar: React.FunctionComponent = () => {
 								</details>
 							</li>
 							<li>
-								<Link href="#ContactForm">Contact</Link>
+								<Link href="#contact">Contact</Link>
 							</li>
 						</ul>
 					</div>
@@ -150,7 +152,7 @@ const Navbar: React.FunctionComponent = () => {
 								</p>
 								<div className="modal-action">
 									<form method="dialog">
-										{/* if there is a button, it will close the modal */}
+										{/* s'il y a un bouton, il fermera le modal */}
 										<button className="btn">Close</button>
 									</form>
 								</div>

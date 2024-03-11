@@ -66,7 +66,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 	return (
 		<div
 			className={`p-4 dark:bg-slate-200 bg-white text-blue-950 rounded-lg shadow-md ${
-				isMobileScreen ? "max-w-[95%] mx-auto" : "" // applique la classe max-w-[#] pour réduire la largeur sur les écrans mobiles
+				isMobileScreen ? "max-w-[95%] mx-auto text-sm" : "" // applique les classes sur les écrans mobiles
 			}`}
 		>
 			<h3 className="font-bold text-xl mb-2">{annonce_title}</h3>
@@ -78,7 +78,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					width={360}
 					height={360}
 				/>
-				<div className="text-md font-semibold p4">
+				<div className="text-md font-semibold p4 text-start">
 					{brand_name} {model_name} {color} {manufacture_year}
 					<p className="text-start">Catégorie: {category_model}</p>
 				</div>

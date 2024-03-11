@@ -76,9 +76,9 @@ const Annonces = () => {
 
 	return (
 		<div id="annonces" className="flex flex-col pb-10 pt-10">
-			<h1 className="text-5xl bg-base-100 font-bold m-8 p-6">
+			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
-			</h1>
+			</h2>
 			<div className="flex justify-center mb-6">
 				<input
 					type="text"
