@@ -21,12 +21,14 @@ const Contact = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log("Formulaire soumis avec succès !");
+		console.log("Données soumises :", formData);
 		// Réinitialiser le formulaire
 		setFormData({
 			name: "",
 			email: "",
 			phone: "",
 			message: "",
+			botField: "",
 		});
 	};
 
@@ -36,9 +38,9 @@ const Contact = () => {
 			className="flex justify-center items-center h-3/4 p-4 md:p-4"
 		>
 			<div className="bg-neutral p-6 rounded-lg shadow-lg w-full max-w-4xl mb-10 mt-4 md:mt-16 flex flex-col md:flex-row">
-				<div className="w-full md:w-2/3 pr-0 md:pr-4 mb-4 md:mb-0">
+				<div className="w-full md:w-2/3 pr-0 md:pr-4 mb-4 md:mb-0 font-bold">
 					<h2 className="text-3xl md:text-4xl text-gray-200 font-bold mb-4 text-center">
-						Contactez-nous
+						Vous préférez nous écrire
 					</h2>
 					<form onSubmit={handleSubmit}>
 						<div className="mb-2">
@@ -85,6 +87,7 @@ const Contact = () => {
 								placeholder="Votre téléphone"
 								pattern="[0-9]{10}"
 								className="w-full p-2 border border-neutral-light rounded-md"
+								required
 							/>
 						</div>
 						<div className="mb-2">
@@ -117,7 +120,7 @@ const Contact = () => {
 						</button>
 					</form>
 				</div>
-				<div className="w-full md:w-1/3 hidden md:block">
+				<div className="w-full md:w-1/3 hidden md:flex justify-center items-center">
 					<img
 						src="/assets/contactbg.webp"
 						alt="Description de l'image"

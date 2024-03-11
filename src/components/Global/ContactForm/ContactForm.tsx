@@ -18,6 +18,7 @@ const ContactForm = ({
 		userEmail: "",
 		userPhone: "",
 		message: "",
+		botField: "",
 	});
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
@@ -152,6 +153,11 @@ const ContactForm = ({
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
 						required
 					></textarea>
+					<input
+						type="hidden"
+						name="botField"
+						value={formData.botField}
+					/>
 				</div>
 				<button
 					type="submit"
