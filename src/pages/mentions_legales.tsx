@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Global/Navbar/Navbar";
 import Footer from "@/components/Global/Footer/Footer";
+import Logo from "@/components/Globale/Logo/Logo";
 
 const MentionsLegales = () => {
 	return (
@@ -8,6 +9,12 @@ const MentionsLegales = () => {
 			<Navbar />
 			<div className="container mx-auto pt-40">
 				<div className="bg-white p-6 rounded-lg shadow-lg">
+					   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
+                <Link href="/">
+                    <Logo src="/favicon.ico" className="h-6 w-6" />
+                </Link>
+                <span>Retour au site</span>
+            </div>
 					<p className="mb-2 text-lg">
 						Merci de lire avec attention les différentes modalités
 						d’utilisation du présent site avant d’y parcourir ses
@@ -73,6 +80,12 @@ const MentionsLegales = () => {
 					</p>
 				</div>
 			</div>
+			   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
+                <Link href="/">
+                    <Logo src="/favicon.ico" className="h-6 w-6" />
+                </Link>
+                <span>Retour au site</span>
+            </div>
 			<Footer />
 		</>
 	);
