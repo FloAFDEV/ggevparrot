@@ -73,24 +73,24 @@ const Navbar: React.FunctionComponent = () => {
 									<Link href="/">Accueil</Link>
 								</li>
 								<li>
-									<Link href="#annonces">Nos annonces</Link>
+									<Link href="/#annonces">Nos annonces</Link>
 								</li>
 								<li>
 									<details>
 										<summary>Nos Services</summary>
 										<ul className="p-2 bg-neutral">
 											<li>
-												<Link href="/">
+												<Link href="/#services">
 													Mécanique & Réparations
 												</Link>
 											</li>
 											<li>
-												<Link href="/">
+												<Link href="/#services">
 													Expertises & Entretiens
 												</Link>
 											</li>
 											<li>
-												<Link href="#contact">
+												<Link href="/#contact">
 													Contact
 												</Link>
 											</li>
@@ -109,19 +109,19 @@ const Navbar: React.FunctionComponent = () => {
 					<div className="navbar-end px-3 hidden lg:flex">
 						<ul className="menu menu-horizontal px-1">
 							<li>
-								<Link href="#annonces">Nos annonces</Link>
+								<Link href="/#annonces">Nos annonces</Link>
 							</li>
 							<li>
 								<details>
 									<summary>Nos Services</summary>
 									<ul className="p-2 bg-neutral">
 										<li>
-											<Link href="#services">
+											<Link href="/#services">
 												Mécanique & Réparations
 											</Link>
 										</li>
 										<li>
-											<Link href="#services">
+											<Link href="/#services">
 												Expertises & Entretiens
 											</Link>
 										</li>
@@ -132,7 +132,7 @@ const Navbar: React.FunctionComponent = () => {
 								</details>
 							</li>
 							<li>
-								<Link href="#contact">Contact</Link>
+								<Link href="/#contact">Contact</Link>
 							</li>
 						</ul>
 					</div>
