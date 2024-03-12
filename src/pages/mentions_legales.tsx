@@ -8,7 +8,6 @@ const MentionsLegales = () => {
 			<Navbar />
 			<div className="container mx-auto pt-40">
 				<div className="bg-white p-6 rounded-lg shadow-lg">
-					 
 					<p className="mb-2 text-lg">
 						Merci de lire avec attention les différentes modalités
 						d’utilisation du présent site avant d’y parcourir ses
@@ -73,8 +72,8 @@ const MentionsLegales = () => {
 						indirect pouvant en découler.
 					</p>
 				</div>
-						</div>
-		
+			</div>
+
 			<Footer />
 		</>
 	);
