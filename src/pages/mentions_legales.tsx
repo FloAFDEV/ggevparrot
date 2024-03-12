@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Navbar from "@/components/Global/Navbar/Navbar";
 import Footer from "@/components/Global/Footer/Footer";
 import Logo from "@/components/Globale/Logo/Logo";
