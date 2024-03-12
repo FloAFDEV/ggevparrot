@@ -78,7 +78,7 @@ const ContactForm = ({
 				<Image
 					src={brand_logo_url}
 					alt="Logo de la marque"
-					className="w-auto h-16 mr-2 p-2 bg-gray-300 rounded-full"
+					className="w-auto h-16 mr-2 p-2"
 					width={64}
 					height={64}
 				/>
