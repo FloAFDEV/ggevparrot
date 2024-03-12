@@ -75,13 +75,14 @@ const MentionsLegales = () => {
 						indirect pouvant en découler.
 					</p>
 				</div>
-			</div>
-		   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
+				   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
                 <Link href="/">
                     <Logo src="/favicon.ico" className="h-6 w-6" />
                 </Link>
                 <span>Retour au site</span>
             </div>
+			</div>
+		
 			<Footer />
 		</>
 	);
