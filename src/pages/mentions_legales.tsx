@@ -11,7 +11,7 @@ const MentionsLegales = () => {
 				<div className="bg-white p-6 rounded-lg shadow-lg">
 					   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
                 <Link href="/">
-                    <Logo src="/favicon.ico" className="h-6 w-6" />
+                    <Logo  />
                 </Link>
                 <span>Retour au site</span>
             </div>
@@ -82,7 +82,7 @@ const MentionsLegales = () => {
 			</div>
 			   <div className="fixed bottom-4 left-4 flex items-center space-x-2">
                 <Link href="/">
-                    <Logo src="/favicon.ico" className="h-6 w-6" />
+                    <Logo />
                 </Link>
                 <span>Retour au site</span>
             </div>
