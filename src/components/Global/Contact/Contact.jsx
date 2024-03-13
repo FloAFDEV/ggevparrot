@@ -118,7 +118,7 @@ const Contact = () => {
 									value={formData.phone}
 									onChange={handleChange}
 									placeholder="Votre téléphone"
-									pattern="[+][0-9]{11}"
+									pattern="(0|\+33)[1-9][0-9]{8}"
 									className="w-full p-2 border border-neutral-light rounded-md"
 									required
 								/>
