@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 
 interface FeaturesServicesProps {
@@ -64,20 +65,20 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 									Contacter le service au:
 								</p>
 								<p>
-									<a
+									<Link
 										href={`tel:${service.phoneNumber}`}
 										className="font-bold text-lg hover:text-xl hover:text-secondary"
 									>
 										{service.phoneNumber}
-									</a>{" "}
+									</Link>{" "}
 								</p>
 								<p className="mt-2">
-									<a
+									<Link
 										href="/#contact"
 										className="text-gray-500 hover:text-secondary"
 									>
 										Vous préférez nous écrire?
-									</a>
+									</Link>
 								</p>
 							</div>
 						</div>
