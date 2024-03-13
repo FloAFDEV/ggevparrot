@@ -102,7 +102,7 @@ const Contact = () => {
 									value={formData.email}
 									onChange={handleChange}
 									placeholder="Votre email"
-									pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+									pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})"
 									className="w-full p-2 border border-neutral-light rounded-md"
 									required
 								/>
