@@ -18,7 +18,7 @@ const ContactForm = ({
 		userEmail: "",
 		userPhone: "",
 		message: "",
-		botField: "",
+		botField: "", // To bypass google captcha
 	});
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
@@ -27,6 +27,8 @@ const ContactForm = ({
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
+		// Réinitialise les erreurs
+		setError(null);
 	};
 
 	const handleSubmit = async (
@@ -91,13 +93,11 @@ const ContactForm = ({
 				className="space-y-4 "
 			>
 				<div>
-					<label htmlFor="userName" className="block mb-1 text-white">
-						Nom:
-					</label>
 					<input
 						type="text"
 						id="userName"
 						name="userName"
+						placeholder="Votre nom"
 						value={formData.userName}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
@@ -106,16 +106,11 @@ const ContactForm = ({
 					/>
 				</div>
 				<div>
-					<label
-						htmlFor="userEmail"
-						className="block mb-1 text-white"
-					>
-						Email:
-					</label>
 					<input
 						type="email"
 						id="userEmail"
 						name="userEmail"
+						placeholder="Votre e-mail"
 						value={formData.userEmail}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
@@ -124,30 +119,24 @@ const ContactForm = ({
 					/>
 				</div>
 				<div>
-					<label
-						htmlFor="userPhone"
-						className="block mb-1 text-white"
-					>
-						Téléphone:
-					</label>
 					<input
 						type="tel"
 						id="userPhone"
 						name="userPhone"
+						placeholder="Votre téléphone"
 						value={formData.userPhone}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+						pattern="[0-9]{10}"
 						required
 						autoComplete="tel"
 					/>
 				</div>
 				<div>
-					<label htmlFor="message" className="block mb-1 text-white">
-						Message:
-					</label>
 					<textarea
 						id="message"
 						name="message"
+						placeholder="Votre message"
 						value={formData.message}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"

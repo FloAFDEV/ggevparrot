@@ -37,26 +37,23 @@ const Login = () => {
 			{error && <p style={{ color: "red" }}>{error}</p>}
 			<form onSubmit={handleSubmit} className="space-y-4 font-bold">
 				<div>
-					<label htmlFor="email" className="block text-gray-200">
-						Email:
-					</label>
 					<input
 						type="email"
 						value={email}
+						placeholder="Votre e-mail"
 						onChange={(e) => setEmail(e.target.value)}
 						required
-						pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+						pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$"
 						autoComplete="email"
 						className="w-full px-4 py-2 text-white bg-neutral rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 bg-opacity-60"
 					/>
 				</div>
 				<div className="relative">
-					<label htmlFor="password" className="block text-gray-200">
-						Mot de passe:
-					</label>
 					<input
 						type={showPassword ? "text" : "password"}
 						id="password"
+						placeholder="Votre mot de passe"
+						// pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])(?!.*\s).{8,}$"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
@@ -74,7 +71,7 @@ const Login = () => {
 								showPassword ? "Hide password" : "Show password"
 							}
 							className={`h-6 w-6 rounded-full ${
-								showPassword ? "bg-secondary" : "bg-green-500"
+								showPassword ? "bg-secondary" : "bg-slate-100"
 							} top-1/2 transform -translate-y-1/2`}
 						/>
 					</button>

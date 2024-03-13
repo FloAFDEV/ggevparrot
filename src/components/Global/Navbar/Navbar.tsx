@@ -42,7 +42,7 @@ const Navbar: React.FunctionComponent = () => {
 					isMobile ? "fixed top-0 left-0 w-full z-50" : ""
 				}`}
 			>
-				<div className="navbar h-5">
+				<div className="navbar h-5 bg-neutral">
 					<div className="navbar-start">
 						<div className="dropdown">
 							<div
@@ -69,9 +69,6 @@ const Navbar: React.FunctionComponent = () => {
 								tabIndex={0}
 								className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral"
 							>
-								<li>
-									<Link href="/">Accueil</Link>
-								</li>
 								<li>
 									<Link href="/#annonces">Nos annonces</Link>
 								</li>
@@ -143,21 +140,6 @@ const Navbar: React.FunctionComponent = () => {
 						>
 							Connexion
 						</button>
-						<dialog id="my_modal_4" className="modal">
-							{" "}
-							<div className="modal-box w-11/12 max-w-5xl">
-								<h3 className="font-bold text-lg">Hello!</h3>
-								<p className="py-4">
-									Click the button below to close
-								</p>
-								<div className="modal-action">
-									<form method="dialog">
-										{/* s'il y a un bouton, il fermera le modal */}
-										<button className="btn">Close</button>
-									</form>
-								</div>
-							</div>
-						</dialog>
 						<label className="swap swap-rotate p-2 cursor-pointer">
 							<input
 								type="checkbox"
