@@ -18,6 +18,7 @@ const ContactForm = ({
 		userEmail: "",
 		userPhone: "",
 		message: "",
+		Id_CarAnnonce: Id_CarAnnonce, //Champ caché comprenant l'Id de l'annonce pour envoie en db
 		botField: "", // To bypass google captcha
 	});
 	const [error, setError] = useState<string | null>(null);
@@ -43,7 +44,7 @@ const ContactForm = ({
 				if (response) {
 					setSuccess(true);
 					setError(null);
-					console.log("Message envoyé avec succès !");
+					// console.log("Message envoyé avec succès !");
 				} else {
 					setError(
 						"Erreur lors de l'envoi du message. Veuillez réessayer."
@@ -61,6 +62,8 @@ const ContactForm = ({
 		}
 	};
 
+	// console.log("formData:", formData);
+
 	return (
 		<div className="max-w-md mx-auto p-2 text-start">
 			<h2 className="text-lg font-bold mb-2 text-gray-100">
@@ -73,7 +76,9 @@ const ContactForm = ({
 				Revenir à l'annonce
 			</button>
 			{success && (
-				<p className="text-green-600">Message envoyé avec succès !</p>
+				<p className="text-green-400 font-extrabold">
+					Message envoyé avec succès !
+				</p>
 			)}
 			{error && <p className="text-red-600">Erreur : {error}</p>}
 			<div className="flex items-center">
@@ -92,6 +97,13 @@ const ContactForm = ({
 				onSubmit={(e) => handleSubmit(e, Id_CarAnnonce, formData)}
 				className="space-y-4 "
 			>
+				<div>
+					<input
+						type="hidden"
+						name="Id_CarAnnonce"
+						value={Id_CarAnnonce}
+					/>
+				</div>
 				<div>
 					<input
 						type="text"
@@ -127,7 +139,7 @@ const ContactForm = ({
 						value={formData.userPhone}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-						pattern="[0-9]{10}"
+						pattern="[+][0-9]{11}"
 						required
 						autoComplete="tel"
 					/>
@@ -140,6 +152,7 @@ const ContactForm = ({
 						value={formData.message}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+						maxLength={200}
 						required
 					></textarea>
 					<input

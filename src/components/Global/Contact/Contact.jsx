@@ -9,6 +9,8 @@ const Contact = () => {
 		botField: "", // Champ caché pour détecter les robots
 	});
 
+	const [submitMessage, setSubmitMessage] = useState("");
+
 	// Gestion des changements de champs
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -20,28 +22,36 @@ const Contact = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("Formulaire soumis avec succès !");
 		console.log("Données soumises :", formData);
-		// Réinitialiser le formulaire
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			message: "",
-			botField: "",
-		});
+		setSubmitMessage("Votre formulaire a été soumis avec succès !");
+		// Réinitialiser le formulaire après quelques secondes
+		setTimeout(() => {
+			setFormData({
+				name: "",
+				email: "",
+				phone: "",
+				message: "",
+				botField: "",
+			});
+			setSubmitMessage("");
+		}, 6000); // Réinitialiser après 3 secondes
 	};
 
 	return (
 		<div
 			id="contact"
-			className="flex justify-center items-center h-3/4 p-4 md:p-4"
+			className="flex justify-center items-center h-3/4 p-4 md:p-4 mt-40"
 		>
 			<div className="bg-neutral p-6 rounded-lg shadow-lg w-full max-w-4xl mb-10 mt-4 md:mt-16 flex flex-col md:flex-row">
 				<div className="w-full md:w-2/3 pr-0 md:pr-4 mb-4 md:mb-0 font-bold">
 					<h2 className="text-3xl md:text-4xl text-gray-200 font-bold mb-4 text-center">
 						Vous préférez nous écrire
 					</h2>
+					{submitMessage && (
+						<p className="text-green-600 font-bold">
+							{submitMessage}
+						</p>
+					)}
 					<form onSubmit={handleSubmit}>
 						<div className="mb-2">
 							<label htmlFor="name" className="block mb-1">
@@ -85,7 +95,7 @@ const Contact = () => {
 								value={formData.phone}
 								onChange={handleChange}
 								placeholder="Votre téléphone"
-								pattern="[0-9]{10}"
+								pattern="[+][0-9]{11}"
 								className="w-full p-2 border border-neutral-light rounded-md"
 								required
 							/>
@@ -101,6 +111,7 @@ const Contact = () => {
 								onChange={handleChange}
 								placeholder="Votre message"
 								className="w-full p-2 border border-neutral-light rounded-md"
+								maxLength={200}
 								required
 							></textarea>
 						</div>

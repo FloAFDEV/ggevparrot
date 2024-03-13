@@ -4,10 +4,7 @@ import Image from "next/image";
 const Carousel = ({ isOpen, images, currentCarAnnonceId }) => {
 	const [currentImageIndex] = useState(0);
 
-	useEffect(() => {
-		console.log("images:", images);
-		console.log("currentCarAnnonceId:", currentCarAnnonceId);
-	}, [images, currentCarAnnonceId]);
+	useEffect(() => {}, [images, currentCarAnnonceId]);
 
 	// Filtrer les images en fonction de l'ID de l'annonce actuelle
 	const filteredImages = images

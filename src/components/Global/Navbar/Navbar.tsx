@@ -44,7 +44,7 @@ const Navbar: React.FunctionComponent = () => {
 			>
 				<div className="navbar h-5 bg-neutral">
 					<div className="navbar-start">
-						<div className="dropdown">
+						<div className="dropdown dropdown-hover">
 							<div
 								tabIndex={0}
 								role="button"

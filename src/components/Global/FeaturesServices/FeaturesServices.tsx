@@ -69,6 +69,14 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 										className="font-bold text-lg hover:text-xl hover:text-secondary"
 									>
 										{service.phoneNumber}
+									</a>{" "}
+								</p>
+								<p className="mt-2">
+									<a
+										href="/#contact"
+										className="text-gray-500 hover:text-secondary"
+									>
+										Vous préférez nous écrire?
 									</a>
 								</p>
 							</div>
