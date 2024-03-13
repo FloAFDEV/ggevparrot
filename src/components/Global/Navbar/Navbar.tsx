@@ -70,24 +70,40 @@ const Navbar: React.FunctionComponent = () => {
 								className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral"
 							>
 								<li>
-									<Link href="/#annonces">Nos annonces</Link>
+									<Link
+										href="/#annonces"
+										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+									>
+										Nos annonces
+									</Link>
 								</li>
 								<li>
 									<details>
-										<summary>Nos Services</summary>
+										<summary className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400">
+											Nos Services
+										</summary>
 										<ul className="p-2 bg-neutral">
 											<li>
-												<Link href="/#services">
+												<Link
+													href="/#services"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												>
 													Mécanique & Réparations
 												</Link>
 											</li>
 											<li>
-												<Link href="/#services">
+												<Link
+													href="/#services"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												>
 													Expertises & Entretiens
 												</Link>
 											</li>
 											<li>
-												<Link href="/#contact">
+												<Link
+													href="/#contact"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												>
 													Contact
 												</Link>
 											</li>
@@ -106,30 +122,53 @@ const Navbar: React.FunctionComponent = () => {
 					<div className="navbar-end px-3 hidden lg:flex">
 						<ul className="menu menu-horizontal px-1">
 							<li>
-								<Link href="/#annonces">Nos annonces</Link>
+								<Link
+									href="/#annonces"
+									className="text-neutral-content hover:text-green-300"
+								>
+									Nos annonces
+								</Link>
 							</li>
 							<li>
 								<details>
-									<summary>Nos Services</summary>
-									<ul className="p-2 bg-neutral">
+									<summary className="text-neutral-content hover:text-green-400">
+										Nos Services
+									</summary>
+									<ul className="p-2 bg-neutral text-neutral-content hover:text-green-400">
 										<li>
-											<Link href="/#services">
+											<Link
+												href="/#services"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+											>
 												Mécanique & Réparations
 											</Link>
 										</li>
 										<li>
-											<Link href="/#services">
+											<Link
+												href="/#services"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+											>
 												Expertises & Entretiens
 											</Link>
 										</li>
 										<li>
-											<Link href="/404">404</Link>
+											<Link
+												href="/404"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+											>
+												404
+											</Link>
 										</li>
 									</ul>
 								</details>
 							</li>
 							<li>
-								<Link href="/#contact">Contact</Link>
+								<Link
+									href="/#contact"
+									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+								>
+									Contact
+								</Link>
 							</li>
 						</ul>
 					</div>

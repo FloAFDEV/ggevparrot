@@ -78,12 +78,12 @@ const Footer: React.FunctionComponent = () => {
 						<div className="font-extrabold uppercase m-4 text-xl">
 							<p className="p-4">{garageInfo.address}</p>
 							<p>
-								<a
+								<Link
 									href={`tel:${garageInfo.phoneNumber}`}
 									className="hero-overlay hover:text-secondary text-2xl"
 								>
 									{garageInfo.phoneNumber}
-								</a>
+								</Link>
 							</p>
 							<div className="flex justify-center p-4">
 								<iframe
