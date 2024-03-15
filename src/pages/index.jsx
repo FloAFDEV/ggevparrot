@@ -6,11 +6,13 @@ import FeaturesServices from "@/components/Global/FeaturesServices/FeaturesServi
 import Annonces from "@/components/Global/Annonces/Annonces";
 import Footer from "@/components/Global/Footer/Footer";
 import BossSection from "@/components/Global/BossSection/BossSection";
+import Testimonials from "@/components/Global/Testimonials/Testimonials";
 import {
 	fetchGarageInfo,
 	fetchAllServices,
 	fetchOpeningHours,
-} from "@/components/utils/apiService";
+	fetchAllTestimonials,
+} from "../components/utils/apiService";
 import Contact from "../components/Global/Contact/Contact";
 
 export default function Home({
@@ -18,6 +20,7 @@ export default function Home({
 	annonces,
 	garageData,
 	openingHours,
+	testimonials,
 }) {
 	const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -36,6 +39,9 @@ export default function Home({
 				</section>
 				<section className="mt-16">
 					<FeaturesServices servicesData={servicesData} />
+				</section>
+				<section>
+					<Testimonials testimonials={testimonials} />
 				</section>
 				<section>
 					<div className="w-full text-center font-bold mt-4">
@@ -57,17 +63,20 @@ export default function Home({
 
 export async function getServerSideProps() {
 	try {
-		const [garageData, servicesData, openingHours] = await Promise.all([
-			fetchGarageInfo(),
-			fetchAllServices(),
-			fetchOpeningHours(),
-		]);
+		const [garageData, servicesData, openingHours, testimonials] =
+			await Promise.all([
+				fetchGarageInfo(),
+				fetchAllServices(),
+				fetchOpeningHours(),
+				fetchAllTestimonials(),
+			]);
 
 		return {
 			props: {
 				garageData,
 				servicesData,
 				openingHours,
+				testimonials,
 			},
 		};
 	} catch (error) {
@@ -77,6 +86,7 @@ export async function getServerSideProps() {
 				garageData: [],
 				servicesData: [],
 				openingHours: [],
+				testimonials: [],
 			},
 		};
 	}
