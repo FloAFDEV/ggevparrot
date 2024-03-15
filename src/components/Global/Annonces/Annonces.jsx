@@ -126,23 +126,27 @@ const Annonces = () => {
 											priority={true}
 										/>
 									</figure>
-									<div className="card-body p-1">
+									<div className="card-body p-1 w-full">
 										<h2 className="card-title text-lg font-semibold text-start m-1">
 											{annonce.annonce_title}{" "}
 										</h2>
-										<span className="text-end font-thin">
-											Année: {annonce.manufacture_year}{" "}
-											{annonce.color} {annonce.fuel_type}
-											<br />
-											{annonce.mileage} km
-											<p>
-												Catégorie:{" "}
-												{annonce.category_model}
-											</p>
-											<p className="text-end text-lg font-bold">
-												{Math.round(annonce.price)} €
-											</p>
-										</span>
+										{isMobileScreen ? null : ( // Masquer la description sur les petits écrans
+											<div className="text-end font-thin">
+												Année:{" "}
+												{annonce.manufacture_year}{" "}
+												{annonce.color} <br />
+												{annonce.fuel_type}
+												<br />
+												{annonce.mileage} km
+												<p>
+													Catégorie:{" "}
+													{annonce.category_model}
+												</p>
+											</div>
+										)}
+										<p className="text-end text-lg font-bold">
+											{Math.round(annonce.price)} €
+										</p>
 										<div className="card-actions justify-end m-1">
 											<button
 												onClick={() =>

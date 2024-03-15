@@ -7,7 +7,7 @@ const Hero: React.FunctionComponent = () => {
 		<section className="hero pt-20">
 			<div className="hero-content flex-col md:flex-row">
 				<Image
-					className="w-full pt-5 md:w-1/2 rounded-2xl shadow-2xl"
+					className="w-3/4 pt-5 md:w-1/2 rounded-2xl shadow-2xl"
 					src="/assets/heroVParrot.jpeg"
 					alt="Image principale représentant un perroquet mécanicien"
 					width={1024}
