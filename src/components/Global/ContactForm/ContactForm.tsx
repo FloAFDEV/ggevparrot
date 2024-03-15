@@ -139,7 +139,7 @@ const ContactForm = ({
 						value={formData.userPhone}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-						pattern="[+][0-9]{11}"
+						pattern="(0|\+33)[1-9][0-9]{8}"
 						required
 						autoComplete="tel"
 					/>

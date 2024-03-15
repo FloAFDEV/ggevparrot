@@ -24,7 +24,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 		);
 	}
 	return (
-		<section className="text-center mt-4">
+		<section className="text-center mt-4 ">
 			<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos services
 			</h3>

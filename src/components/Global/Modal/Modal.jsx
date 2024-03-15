@@ -46,7 +46,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 			>
 				<button
 					onClick={closeModal}
-					className="absolute top-2 right-2 m-1 text-primary bg-slate-600 hover:text-red-600 dark:hover:text-red-600"
+					className="absolute top-2 right-2 m-1 text-primary rounded-full bg-slate-600 hover:text-red-600 dark:hover:text-red-600"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

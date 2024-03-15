@@ -90,7 +90,7 @@ const Annonces = () => {
 				/>
 			</div>
 			<div
-				className={`grid grid-cols-1 ${
+				className={`grid grid-cols-2 ${
 					isMobileScreen
 						? "sm:grid-cols-2"
 						: "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
@@ -98,7 +98,7 @@ const Annonces = () => {
 			>
 				{error && <p>Erreur: {error}</p>}
 				{isLoading ? (
-					<span className="loading loading-spinner loading-lg h-20">
+					<span className="loading loading-spinner loading-lg h-30">
 						<p>Chargement...</p>
 					</span>
 				) : (
