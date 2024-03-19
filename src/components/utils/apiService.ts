@@ -243,10 +243,22 @@ export async function fetchAllUsers() {
 	}
 }
 
-// Récupérer le message
-export async function fetchMessage() {
+// Envoyer un message pour une annonce en particulier
+export async function MessageAnnonce(
+	Id_CarAnnonce: string,
+	messageData: AnnonceMessage
+): Promise<any> {
 	try {
-		const response = await fetch(`${BASE_URL}message`);
+		const response = await fetch(
+			`${BASE_URL}message_annonce/${Id_CarAnnonce}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(messageData),
+			}
+		);
 		if (!response.ok) {
 			throw new Error(
 				`Erreur lors de la récupération du message : ${response.status}`
@@ -258,21 +270,41 @@ export async function fetchMessage() {
 		throw error;
 	}
 }
-// Envoie du message
+// Interface pour les données du message lié à une annonce par son Id
+export interface AnnonceMessage {
+	userName: string;
+	userEmail: string;
+	userPhone: string;
+	message: string;
+	botField: string; // pour empêcher l'envoi par les robots
+	Id_CarAnnonce: Number;
+	createdAt: string;
+}
 
-export async function sendMessage(annonceId: number, formData: any) {
+// Interface pour les données du formulaire global
+export interface ContactFormData {
+	name: string;
+	email: string;
+	phone: string;
+	message: string;
+	botField: string; // pour empêcher l'envoi par les robots
+}
+
+// Envoie du message
+export async function sendMessage(formData: ContactFormData): Promise<boolean> {
 	try {
-		const response = await fetch(`${BASE_URL}message`, {
+		const response = await fetch(`${BASE_URL}contact_message`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ Id_CarAnnonce: annonceId, ...formData }),
+			body: JSON.stringify(formData),
 		});
 		if (!response.ok) {
-			throw new Error(
+			console.error(
 				`Erreur lors de l'envoi du message : ${response.status}`
 			);
+			return false;
 		}
 		console.log("Message envoyé avec succès !");
 		return true;

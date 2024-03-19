@@ -1,6 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { sendMessage } from "../../utils/apiService";
+import { MessageAnnonce } from "../../utils/apiService";
+
+interface MessageAnnonceData {
+	userName: string;
+	userEmail: string;
+	userPhone: string;
+	message: string;
+	botField: string; // pour empêcher l'envoi par les robots
+	Id_CarAnnonce: number;
+	createdAt: string;
+	Id_Users?: number;
+}
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -8,52 +19,49 @@ const ContactForm = ({
 	brand_logo_url,
 	closeForm,
 }: {
-	Id_CarAnnonce: number;
+	Id_CarAnnonce: string;
 	annonce_title: string;
 	brand_logo_url: string;
 	closeForm: () => void;
 }) => {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<MessageAnnonceData>({
 		userName: "",
 		userEmail: "",
 		userPhone: "",
 		message: "",
-		Id_CarAnnonce: Id_CarAnnonce, //Champ caché comprenant l'Id de l'annonce pour envoie en db
-		botField: "", // To bypass google captcha
+		Id_CarAnnonce: Number(Id_CarAnnonce),
+		createdAt: new Date().toISOString(),
+		botField: "",
 	});
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
+
+	useEffect(() => {
+		console.log("Id_CarAnnonce:", Id_CarAnnonce);
+	}, [Id_CarAnnonce]);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
-		// Réinitialise les erreurs
-		setError(null);
+		setError(null); // Réinitialise les erreurs
 	};
 
-	const handleSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-		Id_CarAnnonce: number,
-		formData: any
-	) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log("Données du formulaire avant l'envoi :", formData);
 		try {
-			const response = await sendMessage(Id_CarAnnonce, formData);
-			if (typeof response === "boolean") {
-				if (response) {
-					setSuccess(true);
-					setError(null);
-					// console.log("Message envoyé avec succès !");
-				} else {
-					setError(
-						"Erreur lors de l'envoi du message. Veuillez réessayer."
-					);
-					setSuccess(false);
-					console.error("Échec de l'envoi du message.");
-				}
+			const response = await MessageAnnonce(Id_CarAnnonce, formData);
+			console.log("Réponse de l'envoi du message :", response);
+			if (response.success) {
+				setSuccess(true);
+				setError(null);
 			} else {
-				console.error("Réponse invalide:", response);
+				setError(
+					response.error ||
+						"Erreur lors de l'envoi du message. Veuillez réessayer."
+				);
+				setSuccess(false);
 			}
 		} catch (error) {
 			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
@@ -61,7 +69,6 @@ const ContactForm = ({
 			console.error("Erreur lors de l'envoi du message :", error);
 		}
 	};
-
 	// console.log("formData:", formData);
 
 	return (
@@ -93,10 +100,7 @@ const ContactForm = ({
 					{annonce_title}
 				</h3>
 			</div>
-			<form
-				onSubmit={(e) => handleSubmit(e, Id_CarAnnonce, formData)}
-				className="space-y-4 "
-			>
+			<form onSubmit={handleSubmit} className="space-y-4 ">
 				<div>
 					<input
 						type="hidden"
@@ -113,6 +117,7 @@ const ContactForm = ({
 						value={formData.userName}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+						minLength={5}
 						required
 						autoComplete="username"
 					/>
@@ -146,19 +151,24 @@ const ContactForm = ({
 				</div>
 				<div>
 					<textarea
-						id="message"
+						id="messageAnnonce"
 						name="message"
 						placeholder="Votre message"
 						value={formData.message}
 						onChange={handleChange}
 						className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-						maxLength={200}
+						maxLength={300}
 						required
 					></textarea>
 					<input
 						type="hidden"
 						name="botField"
 						value={formData.botField}
+					/>
+					<input
+						type="hidden"
+						name="createdAt"
+						value={formData.createdAt}
 					/>
 				</div>
 				<button

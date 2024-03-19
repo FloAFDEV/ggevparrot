@@ -1,7 +1,16 @@
 import React, { useState } from "react";
+import { sendMessage } from "../../utils/apiService";
+
+interface ContactFormData {
+	name: string;
+	email: string;
+	phone: string;
+	message: string;
+	botField: string; // Champ caché pour complétion par les robots.
+}
 
 const Contact = () => {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<ContactFormData>({
 		name: "",
 		email: "",
 		phone: "",
@@ -13,7 +22,9 @@ const Contact = () => {
 	const [formSubmitted, setFormSubmitted] = useState(false);
 
 	// Gestion des changements de champs
-	const handleChange = (e) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({
 			...prevState,
@@ -21,21 +32,17 @@ const Contact = () => {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		fetch(`${process.env.NEXT_PUBLIC_BASE_URL_DEV}sendMessage`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
-		})
-			.then((response) => {
-				console.log(response);
-				if (!response.ok) {
-					throw new Error("Erreur lors de l'envoi du formulaire.");
-				}
-				console.log("Données soumises :", formData);
+		// Vérifie si le champ botField est rempli
+		if (formData.botField.trim() !== "") {
+			console.log("Formulaire soumis par un robot !");
+			return; // N'envoie pas le forrulaire si le champ est rempli
+		}
+		try {
+			console.log("Données du formulaire à envoyer:", formData);
+			const success = await sendMessage(formData);
+			if (success) {
 				setSubmitMessage(
 					"Votre formulaire a été soumis avec succès ! Notre équipe se rapprochera de vous dans les plus brefs délais."
 				);
@@ -51,12 +58,14 @@ const Contact = () => {
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
-				}, 6000); // Réinitialiseaprès 6 secondes
-			})
-			.catch((error) => {
-				console.error(error);
-				// Gestion de l'erreur ici
-			});
+				}, 6000); // -> après 6 secondes
+			} else {
+				throw new Error("Erreur lors de l'envoi du formulaire.");
+			}
+		} catch (error) {
+			console.error(error);
+			// Gestion de l'erreur ici
+		}
 	};
 
 	return (
@@ -88,6 +97,7 @@ const Contact = () => {
 									onChange={handleChange}
 									placeholder="Votre nom"
 									className="w-full p-2 border border-neutral-light rounded-md"
+									minLength={5}
 									required
 								/>
 							</div>
