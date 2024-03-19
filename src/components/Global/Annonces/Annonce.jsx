@@ -88,8 +88,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					src={main_image_url}
 					alt={annonce_title}
 					className="w-full h-auto max-h-64 object-cover rounded-lg my-4"
-					width={300}
-					height={300}
+					width={512}
+					height={512}
 					priority={true}
 				/>
 				<button

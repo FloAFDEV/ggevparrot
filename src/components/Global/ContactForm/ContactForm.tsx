@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { MessageAnnonce } from "../../utils/apiService";
-
-interface MessageAnnonceData {
-	userName: string;
-	userEmail: string;
-	userPhone: string;
-	message: string;
-	botField: string; // pour empêcher l'envoi par les robots
-	Id_CarAnnonce: number;
-	createdAt: string;
-	Id_Users?: number;
-}
+import { MessageAnnonceData, MessageAnnonce } from "../../utils/apiService";
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -50,25 +39,29 @@ const ContactForm = ({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("Données du formulaire avant l'envoi :", formData);
-		try {
-			const response = await MessageAnnonce(Id_CarAnnonce, formData);
-			console.log("Réponse de l'envoi du message :", response);
-			if (response.success) {
+		if (formData.userName.trim() === "") {
+			setError("Le nom est requis !");
+		} else if (
+			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+				formData.userEmail
+			) === false
+		) {
+			setError("L'adresse e-mail est invalide !");
+		} else if (formData.userPhone.trim() === "") {
+			setError("Le numéro de téléphone est requis !");
+		} else {
+			try {
+				await MessageAnnonce(formData);
 				setSuccess(true);
-				setError(null);
-			} else {
+			} catch (err) {
+				console.error(err);
 				setError(
-					response.error ||
-						"Erreur lors de l'envoi du message. Veuillez réessayer."
+					"Une erreur s'est produite lors de l'envoi du message !"
 				);
-				setSuccess(false);
 			}
-		} catch (error) {
-			setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
-			setSuccess(false);
-			console.error("Erreur lors de l'envoi du message :", error);
 		}
 	};
+
 	// console.log("formData:", formData);
 
 	return (

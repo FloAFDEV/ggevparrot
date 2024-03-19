@@ -243,35 +243,8 @@ export async function fetchAllUsers() {
 	}
 }
 
-// Envoyer un message pour une annonce en particulier
-export async function MessageAnnonce(
-	Id_CarAnnonce: string,
-	messageData: AnnonceMessage
-): Promise<any> {
-	try {
-		const response = await fetch(
-			`${BASE_URL}message_annonce/${Id_CarAnnonce}`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(messageData),
-			}
-		);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération du message : ${response.status}`
-			);
-		}
-		return await response.json();
-	} catch (error) {
-		console.error(error);
-		throw error;
-	}
-}
 // Interface pour les données du message lié à une annonce par son Id
-export interface AnnonceMessage {
+export interface MessageAnnonceData {
 	userName: string;
 	userEmail: string;
 	userPhone: string;
@@ -279,6 +252,31 @@ export interface AnnonceMessage {
 	botField: string; // pour empêcher l'envoi par les robots
 	Id_CarAnnonce: Number;
 	createdAt: string;
+	Id_Users?: number;
+}
+
+// Envoyer un message pour une annonce en particulier
+export async function MessageAnnonce(
+	messageData: MessageAnnonceData
+): Promise<any> {
+	try {
+		const response = await fetch(`${BASE_URL}message_annonce`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(messageData),
+		});
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de l'envoi du message : ${response.status}`
+			);
+		}
+		return response;
+	} catch (error) {
+		console.error("Erreur lors de l'envoi du message :", error);
+		throw error;
+	}
 }
 
 // Interface pour les données du formulaire global
