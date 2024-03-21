@@ -53,7 +53,7 @@ const Contact = () => {
 						"Votre demande a été soumise avec succès ! Notre équipe se rapprochera de vous dans les plus brefs délais."
 					);
 					setFormSubmitted(true);
-					// Réinitialiser le formulaire après quelques secondes
+					// Réinitialise le formulaire après quelques secondes
 					setTimeout(() => {
 						setFormData({
 							name: "",

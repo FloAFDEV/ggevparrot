@@ -62,6 +62,7 @@ const TestimonialsMessage = () => {
 				...formData,
 				createdAt,
 				userId: formData.userId as number,
+				valid: false,
 			};
 			const success = await sendTestimonial(dataToSend);
 			if (success) {
@@ -70,7 +71,7 @@ const TestimonialsMessage = () => {
 				);
 				setFormSubmitted(true);
 				setRating(0);
-				// Réinitialiser le formulaire après quelques secondes
+				// Réinitialise le formulaire après quelques secondes
 				setTimeout(() => {
 					setFormData({
 						pseudo: "",
@@ -234,7 +235,7 @@ const TestimonialsMessage = () => {
 										<span className="ml-2">{rating}/5</span>{" "}
 										{rating === 0 && (
 											<div className="text-red-500 text-sm ml-2">
-												La note est obligatoire
+												La note est obligatoire !
 											</div>
 										)}
 									</div>
@@ -249,8 +250,8 @@ const TestimonialsMessage = () => {
 						</div>
 						<div className="w-full md:w-1/3 hidden md:flex justify-center items-center">
 							<Image
-								src="/assets/contactbg.webp"
-								alt="image d'un carnet de note"
+								src="/assets/testimoForm.webp"
+								alt="Une personne levant le pouce de satisfaction pour la note donnée"
 								className="w-full h-auto object-cover rounded-lg"
 								width={400}
 								height={400}

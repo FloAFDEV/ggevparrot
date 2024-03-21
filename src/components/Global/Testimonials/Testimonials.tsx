@@ -18,7 +18,14 @@ interface TestimonialsProps {
 const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 	testimonials,
 }) => {
-	const recentTestimonials = testimonials.slice(-3); // On récupère les 3 dernières valeurs du tableau
+	// Filtre les témoignages avec valid à true
+	const validTestimonials = testimonials.filter(
+		(testimonial) => testimonial.valid
+	);
+
+	// On récupère les 3 derniers témoignages valides
+	const recentTestimonials = validTestimonials.slice(-3);
+
 	return (
 		<section className="px-4 pt-32 py-6 md:py-12 lg:py-24">
 			<div className="max-w-screen-xl mx-auto">
