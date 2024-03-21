@@ -7,7 +7,7 @@ interface TestimonialFormData {
 	userEmail: string;
 	message: string;
 	botField: string; // Champ caché pour complétion par les robots.
-
+	note: number;
 	userId?: number;
 }
 
@@ -17,12 +17,12 @@ const TestimonialsMessage = () => {
 		userEmail: "",
 		message: "",
 		botField: "", // Champ caché pour complétion par les robots.
+		note: 0,
 	});
 
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [formSubmitted, setFormSubmitted] = useState(false);
 	const [formVisible, setFormVisible] = useState(false);
-	const [rating, setRating] = useState(0);
 
 	// Gestion des changements de champs
 	const handleChange = (
@@ -42,7 +42,7 @@ const TestimonialsMessage = () => {
 			console.log("Formulaire soumis par un robot !");
 			return; // N'envoie pas le forrulaire si le champ est rempli
 		} // Vérifie si la note est sélectionnée
-		if (rating === 0) {
+		if (formData.note === 0) {
 			console.log("La note est obligatoire !");
 			return; // N'envoie pas le formulaire si la note n'est pas sélectionnée
 		}
@@ -61,7 +61,6 @@ const TestimonialsMessage = () => {
 				...formData,
 				createdAt,
 				userId: formData.userId as number,
-				note: rating,
 				valid: false,
 			};
 			const success = await sendTestimonial(dataToSend);
@@ -70,7 +69,6 @@ const TestimonialsMessage = () => {
 					"Merci pour votre témoignage, nous l'afficherons après modération. À bientôt!"
 				);
 				setFormSubmitted(true);
-				setRating(0);
 				// Réinitialise le formulaire après quelques secondes
 				setTimeout(() => {
 					setFormData({
@@ -78,6 +76,7 @@ const TestimonialsMessage = () => {
 						userEmail: "",
 						message: "",
 						botField: "",
+						note: 0,
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
@@ -91,32 +90,9 @@ const TestimonialsMessage = () => {
 		}
 	};
 
-	const handleRatingChange = (newRating: number) => {
-		setRating(newRating);
+	const handleRatingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const newRating = parseFloat(e.target.value);
 		setFormData((prevState) => ({ ...prevState, note: newRating }));
-	};
-	const StarIcon: React.FunctionComponent<{
-		filled: boolean;
-		onClick: () => void;
-	}> = ({ filled, onClick }) => {
-		return (
-			<svg
-				onClick={onClick}
-				className={`w-6 h-6 cursor-pointer ${
-					filled ? "text-yellow-400" : "text-gray-300"
-				}`}
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="2"
-					d="M12 17l-4.475 2.387a1 1 0 01-1.45-1.054l.84-4.928L2.69 9.06a1 1 0 01.554-1.703l5.11-.74L12 2l2.646 5.617 5.11.74a1 1 0 01.554 1.703l-3.225 3.334.84 4.928a1 1 0 01-1.45 1.054L12 17z"
-				/>
-			</svg>
-		);
 	};
 
 	// Fonction pour basculer la visibilité du formulaire
@@ -222,18 +198,38 @@ const TestimonialsMessage = () => {
 										style={{ display: "none" }}
 										onChange={handleChange}
 									/>{" "}
-									<div className="flex items-center mt-2 mb-2 justify-center ">
-										{[1, 2, 3, 4, 5].map((star) => (
-											<StarIcon
-												key={star}
-												filled={star <= rating}
-												onClick={() =>
-													handleRatingChange(star)
-												}
-											/>
-										))}
-										<span className="ml-2">{rating}/5</span>{" "}
-										{rating === 0 && (
+									<div className="mb-2">
+										<label
+											htmlFor="rating"
+											className="block mb-1"
+										>
+											Note :
+										</label>
+										<select
+											id="rating"
+											name="rating"
+											value={formData.note}
+											onChange={handleRatingChange}
+											className="w-full p-2 border border-neutral-light rounded-md"
+											required
+										>
+											<option value="">
+												Sélectionnez une note
+											</option>
+											<option value="0.5">0.5</option>
+											<option value="1">1</option>
+											<option value="1.5">1.5</option>
+											<option value="2">2</option>
+											<option value="2.5">2.5</option>
+											<option value="3">3</option>
+											<option value="3.5">3.5</option>
+											<option value="4">4</option>
+											<option value="4.5">4.5</option>
+											<option value="5">5</option>
+											<option value="5.5">5.5</option>
+											<option value="6">6</option>
+										</select>
+										{formData.note === 0 && (
 											<div className="text-red-500 text-sm ml-2">
 												La note est obligatoire
 											</div>
