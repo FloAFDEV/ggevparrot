@@ -155,7 +155,7 @@ export interface TestimonialFormData {
 	createdAt: string;
 	botField: string; // pour empêcher l'envoi par les robots
 	note: number;
-	userId: number;
+	userId?: number;
 }
 
 // Envoie du témoignage
