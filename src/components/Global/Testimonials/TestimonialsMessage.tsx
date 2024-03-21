@@ -7,7 +7,7 @@ interface TestimonialFormData {
 	userEmail: string;
 	message: string;
 	botField: string; // Champ caché pour complétion par les robots.
-	note: number;
+
 	userId?: number;
 }
 
@@ -17,7 +17,6 @@ const TestimonialsMessage = () => {
 		userEmail: "",
 		message: "",
 		botField: "", // Champ caché pour complétion par les robots.
-		note: 0,
 	});
 
 	const [submitMessage, setSubmitMessage] = useState("");
@@ -62,6 +61,7 @@ const TestimonialsMessage = () => {
 				...formData,
 				createdAt,
 				userId: formData.userId as number,
+				note: rating,
 				valid: false,
 			};
 			const success = await sendTestimonial(dataToSend);
@@ -78,7 +78,6 @@ const TestimonialsMessage = () => {
 						userEmail: "",
 						message: "",
 						botField: "",
-						note: 0,
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
@@ -94,6 +93,7 @@ const TestimonialsMessage = () => {
 
 	const handleRatingChange = (newRating: number) => {
 		setRating(newRating);
+		setFormData((prevState) => ({ ...prevState, note: newRating }));
 	};
 	const StarIcon: React.FunctionComponent<{
 		filled: boolean;
