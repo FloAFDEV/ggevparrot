@@ -15,10 +15,12 @@ interface TestimonialsProps {
 	testimonials: Testimonials[];
 }
 
-const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
+const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
+	testimonials,
+}) => {
 	const recentTestimonials = testimonials.slice(-3); // On récupère les 3 dernières valeurs du tableau
 	return (
-		<section className="px-4 pt-20 py-6 md:py-12 lg:py-24">
+		<section className="px-4 pt-32 py-6 md:py-12 lg:py-24">
 			<div className="max-w-screen-xl mx-auto">
 				<h2 className="font-bold text-center text-3xl leading-none max-w-2xl mx-auto mb-12">
 					Ce que disent nos clients

@@ -21,7 +21,7 @@ const Annonces = () => {
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
 	useEffect(() => {
 		const handleResize = () => {
-			setIsMobileScreen(window.innerWidth <= 768); // On considère une largeur de 768px ou moins comme une taille d'écran mobile
+			setIsMobileScreen(window.innerWidth <= 768); // Largeur de 768px ou moins comme une taille d'écran mobile
 		};
 		handleResize(); // Appel initial pour définir la valeur initiale
 		window.addEventListener("resize", handleResize); // Ajoute un écouteur d'événements pour les changements de taille de l'écran
@@ -75,7 +75,7 @@ const Annonces = () => {
 	};
 
 	return (
-		<div id="annonces" className="flex flex-col pb-10 pt-10">
+		<div id="annonces" className="flex flex-col pb-10 pt-4">
 			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h2>
@@ -130,7 +130,7 @@ const Annonces = () => {
 										<h2 className="card-title text-lg font-semibold text-start m-1">
 											{annonce.annonce_title}{" "}
 										</h2>
-										{isMobileScreen ? null : ( // Masquer la description sur les petits écrans
+										{isMobileScreen ? null : ( // Masque la description sur les petits écrans
 											<div className="text-end font-thin">
 												Année:{" "}
 												{annonce.manufacture_year}{" "}

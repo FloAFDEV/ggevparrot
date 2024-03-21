@@ -147,6 +147,43 @@ export async function fetchAllCars() {
 	}
 }
 
+// Interface pour les données des témoignages
+export interface TestimonialFormData {
+	pseudo: string;
+	userEmail: string;
+	message: string;
+	createdAt: string;
+	botField: string; // pour empêcher l'envoi par les robots
+	note: number;
+	userId: number;
+}
+
+// Envoie du témoignage
+export async function sendTestimonial(
+	formData: TestimonialFormData
+): Promise<boolean> {
+	try {
+		const response = await fetch(`${BASE_URL}testimonials`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		});
+		if (!response.ok) {
+			console.error(
+				`Erreur lors de l'envoi du message : ${response.status}`
+			);
+			return false;
+		}
+		console.log("Message envoyé avec succès !");
+		return true;
+	} catch (error) {
+		console.error("Erreur lors de l'envoi du message :", error);
+		throw error;
+	}
+}
+
 // Récupérer tous les témoignages
 export async function fetchAllTestimonials() {
 	try {

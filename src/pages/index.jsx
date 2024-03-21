@@ -7,6 +7,7 @@ import Annonces from "@/components/Global/Annonces/Annonces";
 import Footer from "@/components/Global/Footer/Footer";
 import BossSection from "@/components/Global/BossSection/BossSection";
 import Testimonials from "@/components/Global/Testimonials/Testimonials";
+import TestimonialsMessage from "@/components/Global/Testimonials/TestimonialsMessage";
 import {
 	fetchGarageInfo,
 	fetchAllServices,
@@ -42,6 +43,9 @@ export default function Home({
 				</section>
 				<section>
 					<Testimonials testimonials={testimonials} />
+					<TestimonialsMessage
+						testimonialsMessage={TestimonialsMessage}
+					/>
 				</section>
 				<section>
 					<div className="w-full text-center font-bold mt-4">
