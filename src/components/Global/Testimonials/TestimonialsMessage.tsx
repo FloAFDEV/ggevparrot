@@ -92,7 +92,9 @@ const TestimonialsMessage = () => {
 
 	const handleRatingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const newRating = parseFloat(e.target.value);
-		setFormData((prevState) => ({ ...prevState, note: newRating }));
+		if (!isNaN(newRating)) {
+			setFormData((prevState) => ({ ...prevState, note: newRating }));
+		}
 	};
 
 	// Fonction pour basculer la visibilité du formulaire
@@ -120,7 +122,7 @@ const TestimonialsMessage = () => {
 			{formVisible && (
 				<div
 					id="sendTestimonials"
-					className="flex justify-center items-center h-3/4 p-2 mx-4 md:p-4 mt-10"
+					className="flex justify-center items-center h-3/4 p-2 mx-4 md:p-4 mt-10 w-full lg:w-4/5"
 				>
 					<div className="bg-content p-6 pt-0 rounded-lg shadow-lg w-full max-w-4xl mb-10 md:mt-4 flex flex-col md:flex-row">
 						<div className="w-full md:w-2/3 pr-0 md:pr-4 mb-4 md:mb-0 font-bold">
@@ -153,7 +155,7 @@ const TestimonialsMessage = () => {
 											required
 										/>
 									</div>
-									<div className="mb-2">
+									<div className="mb-4">
 										<label
 											htmlFor="email"
 											className="block mb-1"
