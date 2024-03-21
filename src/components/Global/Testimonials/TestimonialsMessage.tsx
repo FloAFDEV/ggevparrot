@@ -235,7 +235,7 @@ const TestimonialsMessage = () => {
 										<span className="ml-2">{rating}/5</span>{" "}
 										{rating === 0 && (
 											<div className="text-red-500 text-sm ml-2">
-												La note est obligatoire !
+												La note est obligatoire
 											</div>
 										)}
 									</div>
