@@ -160,7 +160,7 @@ const Annonces = () => {
 											Prix: {Math.round(annonce.price)} €
 										</p>{" "}
 										<p className="text-xs font-thin text-end">
-											Financement <br />À partir de{" "}
+											Financement <br />à partir de{" "}
 											{annonce.montantMensuel
 												? `${annonce.montantMensuel} €/mois`
 												: ""}

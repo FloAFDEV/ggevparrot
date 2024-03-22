@@ -153,7 +153,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					/>{" "}
 					{Math.round(price)} €
 				</p>{" "}
-				<p className="text-xs justify-center items-center flex">
+				<p className="text-xs font-thin justify-center items-baseline flex w-3/5">
 					<Image
 						src="/assets/icons/priceIcon.svg"
 						alt="Price Icon"
@@ -162,7 +162,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 						height={32}
 					/>
 					Financement possible à partir de{" "}
-					{montantMensuel ? `${montantMensuel} €/mois` : ""}
+					{montantMensuel ? `${montantMensuel}€ /mois` : ""} après
+					versement d'un apport de 3 000€ pour une durée de 36 mois.
 				</p>
 			</div>
 			<div className="flex justify-around mt-4">
