@@ -29,7 +29,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 	return (
 		<section className="px-4 pt-32 py-6 md:py-12 lg:py-24">
 			<div className="max-w-screen-xl mx-auto">
-				<h2 className="font-bold text-center text-3xl leading-none max-w-2xl mx-auto mb-12">
+				<h2 className="font-bold text-5xl text-center leading-none max-w-2xl mx-auto mb-12">
 					Ce que disent nos clients
 				</h2>
 				<div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4 relative">

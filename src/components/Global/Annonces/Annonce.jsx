@@ -1,10 +1,13 @@
+// Import des dépendances React
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+// Définition du composant Annonce
 const Annonce = ({ annonce, toggleCarousel }) => {
 	const [showFullDescription, setShowFullDescription] = useState(false);
 	const [carouselVisible, setCarouselVisible] = useState(false);
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
+	const [montantMensuel, setMontantMensuel] = useState(null);
 
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
 	useEffect(() => {
@@ -21,15 +24,27 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 		};
 	}, []);
 
+	// Fonction pour calculer le montant mensuel
+	useEffect(() => {
+		if (annonce) {
+			const prix = annonce.price; // Récupération du prix de l'annonce
+			const montantMensuelCalcul = (prix - 3000) / 60; // Calcul du montant mensuel
+			setMontantMensuel(montantMensuelCalcul.toFixed(2)); // Mise à jour de l'état du montant mensuel avec le résultat arrondi à 2 décimales
+		}
+	}, [annonce]); // Effectue le calcul lorsque l'annonce change
+
+	// Fonction pour basculer l'affichage de la description
 	const toggleDescription = () => {
 		setShowFullDescription(!showFullDescription);
 	};
 
+	// Fonction pour basculer l'affichage du carousel
 	const handleToggleCarousel = () => {
 		toggleCarousel(); // Appel de la fonction de basculement du carousel
 		setCarouselVisible(!carouselVisible); // Inversion de l'état du carousel
 	};
 
+	//vérifie si l'annonce est définie
 	if (!annonce) {
 		return (
 			<div className="p-4 bg-gray-300">
@@ -130,13 +145,37 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 			<div className="flex justify-between mt-4">
 				<p>
 					<Image
+						src="/assets/icons/priceIcon.svg"
+						alt="Price Icon"
+						className="w-auto h-10 inline-block"
+						width={32}
+						height={32}
+					/>{" "}
+					{Math.round(price)} €
+				</p>{" "}
+				<p className="text-xs justify-center items-center flex">
+					<Image
+						src="/assets/icons/priceIcon.svg"
+						alt="Price Icon"
+						className="w-auto h-5 inline-block"
+						width={32}
+						height={32}
+					/>
+					Financement possible à partir de{" "}
+					{montantMensuel ? `${montantMensuel} €/mois` : ""}
+				</p>
+			</div>
+			<div className="flex justify-around mt-4">
+				{" "}
+				<p>
+					<Image
 						src="/assets/icons/Year.svg"
 						alt="Power Icon"
 						className="w-auto h-10 inline-block"
 						width={32}
 						height={32}
 					/>{" "}
-					{manufacture_year}
+					{manufacture_year}{" "}
 				</p>
 				<p>
 					<Image
@@ -146,20 +185,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 						width={32}
 						height={32}
 					/>
-					{power} {power_unit}
+					{power} {power_unit}{" "}
 				</p>
-				<p>
-					<Image
-						src="/assets/icons/priceIcon.svg"
-						alt="Price Icon"
-						className="w-auto h-10 inline-block"
-						width={32}
-						height={32}
-					/>{" "}
-					{Math.round(price)} €
-				</p>
-			</div>
-			<div className="flex justify-around mt-4">
 				<p>
 					<Image
 						src="/assets/icons/carIcon.svg"
@@ -179,7 +206,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 						height={32}
 					/>
 					{fuel_type}{" "}
-				</p>
+				</p>{" "}
 			</div>
 		</div>
 	);

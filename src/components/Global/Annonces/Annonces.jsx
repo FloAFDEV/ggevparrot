@@ -17,6 +17,7 @@ const Annonces = () => {
 	const [imagesData, setImagesData] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
+	const [montantMensuel, setMontantMensuel] = useState(null);
 
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
 	useEffect(() => {
@@ -30,6 +31,7 @@ const Annonces = () => {
 		};
 	}, []);
 
+	// Récupération des annonces
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -49,6 +51,16 @@ const Annonces = () => {
 		}
 	}, [allAnnonces]);
 
+	// Fonction pour calculer le montant mensuel
+	useEffect(() => {
+		filteredAnnonces.forEach((annonce) => {
+			const prix = annonce.price; // Récupération du prix de l'annonce
+			const montantMensuelCalcul = (prix - 3000) / 60; // Calcul du montant mensuel
+			annonce.montantMensuel = montantMensuelCalcul.toFixed(2); // Mise à jour de l'annonce avec le montant mensuel calculé
+		});
+	}, [filteredAnnonces]);
+
+	// Fonction pour basculer l'affichage de la description de l'annonce
 	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
@@ -75,7 +87,7 @@ const Annonces = () => {
 	};
 
 	return (
-		<div id="annonces" className="flex flex-col pb-10 pt-4">
+		<div id="annonces" className="flex flex-col pb-10 pt-8">
 			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h2>
@@ -127,11 +139,11 @@ const Annonces = () => {
 										/>
 									</figure>
 									<div className="card-body p-1 w-full">
-										<h2 className="card-title text-lg font-semibold text-start m-1">
+										<h2 className="card-title text-lg font-semibold text-start">
 											{annonce.annonce_title}{" "}
 										</h2>
 										{isMobileScreen ? null : ( // Masque la description sur les petits écrans
-											<div className="text-end font-thin">
+											<div className="text-end font-light">
 												Année:{" "}
 												{annonce.manufacture_year}{" "}
 												{annonce.color} <br />
@@ -145,9 +157,15 @@ const Annonces = () => {
 											</div>
 										)}
 										<p className="text-end text-lg font-bold">
-											{Math.round(annonce.price)} €
+											Prix: {Math.round(annonce.price)} €
+										</p>{" "}
+										<p className="text-xs font-thin text-end">
+											Financement <br />À partir de{" "}
+											{annonce.montantMensuel
+												? `${annonce.montantMensuel} €/mois`
+												: ""}
 										</p>
-										<div className="card-actions justify-end m-1">
+										<div className="card-actions justify-end m-1 pt-2">
 											<button
 												onClick={() =>
 													handleOpenModal(annonce)

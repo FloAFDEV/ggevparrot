@@ -34,8 +34,8 @@ const BossSection = () => {
 					créer ce garage, où je propose à mes clients une{" "}
 					<strong>large sélection</strong> de voitures d'occasion de{" "}
 					<strong>qualité</strong>. Toujours à l'écoute de mes
-					clients, <strong>mes équipes et moi-même</strong>{" "}
-					s'efforçons de fournir un{" "}
+					clients, <strong>mes équipes et moi-même</strong> nous
+					efforçons de fournir un{" "}
 					<strong>service exceptionnel</strong> et de{" "}
 					<strong>satisfaire</strong> les besoins de chacun.
 				</p>
