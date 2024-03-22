@@ -37,9 +37,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 						key={service.Id_GarageService}
 						className="w-full md:w-1/4 lg:w-1/4 text-xl mb-8 md:mx-2"
 					>
-						<div
-							className={`card card-side flex flex-col max-w-full md:max-w-md mx-4`}
-						>
+						<div className="card card-side flex flex-col max-w-full md:max-w-md mx-4">
 							<div className="flex justify-center">
 								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center max-w-[280px]">
 									<figure>
@@ -54,12 +52,10 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 									</figure>
 								</div>
 							</div>
-							<h4
-								className={`whitespace-nowrap overflow-ellipsis card-title text-2xl font-bold pb-5 pt-8 text-center justify-center`}
-							>
+							<h4 className="whitespace-normal break-words overflow-wrap text-2xl sm:text-xl xs:text-lg font-bold pb-5 pt-8 text-center justify-center">
 								{service.serviceName}
 							</h4>
-							<div className={`pb-2 mt-4 text-center`}>
+							<div className="pb-2 mt-4 text-center">
 								<p>{service.description}</p>
 								<p className="font-bold">
 									Contacter le service au:
