@@ -40,38 +40,42 @@ const Contact = () => {
 			console.log("Formulaire soumis par un robot !");
 			return; // N'envoie pas le forrulaire si le champ est rempli
 		}
+		// Validation du champ de message
 		if (
 			!/^[A-Za-z0-9\sàáâäçèéêëìíîïñòóôöùúûü.,!?-]*$/.test(
 				formData.message
 			)
-		)
-			try {
-				console.log("Données du formulaire à envoyer:", formData);
-				const success = await sendMessage(formData);
-				if (success) {
-					setSubmitMessage(
-						"Votre demande a été soumise avec succès ! Notre équipe se rapprochera de vous dans les plus brefs délais."
-					);
-					setFormSubmitted(true);
-					// Réinitialise le formulaire après quelques secondes
-					setTimeout(() => {
-						setFormData({
-							name: "",
-							email: "",
-							phone: "",
-							message: "",
-							botField: "",
-						});
-						setSubmitMessage("");
-						setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
-					}, 6000); // -> après 6 secondes
-				} else {
-					throw new Error("Erreur lors de l'envoi du formulaire.");
-				}
-			} catch (error) {
-				console.error(error);
-				// Gestion de l'erreur ici
+		) {
+			console.log("Validation du champ de message échouée !");
+			return;
+		}
+		try {
+			console.log("Données du formulaire à envoyer:", formData);
+			const success = await sendMessage(formData);
+			if (success) {
+				setSubmitMessage(
+					"Votre demande a été soumise avec succès ! Notre équipe se rapprochera de vous dans les plus brefs délais."
+				);
+				setFormSubmitted(true);
+				// Réinitialise le formulaire après quelques secondes
+				setTimeout(() => {
+					setFormData({
+						name: "",
+						email: "",
+						phone: "",
+						message: "",
+						botField: "",
+					});
+					setSubmitMessage("");
+					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
+				}, 6000); // -> après 6 secondes
+			} else {
+				throw new Error("Erreur lors de l'envoi du formulaire.");
 			}
+		} catch (error) {
+			console.error(error);
+			// Gestion de l'erreur ici
+		}
 	};
 
 	return (

@@ -46,19 +46,19 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 											alt={`Image de ${service.serviceName}`}
 											width={200}
 											height={200}
-											className="rounded-badge shadow-base-content w-full object-fill h-auto"
+											className="rounded-badge shadow-base-content w-full h-72 object-cover"
 											priority={true}
 										/>
 									</figure>
 								</div>
 							</div>
-							<h4 className="whitespace-normal break-words overflow-wrap text-2xl sm:text-2xl xs:text-xl font-bold pb-5 pt-8 text-center justify-center">
+							<h4 className="whitespace-normal break-words overflow-wrap text-2xl sm:text-2xl xs:text-xl font-bold pb-2 pt-2 text-center justify-center">
 								{service.serviceName}
 							</h4>
-							<div className="pb-2 mt-4 text-center">
+							<div className="pb-2 mt-4 text-start">
 								<p>{service.description}</p>
-								<p className="font-bold">
-									Contacter le service au:
+								<p className="font-bold text-lg pt-4">
+									Contacter le service {service.serviceName}:
 								</p>
 								<p>
 									<Link

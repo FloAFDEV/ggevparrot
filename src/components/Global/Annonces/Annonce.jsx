@@ -161,9 +161,9 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 						width={32}
 						height={32}
 					/>
-					Financement possible à partir de{" "}
-					{montantMensuel ? `${montantMensuel}€ /mois` : ""} après
-					versement d'un apport de 3 000€ pour une durée de 36 mois.
+					À partir de{" "}
+					{montantMensuel ? `${montantMensuel}€ /mois` : ""} premier
+					apport de 3 000€ pour une durée de 36 mois.
 				</p>
 			</div>
 			<div className="flex justify-around mt-4">
