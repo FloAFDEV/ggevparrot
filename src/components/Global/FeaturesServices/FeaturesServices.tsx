@@ -39,12 +39,12 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 					>
 						<div className="card card-side flex flex-col max-w-full md:max-w-md mx-4">
 							<div className="flex justify-center">
-								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center max-w-[280px]">
+								<div className="overflow-hidden sm:overflow-visible p-4 flex justify-center max-w-[320px]">
 									<figure>
 										<Image
 											src={service.image_url}
 											alt={`Image de ${service.serviceName}`}
-											width={200}
+											width={320}
 											height={200}
 											className="rounded-badge shadow-base-content w-full h-72 object-cover"
 											priority={true}
@@ -63,7 +63,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								<p>
 									<Link
 										href={`tel:${service.phoneNumber}`}
-										className="font-bold text-lg hover:text-xl hover:text-secondary"
+										className="font-bold text-lg hover:text-secondary"
 									>
 										{service.phoneNumber}
 									</Link>{" "}

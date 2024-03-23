@@ -17,7 +17,6 @@ const Annonces = () => {
 	const [imagesData, setImagesData] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
-	const [montantMensuel, setMontantMensuel] = useState(null);
 
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
 	useEffect(() => {
@@ -45,20 +44,10 @@ const Annonces = () => {
 				setIsLoading(false);
 			}
 		};
-
 		if (allAnnonces.length === 0) {
 			fetchData();
 		}
 	}, [allAnnonces]);
-
-	// Fonction pour calculer le montant mensuel
-	useEffect(() => {
-		filteredAnnonces.forEach((annonce) => {
-			const prix = annonce.price; // Récupération du prix de l'annonce
-			const montantMensuelCalcul = (prix - 3000) / 60; // Calcul du montant mensuel
-			annonce.montantMensuel = montantMensuelCalcul.toFixed(2); // Mise à jour de l'annonce avec le montant mensuel calculé
-		});
-	}, [filteredAnnonces]);
 
 	// Fonction pour basculer l'affichage de la description de l'annonce
 	const handleOpenModal = async (annonce) => {
@@ -161,9 +150,11 @@ const Annonces = () => {
 										</p>{" "}
 										<p className="text-xs font-thin text-end">
 											À partir de{" "}
-											{annonce.montantMensuel
-												? `${annonce.montantMensuel} €/mois`
-												: ""}
+											{(
+												(annonce.price - 3000) /
+												60
+											).toFixed(2)}{" "}
+											€/mois
 										</p>
 										<div className="card-actions justify-end m-1 pt-2">
 											<button
