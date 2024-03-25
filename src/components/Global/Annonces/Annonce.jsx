@@ -81,7 +81,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 	return (
 		<div
 			className={`p-4 dark:bg-slate-200 bg-white text-blue-950 rounded-lg shadow-md ${
-				isMobileScreen ? "max-w-[95%] mx-auto text-sm" : "" // applique les classes sur les écrans mobiles
+				isMobileScreen ? "max-w-[100%] mx-auto text-sm" : "" // applique les classes sur les écrans mobiles
 			}`}
 		>
 			<h3 className="font-bold text-xl mb-2">{annonce_title}</h3>
@@ -136,7 +136,9 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 				<Image
 					src="/assets/icons/energyIcon.svg"
 					alt="Energy Icon"
-					className="w-auto h-10 inline-block"
+					className={`w-auto h-10 mb-1 inline-block ${
+						isMobileScreen ? "w-auto h-8" : ""
+					}`}
 					width={32}
 					height={32}
 				/>
@@ -147,67 +149,80 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					<Image
 						src="/assets/icons/priceIcon.svg"
 						alt="Price Icon"
-						className="w-auto h-10 inline-block"
+						className={`w-auto h-10 mb-1 inline-block ${
+							isMobileScreen ? "w-auto h-8" : ""
+						}`}
 						width={32}
 						height={32}
 					/>{" "}
 					{Math.round(price)} €
 				</p>{" "}
-				<p className="text-xs font-thin justify-center items-baseline flex w-3/5">
+				<p className="text-xs font-thin justify-center items-center w-3/5">
 					<Image
 						src="/assets/icons/priceIcon.svg"
 						alt="Price Icon"
-						className="w-auto h-5 inline-block"
+						className={`text-start w-auto h-7 inline-block mr-1${
+							isMobileScreen ? "w-auto h-3.5 mr-1" : ""
+						}`}
 						width={32}
 						height={32}
 					/>
 					À partir de{" "}
-					{montantMensuel ? `${montantMensuel}€ /mois` : ""} premier
-					apport de 3 000€ pour une durée de 36 mois.
+					{montantMensuel ? `${montantMensuel}€ /mois` : ""} Apport
+					minimum de 3 000€
 				</p>
 			</div>
 			<div className="flex justify-around mt-4">
-				{" "}
-				<p>
+				<div className="text-center">
 					<Image
 						src="/assets/icons/Year.svg"
 						alt="Power Icon"
-						className="w-auto h-10 inline-block"
+						className={`w-auto h-10 inline-block ${
+							isMobileScreen ? "w-auto h-8" : ""
+						}`}
 						width={32}
 						height={32}
-					/>{" "}
-					{manufacture_year}{" "}
-				</p>
-				<p>
+					/>
+					<p>{manufacture_year}</p>
+				</div>
+				<div className="text-center">
 					<Image
 						src="/assets/icons/powerIcon.svg"
 						alt="Power Icon"
-						className="w-auto h-10 inline-block"
+						className={`w-auto h-10 inline-block ${
+							isMobileScreen ? "w-auto h-8" : ""
+						}`}
 						width={32}
 						height={32}
 					/>
-					{power} {power_unit}{" "}
-				</p>
-				<p>
+					<p>
+						{power} {power_unit}
+					</p>
+				</div>
+				<div className="text-center">
 					<Image
 						src="/assets/icons/carIcon.svg"
 						alt="Car Icon"
-						className="w-auto h-10 inline-block"
+						className={`w-auto h-10 inline-block ${
+							isMobileScreen ? "w-auto h-8" : ""
+						}`}
 						width={32}
 						height={32}
 					/>
-					{mileage} km
-				</p>
-				<p>
+					<p>{mileage} km</p>
+				</div>
+				<div className="text-center">
 					<Image
 						src="/assets/icons/fueltypeIcon.svg"
 						alt="Fuel Type Icon"
-						className="w-auto h-10 inline-block"
+						className={`w-auto h-10 inline-block ${
+							isMobileScreen ? "w-auto h-8" : ""
+						}`}
 						width={32}
 						height={32}
 					/>
-					{fuel_type}{" "}
-				</p>{" "}
+					<p>{fuel_type}</p>
+				</div>
 			</div>
 		</div>
 	);

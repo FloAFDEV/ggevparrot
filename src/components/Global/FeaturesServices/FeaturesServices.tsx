@@ -45,7 +45,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 											src={service.image_url}
 											alt={`Image de ${service.serviceName}`}
 											width={320}
-											height={200}
+											height={320}
 											className="rounded-badge shadow-base-content w-full h-72 object-cover"
 											priority={true}
 										/>

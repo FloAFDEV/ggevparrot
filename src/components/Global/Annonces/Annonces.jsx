@@ -134,7 +134,8 @@ const Annonces = () => {
 										{isMobileScreen ? null : ( // Masque la description sur les petits écrans
 											<div className="text-end font-light">
 												Année:{" "}
-												{annonce.manufacture_year}{" "}
+												{annonce.manufacture_year}
+												<br />
 												{annonce.color} <br />
 												{annonce.fuel_type}
 												<br />
@@ -145,7 +146,7 @@ const Annonces = () => {
 												</p>
 											</div>
 										)}
-										<p className="text-end text-lg font-bold">
+										<p className="text-end text-lg font-bold ">
 											Prix: {Math.round(annonce.price)} €
 										</p>{" "}
 										<p className="text-xs font-thin text-end">
@@ -156,7 +157,7 @@ const Annonces = () => {
 											).toFixed(2)}{" "}
 											€/mois
 										</p>
-										<div className="card-actions justify-end m-1 pt-2">
+										<div className="card-actions justify-end m-1 pt-2 ">
 											<button
 												onClick={() =>
 													handleOpenModal(annonce)

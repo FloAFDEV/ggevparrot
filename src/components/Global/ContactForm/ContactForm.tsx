@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { MessageAnnonceData, MessageAnnonce } from "../../utils/apiService";
+import Link from "next/link";
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -86,8 +87,8 @@ const ContactForm = ({
 				</p>
 			) : (
 				<>
-					<h2 className="text-lg font-bold mb-2 text-gray-100">
-						Envoyer un message à propos de cette annonce
+					<h2 className="text-lg font-bold mb-1 text-gray-100">
+						Nous contacter à propos de cette annonce
 					</h2>
 					<button
 						onClick={closeForm}
@@ -185,7 +186,15 @@ const ContactForm = ({
 						>
 							Envoyer
 						</button>
-					</form>
+					</form>{" "}
+					<p>
+						<Link
+							href="tel:+33562119446"
+							className="font-bold justify-center flex text-md text-primary  hover:text-secondary"
+						>
+							Nous appeler
+						</Link>
+					</p>
 				</>
 			)}
 		</div>
