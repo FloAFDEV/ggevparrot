@@ -55,8 +55,10 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 							<h4 className="whitespace-normal break-words overflow-wrap text-2xl sm:text-2xl xs:text-xl font-bold pb-2 pt-2 text-center justify-center">
 								{service.serviceName}
 							</h4>
-							<div className="pb-2 mt-4 text-start">
-								<p>{service.description}</p>
+							<div className="pb-2 mt-4">
+								<p className="text-start">
+									{service.description}
+								</p>
 								<p className="font-bold text-lg pt-4">
 									Contacter le service {service.serviceName}:
 								</p>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
+import SearchFilters from "../SearchFilters/SearchFilters";
 import Image from "next/image";
 import {
 	BASE_URL,
@@ -15,7 +16,6 @@ const Annonces = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
-	const [searchTerm, setSearchTerm] = useState("");
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
 
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
@@ -66,11 +66,9 @@ const Annonces = () => {
 		setShowModal(false);
 	};
 
-	const handleSearch = (event) => {
-		const searchTerm = event.target.value.toLowerCase();
-		setSearchTerm(searchTerm);
+	const handleSearch = (term) => {
 		const filtered = allAnnonces.filter((annonce) =>
-			annonce.annonce_title.toLowerCase().includes(searchTerm)
+			annonce.annonce_title.toLowerCase().includes(term)
 		);
 		setFilteredAnnonces(filtered);
 	};
@@ -79,8 +77,9 @@ const Annonces = () => {
 		<div id="annonces" className="flex flex-col pb-10 pt-8">
 			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
-			</h2>
-			<div className="flex justify-center mb-6">
+			</h2>{" "}
+			<SearchFilters handleFilter={handleSearch} />
+			{/* <div className="flex justify-center mb-6">
 				<input
 					type="text"
 					placeholder="Recherche..."
@@ -89,7 +88,7 @@ const Annonces = () => {
 					className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
 					autoComplete="off"
 				/>
-			</div>
+			</div> */}
 			<div
 				className={`grid grid-cols-2 ${
 					isMobileScreen
