@@ -1,30 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 
-interface SearchFiltersProps {
-	handleFilter: (term: string) => void;
-}
-
-const SearchFilters: React.FunctionComponent<SearchFiltersProps> = ({
+const SearchFilters = ({
 	handleFilter,
+	handleFuelTypeFilterChange,
+	handleColorFilterChange,
+	handlePriceFilterChange,
+}: {
+	handleFilter: () => void;
+	handleFuelTypeFilterChange: (value: string) => void;
+	handleColorFilterChange: (value: string) => void;
+	handlePriceFilterChange: (value: string) => void;
 }) => {
-	const [searchTerm, setSearchTerm] = useState("");
-
-	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const term = event.target.value.toLowerCase();
-		setSearchTerm(term);
-		handleFilter(term);
-	};
-
 	return (
-		<div className="flex justify-center mb-6">
+		<div className="flex justify-around mb-6">
 			<input
 				type="text"
-				placeholder="Recherche..."
-				value={searchTerm}
-				onChange={handleSearch}
+				placeholder="Type de carburant"
+				onChange={(e) => handleFuelTypeFilterChange(e.target.value)}
 				className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
-				autoComplete="off"
 			/>
+			<input
+				type="text"
+				placeholder="Couleur"
+				onChange={(e) => handleColorFilterChange(e.target.value)}
+				className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
+			/>
+			<input
+				type="number"
+				placeholder="Prix maximum"
+				onChange={(e) => handlePriceFilterChange(e.target.value)}
+				className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
+			/>
+			<button
+				onClick={handleFilter}
+				className="btn btn-secondary text-lg p-2"
+			>
+				Appliquer les filtres
+			</button>
 		</div>
 	);
 };

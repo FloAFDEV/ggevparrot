@@ -17,6 +17,9 @@ const Annonces = () => {
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
+	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
+	const [colorFilter, setColorFilter] = useState("");
+	const [priceFilter, setPriceFilter] = useState("");
 
 	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
 	useEffect(() => {
@@ -66,11 +69,46 @@ const Annonces = () => {
 		setShowModal(false);
 	};
 
-	const handleSearch = (term) => {
-		const filtered = allAnnonces.filter((annonce) =>
-			annonce.annonce_title.toLowerCase().includes(term)
-		);
+	const handleFuelTypeFilterChange = (value) => {
+		setFuelTypeFilter(value);
+	};
+
+	const handleColorFilterChange = (value) => {
+		setColorFilter(value);
+	};
+
+	const handlePriceFilterChange = (value) => {
+		setPriceFilter(value);
+	};
+
+	const handleSearch = () => {
+		let filtered = allAnnonces;
+
+		if (fuelTypeFilter !== "") {
+			filtered = filtered.filter((annonce) =>
+				annonce.fuel_type
+					.toLowerCase()
+					.includes(fuelTypeFilter.toLowerCase())
+			);
+		}
+		if (colorFilter !== "") {
+			filtered = filtered.filter((annonce) =>
+				annonce.color.toLowerCase().includes(colorFilter.toLowerCase())
+			);
+		}
+		if (priceFilter !== "") {
+			filtered = filtered.filter(
+				(annonce) => annonce.price <= parseInt(priceFilter)
+			);
+		}
 		setFilteredAnnonces(filtered);
+	};
+
+	const handleResetFilters = () => {
+		setSearchTerm("");
+		setFuelTypeFilter("");
+		setColorFilter("");
+		setPriceFilter(null);
 	};
 
 	return (
@@ -78,7 +116,13 @@ const Annonces = () => {
 			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 				Nos annonces
 			</h2>{" "}
-			<SearchFilters handleFilter={handleSearch} />
+			<SearchFilters
+				handleFilter={handleSearch}
+				handleFuelTypeFilterChange={handleFuelTypeFilterChange}
+				handleColorFilterChange={handleColorFilterChange}
+				handlePriceFilterChange={handlePriceFilterChange}
+				handleResetFilters={handleResetFilters}
+			/>
 			{/* <div className="flex justify-center mb-6">
 				<input
 					type="text"
@@ -93,7 +137,7 @@ const Annonces = () => {
 				className={`grid grid-cols-2 ${
 					isMobileScreen
 						? "sm:grid-cols-2"
-						: "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+						: "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5"
 				} gap-4 px-4`}
 			>
 				{error && <p>Erreur: {error}</p>}
@@ -127,7 +171,7 @@ const Annonces = () => {
 										/>
 									</figure>
 									<div className="card-body p-1 w-full">
-										<h2 className="card-title text-lg font-semibold text-start">
+										<h2 className="card-title font-bold text-start">
 											{annonce.annonce_title}{" "}
 										</h2>
 										{isMobileScreen ? null : ( // Masque la description sur les petits écrans
@@ -145,7 +189,7 @@ const Annonces = () => {
 												</p>
 											</div>
 										)}
-										<p className="text-end text-lg font-bold ">
+										<p className="text-end font-semibold">
 											Prix: {Math.round(annonce.price)} €
 										</p>{" "}
 										<p className="text-xs font-thin text-end">
