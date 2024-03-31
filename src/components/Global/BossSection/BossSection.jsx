@@ -20,6 +20,7 @@ const BossSection = () => {
 						alt="Image du patron"
 						height={175}
 						width={175}
+						priority={true}
 					/>
 				</div>
 				<h3 className="text-3xl font-bold mb-2 text-center">

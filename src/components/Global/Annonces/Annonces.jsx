@@ -17,23 +17,26 @@ const Annonces = () => {
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
-	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
-	const [colorFilter, setColorFilter] = useState("");
 	const [priceFilter, setPriceFilter] = useState("");
+	const [yearFilter, setYearFilter] = useState("");
+	const [brandFilter, setBrandFilter] = useState("");
+	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
+	const [priceMin, setPriceMin] = useState("");
+	const [priceMax, setPriceMax] = useState("");
 
-	// J'utilise useEffect pour surveiller les changements de taille de l'écran et mettre à jour l'état correspondant
+	// Effet pour détecter le redimensionnement de l'écran
 	useEffect(() => {
 		const handleResize = () => {
-			setIsMobileScreen(window.innerWidth <= 768); // Largeur de 768px ou moins comme une taille d'écran mobile
+			setIsMobileScreen(window.innerWidth <= 768);
 		};
-		handleResize(); // Appel initial pour définir la valeur initiale
-		window.addEventListener("resize", handleResize); // Ajoute un écouteur d'événements pour les changements de taille de l'écran
+		handleResize();
+		window.addEventListener("resize", handleResize);
 		return () => {
-			window.removeEventListener("resize", handleResize); // Nettoie l'écouteur d'événements lors du démontage du composant
+			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
 
-	// Récupération des annonces
+	// Effet pour récupérer les annonces une fois que le composant est monté
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -52,7 +55,59 @@ const Annonces = () => {
 		}
 	}, [allAnnonces]);
 
-	// Fonction pour basculer l'affichage de la description de l'annonce
+	// Effet pour appliquer les filtres lorsque les valeurs des filtres changent
+	useEffect(() => {
+		handleSearch();
+	}, [priceFilter, yearFilter, brandFilter, fuelTypeFilter]);
+
+	// Fonction pour filtrer les annonces en fonction des filtres sélectionnés
+	const handleSearch = () => {
+		let filtered = [...allAnnonces]; // Copie de allAnnonces
+		filtered = filtered.filter((annonce) => {
+			return (
+				(priceFilter === "" ||
+					annonce.price >= parseInt(priceFilter)) &&
+				(priceMax === "" || annonce.price <= parseInt(priceMax)) && // Utilisation de priceMax
+				(yearFilter === "" ||
+					annonce.manufacture_year === parseInt(yearFilter)) &&
+				(!brandFilter || // Vérifie si brandFilter est vide ou non défini
+					(annonce.brand &&
+						annonce.brand
+							.toLowerCase()
+							.includes(brandFilter.toLowerCase()))) &&
+				(!fuelTypeFilter ||
+					annonce.fuel_type.toLowerCase() ===
+						fuelTypeFilter.toLowerCase())
+			);
+		});
+		setFilteredAnnonces(filtered);
+	};
+
+	// Fonction de gestion du changement de filtre de marque
+	const handleBrandFilterChange = (value) => {
+		setBrandFilter(value);
+	};
+
+	// Fonction de gestion du changement de filtre de type de carburant
+	const handleFuelTypeFilterChange = (value) => {
+		setFuelTypeFilter(value);
+	};
+
+	// Fonction de gestion du changement de filtre de prix
+	const handlePriceFilterChange = (value) => {
+		setPriceFilter(value);
+	};
+
+	// Fonction de réinitialisation des filtres
+	const handleResetFilters = () => {
+		setPriceFilter("");
+		setYearFilter("");
+		setBrandFilter("");
+		setFuelTypeFilter("");
+		handleSearch();
+	};
+
+	// Fonction pour ouvrir le modal avec les détails de l'annonce sélectionnée
 	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
@@ -65,164 +120,114 @@ const Annonces = () => {
 		}
 	};
 
+	// Fonction pour fermer le modal
 	const handleCloseModal = () => {
 		setShowModal(false);
 	};
 
-	const handleFuelTypeFilterChange = (value) => {
-		setFuelTypeFilter(value);
-	};
-
-	const handleColorFilterChange = (value) => {
-		setColorFilter(value);
-	};
-
-	const handlePriceFilterChange = (value) => {
-		setPriceFilter(value);
-	};
-
-	const handleSearch = () => {
-		let filtered = allAnnonces;
-
-		if (fuelTypeFilter !== "") {
-			filtered = filtered.filter((annonce) =>
-				annonce.fuel_type
-					.toLowerCase()
-					.includes(fuelTypeFilter.toLowerCase())
-			);
-		}
-		if (colorFilter !== "") {
-			filtered = filtered.filter((annonce) =>
-				annonce.color.toLowerCase().includes(colorFilter.toLowerCase())
-			);
-		}
-		if (priceFilter !== "") {
-			filtered = filtered.filter(
-				(annonce) => annonce.price <= parseInt(priceFilter)
-			);
-		}
-		setFilteredAnnonces(filtered);
-	};
-
-	const handleResetFilters = () => {
-		setSearchTerm("");
-		setFuelTypeFilter("");
-		setColorFilter("");
-		setPriceFilter(null);
-	};
-
 	return (
-		<div id="annonces" className="flex flex-col pb-10 pt-8">
-			<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
-				Nos annonces
-			</h2>{" "}
-			<SearchFilters
-				handleFilter={handleSearch}
-				handleFuelTypeFilterChange={handleFuelTypeFilterChange}
-				handleColorFilterChange={handleColorFilterChange}
-				handlePriceFilterChange={handlePriceFilterChange}
-				handleResetFilters={handleResetFilters}
-			/>
-			{/* <div className="flex justify-center mb-6">
-				<input
-					type="text"
-					placeholder="Recherche..."
-					value={searchTerm}
-					onChange={handleSearch}
-					className="p-2 border-2 border-lime-500 rounded-md text-center text-xl"
-					autoComplete="off"
+		<div id="annonces" className="flex pb-10 pt-8">
+			<div className="w-full px-4">
+				<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
+					Nos annonces
+				</h2>
+				<SearchFilters
+					handleFilter={handleSearch}
+					handleFuelTypeFilterChange={handleFuelTypeFilterChange}
+					handlePriceFilterChange={handlePriceFilterChange}
+					handleBrandFilterChange={handleBrandFilterChange}
+					resetFilters={handleResetFilters}
+					priceFilter={priceFilter} // Utilisation de la valeur du filtre de prix
+					yearFilter={yearFilter} // Utilisation de la valeur du filtre d'année
+					brandFilter={brandFilter} // Utilisation de la valeur du filtre de marque
+					fuelTypeFilter={fuelTypeFilter} // Utilisation de la valeur du filtre de type de carburant
 				/>
-			</div> */}
-			<div
-				className={`grid grid-cols-2 ${
-					isMobileScreen
-						? "sm:grid-cols-2"
-						: "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5"
-				} gap-4 px-4`}
-			>
-				{error && <p>Erreur: {error}</p>}
-				{isLoading ? (
-					<span className="loading loading-spinner loading-lg h-30">
-						<p>Chargement...</p>
-					</span>
-				) : (
-					filteredAnnonces.map(
-						(annonce) =>
-							annonce.annonce_valid === 1 && (
-								<div
-									key={annonce.annonce_title}
-									className={`max-w-[300px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
-										isMobileScreen ? "p-2 text-sm" : "" // Ajout de marges plus petites sur les écrans mobiles
-									}`}
-								>
-									<figure>
-										<Image
-											src={
-												annonce.main_image_url &&
-												annonce.main_image_url !== ""
-													? annonce.main_image_url
-													: "/assets/CarDefaultImage.webp"
-											}
-											alt={annonce.annonce_title}
-											className="rounded-t-lg w-full rounded-lg"
-											width={200}
-											height={200}
-											priority={true}
-										/>
-									</figure>
-									<div className="card-body p-1 w-full">
-										<h2 className="card-title font-bold text-start">
-											{annonce.annonce_title}{" "}
-										</h2>
-										{isMobileScreen ? null : ( // Masque la description sur les petits écrans
-											<div className="text-end font-light">
-												Année:{" "}
-												{annonce.manufacture_year}
-												<br />
-												{annonce.color} <br />
-												{annonce.fuel_type}
-												<br />
-												{annonce.mileage} km
-												<p>
-													Catégorie:{" "}
-													{annonce.category_model}
-												</p>
-											</div>
-										)}
-										<p className="text-end font-semibold">
-											Prix: {Math.round(annonce.price)} €
-										</p>{" "}
-										<p className="text-xs font-thin text-end">
-											À partir de{" "}
-											{(
-												(annonce.price - 3000) /
-												60
-											).toFixed(2)}{" "}
-											€/mois
-										</p>
-										<div className="card-actions justify-end m-1 pt-2 ">
-											<button
-												onClick={() =>
-													handleOpenModal(annonce)
+				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+					{error && <p>Erreur: {error}</p>}
+					{isLoading ? (
+						<span className="loading loading-spinner loading-lg h-30">
+							<p>Chargement...</p>
+						</span>
+					) : (
+						filteredAnnonces.map(
+							(annonce) =>
+								annonce.annonce_valid === 1 && (
+									<div
+										key={annonce.annonce_title}
+										className={`max-w-[300px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
+											isMobileScreen ? "p-2 text-sm" : ""
+										}`}
+									>
+										<figure>
+											<Image
+												src={
+													annonce.main_image_url &&
+													annonce.main_image_url !==
+														""
+														? annonce.main_image_url
+														: "/assets/CarDefaultImage.webp"
 												}
-												className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2 p-1"
-											>
-												En savoir plus
-											</button>
+												alt={annonce.annonce_title}
+												className="rounded-t-lg w-full rounded-lg"
+												width={200}
+												height={200}
+												priority={true}
+											/>
+										</figure>
+										<div className="card-body p-1 w-full">
+											<h2 className="card-title font-bold text-start">
+												{annonce.annonce_title}{" "}
+											</h2>
+											{isMobileScreen ? null : (
+												<div className="text-end font-light">
+													Année:{" "}
+													{annonce.manufacture_year}
+													<br />
+													{annonce.color} <br />
+													{annonce.fuel_type}
+													<br />
+													{annonce.mileage} km
+													<p>
+														Catégorie:{" "}
+														{annonce.category_model}
+													</p>
+												</div>
+											)}
+											<p className="text-end font-semibold">
+												Prix:{" "}
+												{Math.round(annonce.price)} €
+											</p>{" "}
+											<p className="text-xs font-thin text-end">
+												À partir de{" "}
+												{(
+													(annonce.price - 3000) /
+													60
+												).toFixed(2)}{" "}
+												€/mois
+											</p>
+											<div className="card-actions justify-end m-1 pt-2 ">
+												<button
+													onClick={() =>
+														handleOpenModal(annonce)
+													}
+													className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2 p-1"
+												>
+													En savoir plus
+												</button>
+											</div>
 										</div>
+										<div className="h-9"></div>
 									</div>
-									<div className="h-9"></div>
-								</div>
-							)
-					)
-				)}
+								)
+						)
+					)}
+				</div>
 			</div>
 			{showModal && (
 				<Modal
 					annonce={modalAnnonce}
 					handleCloseModal={handleCloseModal}
 					imagesData={imagesData}
-					// -> props nécessaires pour la modal
 				/>
 			)}
 		</div>
