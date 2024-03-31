@@ -9,6 +9,7 @@ import {
 } from "@/components/utils/apiService";
 
 const Annonces = () => {
+	// Je déclare les états nécessaires pour gérer les annonces
 	const [allAnnonces, setAllAnnonces] = useState([]);
 	const [filteredAnnonces, setFilteredAnnonces] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -21,10 +22,8 @@ const Annonces = () => {
 	const [yearFilter, setYearFilter] = useState("");
 	const [brandFilter, setBrandFilter] = useState("");
 	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
-	const [priceMin, setPriceMin] = useState("");
-	const [priceMax, setPriceMax] = useState("");
 
-	// Effet pour détecter le redimensionnement de l'écran
+	// Je définis un effet pour détecter le redimensionnement de l'écran
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobileScreen(window.innerWidth <= 768);
@@ -36,7 +35,7 @@ const Annonces = () => {
 		};
 	}, []);
 
-	// Effet pour récupérer les annonces une fois que le composant est monté
+	// Je récupère les annonces une fois que le composant est monté
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -55,22 +54,21 @@ const Annonces = () => {
 		}
 	}, [allAnnonces]);
 
-	// Effet pour appliquer les filtres lorsque les valeurs des filtres changent
+	// Je déclenche la recherche à chaque changement de filtre
 	useEffect(() => {
 		handleSearch();
 	}, [priceFilter, yearFilter, brandFilter, fuelTypeFilter]);
 
-	// Fonction pour filtrer les annonces en fonction des filtres sélectionnés
+	// Je définis la fonction pour filtrer les annonces
 	const handleSearch = () => {
-		let filtered = [...allAnnonces]; // Copie de allAnnonces
+		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
 		filtered = filtered.filter((annonce) => {
 			return (
 				(priceFilter === "" ||
-					annonce.price >= parseInt(priceFilter)) &&
-				(priceMax === "" || annonce.price <= parseInt(priceMax)) && // Utilisation de priceMax
+					annonce.price <= parseInt(priceFilter)) &&
 				(yearFilter === "" ||
 					annonce.manufacture_year === parseInt(yearFilter)) &&
-				(!brandFilter || // Vérifie si brandFilter est vide ou non défini
+				(!brandFilter || // Je vérifie si brandFilter est vide ou non défini
 					(annonce.brand &&
 						annonce.brand
 							.toLowerCase()
@@ -80,25 +78,26 @@ const Annonces = () => {
 						fuelTypeFilter.toLowerCase())
 			);
 		});
+
 		setFilteredAnnonces(filtered);
 	};
 
-	// Fonction de gestion du changement de filtre de marque
+	// Je définis la fonction pour gérer le changement de filtre de marque
 	const handleBrandFilterChange = (value) => {
 		setBrandFilter(value);
 	};
 
-	// Fonction de gestion du changement de filtre de type de carburant
+	// Je définis la fonction pour gérer le changement de filtre de type de carburant
 	const handleFuelTypeFilterChange = (value) => {
 		setFuelTypeFilter(value);
 	};
 
-	// Fonction de gestion du changement de filtre de prix
+	// Je définis la fonction pour gérer le changement de filtre de prix
 	const handlePriceFilterChange = (value) => {
 		setPriceFilter(value);
 	};
 
-	// Fonction de réinitialisation des filtres
+	// Je définis la fonction pour réinitialiser les filtres
 	const handleResetFilters = () => {
 		setPriceFilter("");
 		setYearFilter("");
@@ -107,7 +106,7 @@ const Annonces = () => {
 		handleSearch();
 	};
 
-	// Fonction pour ouvrir le modal avec les détails de l'annonce sélectionnée
+	// Je définis la fonction pour ouvrir le modal avec les détails de l'annonce sélectionnée
 	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
@@ -120,28 +119,31 @@ const Annonces = () => {
 		}
 	};
 
-	// Fonction pour fermer le modal
+	// Je définis la fonction pour fermer le modal
 	const handleCloseModal = () => {
 		setShowModal(false);
 	};
 
+	// Je rends le contenu JSX du composant
 	return (
 		<div id="annonces" className="flex pb-10 pt-8">
 			<div className="w-full px-4">
 				<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 					Nos annonces
 				</h2>
-				<SearchFilters
-					handleFilter={handleSearch}
-					handleFuelTypeFilterChange={handleFuelTypeFilterChange}
-					handlePriceFilterChange={handlePriceFilterChange}
-					handleBrandFilterChange={handleBrandFilterChange}
-					resetFilters={handleResetFilters}
-					priceFilter={priceFilter} // Utilisation de la valeur du filtre de prix
-					yearFilter={yearFilter} // Utilisation de la valeur du filtre d'année
-					brandFilter={brandFilter} // Utilisation de la valeur du filtre de marque
-					fuelTypeFilter={fuelTypeFilter} // Utilisation de la valeur du filtre de type de carburant
-				/>
+				<div className="w-full h-auto">
+					<SearchFilters
+						handleFilter={handleSearch}
+						handleFuelTypeFilterChange={handleFuelTypeFilterChange}
+						handlePriceFilterChange={handlePriceFilterChange}
+						handleBrandFilterChange={handleBrandFilterChange}
+						resetFilters={handleResetFilters}
+						priceFilter={priceFilter}
+						yearFilter={yearFilter}
+						brandFilter={brandFilter}
+						fuelTypeFilter={fuelTypeFilter}
+					/>
+				</div>
 				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 					{error && <p>Erreur: {error}</p>}
 					{isLoading ? (
