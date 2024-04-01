@@ -27,7 +27,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 	const recentTestimonials = validTestimonials.slice(-3);
 
 	return (
-		<section className="px-4 pt-32 py-6 md:py-12 lg:py-24 mt-40">
+		<section className="px-4 py-6 md:py-12 lg:py-24 mt-36">
 			<div className="max-w-screen-xl mx-auto">
 				<h2 className="font-bold text-5xl text-center leading-none max-w-2xl mx-auto mb-12">
 					Ce que disent nos clients
