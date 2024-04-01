@@ -6,11 +6,13 @@ const SearchFilters = ({
 	handleFilter,
 	handleFuelTypeFilterChange,
 	handlePriceFilterChange,
+	handleBrandFilterChange,
 	resetFilters,
 }: {
 	handleFilter: () => void;
 	handleFuelTypeFilterChange: (value: string) => void;
 	handlePriceFilterChange: (value: string) => void;
+	handleBrandFilterChange: (value: string) => void;
 	resetFilters: () => void;
 }) => {
 	const [priceMax, setPriceMax] = useState("");
@@ -31,16 +33,28 @@ const SearchFilters = ({
 	}, []);
 
 	// Fonction pour gérer la sélection des marques
-	const handleBrandSelection = (
-		event: React.ChangeEvent<HTMLSelectElement> | string
-	) => {
-		const selectedBrand =
-			typeof event === "string" ? event : event.target.value;
-		if (!selectedBrands.includes(selectedBrand)) {
-			setSelectedBrands([...selectedBrands, selectedBrand]);
-			handleFilter();
+	const handleBrandFilter = (brandName: string) => {
+		// Vérifier si la marque est déjà sélectionnée
+		if (!selectedBrands.includes(brandName)) {
+			// Si elle n'est pas sélectionnée, l'ajouter à la liste des marques sélectionnées
+			setSelectedBrands([...selectedBrands, brandName]);
+		} else {
+			// Sinon, la retirer de la liste des marques sélectionnées
+			setSelectedBrands(
+				selectedBrands.filter((brand) => brand !== brandName)
+			);
 		}
 	};
+
+	// Effet pour appliquer les filtres lorsque les valeurs changent
+	useEffect(() => {
+		handleBrandFilterChange(selectedBrands.join(","));
+		handleFilter();
+	}, [selectedBrands]);
+
+	useEffect(() => {
+		handleFilter();
+	}, [selectedFuelType, priceMax]);
 
 	// Fonction pour réinitialiser tous les filtres
 	const resetAllFilters = () => {
@@ -53,16 +67,16 @@ const SearchFilters = ({
 	return (
 		<div className="p-4 bg-zinc-100 rounded-lg shadow-lg text-gray-700">
 			<div className="mb-4">
-				<h3 className="text-lg font-semibold mb-2">
+				<h3 className="text-lg font-semibold mb-8">
 					Sélectionnez vos marques :
 				</h3>
 				{isMobile ? (
-					<div className="grid grid-cols-2 gap-4">
+					<div className="grid grid-cols-2 gap-5">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
-								className="flex items-center cursor-pointer"
-								onClick={() => handleBrandSelection(brand.name)}
+								className="flex items-center justify-center cursor-pointer"
+								onClick={() => handleBrandFilter(brand.name)}
 							>
 								<Image
 									src={brand.logo}
@@ -76,12 +90,12 @@ const SearchFilters = ({
 						))}
 					</div>
 				) : (
-					<fieldset className="grid grid-cols-5 gap-4">
+					<fieldset className="grid grid-cols-5 gap-5 pl-20">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
 								className="flex items-center"
-								onClick={() => handleBrandSelection(brand.name)}
+								onClick={() => handleBrandFilter(brand.name)}
 								style={{ cursor: "pointer" }}
 							>
 								<Image
@@ -104,7 +118,6 @@ const SearchFilters = ({
 						onChange={(e) => {
 							setSelectedFuelType(e.target.value);
 							handleFuelTypeFilterChange(e.target.value);
-							handleFilter();
 						}}
 						className="p-2 border border-gray-300 bg-gray-300 rounded-md text-sm mr-2 mb-2"
 					>
@@ -119,7 +132,6 @@ const SearchFilters = ({
 						onChange={(e) => {
 							setPriceMax(e.target.value);
 							handlePriceFilterChange(e.target.value);
-							handleFilter();
 						}}
 						className="p-2 border border-gray-300 bg-gray-300  rounded-md text-sm mr-2 mb-2"
 					>
@@ -143,9 +155,7 @@ const SearchFilters = ({
 					</button>
 				</div>
 				<div className="flex items-center mt-2">
-					<p className="text-sm font-medium mr-2">
-						Marques sélectionnées:
-					</p>
+					<p className="text-md p-5 mr-2">Marques sélectionnées:</p>
 					<ul className="flex flex-wrap">
 						{selectedBrands.map((brand, index) => (
 							<li
