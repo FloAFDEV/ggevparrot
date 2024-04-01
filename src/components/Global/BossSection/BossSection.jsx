@@ -14,12 +14,12 @@ const BossSection = () => {
 				{/* Image du boss */}
 				<div className="w-full p-4">
 					<Image
-						className="rounded-full m-auto w-36 h-36 lg:w-40 lg:h-40 xl:w-48 xl:h-48 shadow-2xl"
+						className="rounded-full m-auto w-30 h-30 lg:w-40 lg:h-40 xl:w-48 xl:h-48 shadow-2xl"
 						src="/assets/bossImage.webp"
 						title="La photo du patron"
 						alt="Image du patron"
-						height={175}
-						width={175}
+						height={170}
+						width={170}
 						priority={true}
 					/>
 				</div>
