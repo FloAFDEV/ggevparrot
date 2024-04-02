@@ -104,7 +104,7 @@ const SearchFilters = ({
 									alt={"logo de " + brand.name}
 									height={50}
 									width={50}
-									className="mr-3  bg-gray-200 rounded-sm bg-opacity-80"
+									className="mr-3 bg-gray-200 rounded-md bg-opacity-80"
 								/>
 								<span>{brand.name}</span>
 							</div>

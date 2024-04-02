@@ -20,7 +20,7 @@ const Annonces = () => {
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
 	const [priceFilter, setPriceFilter] = useState("");
 	const [yearFilter, setYearFilter] = useState("");
-	const [brandFilter, setBrandFilter] = useState("");
+	const [brandFilter, setBrandFilter] = useState([]);
 	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
 
 	// Je définis un effet pour détecter le redimensionnement de l'écran
@@ -53,7 +53,6 @@ const Annonces = () => {
 			fetchData();
 		}
 	}, [allAnnonces]);
-
 	// Je définis la fonction pour filtrer les annonces
 	const handleSearch = () => {
 		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
@@ -63,11 +62,14 @@ const Annonces = () => {
 					annonce.price <= parseInt(priceFilter)) &&
 				(yearFilter === "" ||
 					annonce.manufacture_year === parseInt(yearFilter)) &&
-				(!brandFilter || // Je vérifie si brandFilter est vide ou non défini
-					(annonce.brand_name &&
-						annonce.brand_name
-							.toLowerCase()
-							.includes(brandFilter.toLowerCase()))) && // Filtre de marque
+				(brandFilter.length === 0 || // Si aucun filtre de marque n'est sélectionné
+					brandFilter.some(
+						(brand) =>
+							annonce.brand_name &&
+							annonce.brand_name
+								.toLowerCase()
+								.includes(brand.toLowerCase())
+					)) &&
 				(!fuelTypeFilter ||
 					annonce.fuel_type.toLowerCase() ===
 						fuelTypeFilter.toLowerCase())
@@ -78,8 +80,9 @@ const Annonces = () => {
 	};
 
 	// Je définis la fonction pour gérer le changement de filtre de marque
-	const handleBrandFilterChange = (value) => {
-		setBrandFilter(value);
+	const handleBrandFilterChange = (brands) => {
+		setBrandFilter(brands.split(","));
+		console.log(brands);
 	};
 
 	// Je définis la fonction pour gérer le changement de filtre de type de carburant
@@ -96,7 +99,7 @@ const Annonces = () => {
 	const handleResetFilters = () => {
 		setPriceFilter("");
 		setYearFilter("");
-		setBrandFilter("");
+		setBrandFilter([]);
 		setFuelTypeFilter("");
 		handleSearch();
 	};
@@ -181,7 +184,7 @@ const Annonces = () => {
 												{annonce.annonce_title}{" "}
 											</h2>
 											{isMobileScreen ? null : (
-												<div className="text-end font-light">
+												<div className="text-start font-light">
 													Année:{" "}
 													{annonce.manufacture_year}
 													<br />
