@@ -88,7 +88,7 @@ const Navbar: React.FunctionComponent = () => {
 													href="/#services"
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 												>
-													Mécanique & Réparations
+													Mécanique
 												</Link>
 											</li>
 											<li>
@@ -96,7 +96,7 @@ const Navbar: React.FunctionComponent = () => {
 													href="/#services"
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 												>
-													Expertises & Entretiens
+													Expertises
 												</Link>
 											</li>
 											<li>
@@ -120,7 +120,7 @@ const Navbar: React.FunctionComponent = () => {
 						</Link>
 					</div>
 					<div className="navbar-end px-3 hidden lg:flex">
-						<ul className="menu menu-horizontal px-1">
+						<ul className="menu menu-horizontal px-1 text-lg">
 							<li>
 								<Link
 									href="/#annonces"
@@ -140,7 +140,7 @@ const Navbar: React.FunctionComponent = () => {
 												href="/#services"
 												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 											>
-												Mécanique & Réparations
+												Mécanique
 											</Link>
 										</li>
 										<li>
@@ -148,7 +148,7 @@ const Navbar: React.FunctionComponent = () => {
 												href="/#services"
 												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 											>
-												Expertises & Entretiens
+												Expertises
 											</Link>
 										</li>
 										<li>
