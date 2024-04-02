@@ -54,11 +54,6 @@ const Annonces = () => {
 		}
 	}, [allAnnonces]);
 
-	// Je déclenche la recherche à chaque changement de filtre
-	useEffect(() => {
-		handleSearch();
-	}, [priceFilter, yearFilter, brandFilter, fuelTypeFilter]);
-
 	// Je définis la fonction pour filtrer les annonces
 	const handleSearch = () => {
 		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
@@ -69,10 +64,10 @@ const Annonces = () => {
 				(yearFilter === "" ||
 					annonce.manufacture_year === parseInt(yearFilter)) &&
 				(!brandFilter || // Je vérifie si brandFilter est vide ou non défini
-					(annonce.brand &&
-						annonce.brand
+					(annonce.brand_name &&
+						annonce.brand_name
 							.toLowerCase()
-							.includes(brandFilter.toLowerCase()))) &&
+							.includes(brandFilter.toLowerCase()))) && // Filtre de marque
 				(!fuelTypeFilter ||
 					annonce.fuel_type.toLowerCase() ===
 						fuelTypeFilter.toLowerCase())
@@ -123,6 +118,11 @@ const Annonces = () => {
 	const handleCloseModal = () => {
 		setShowModal(false);
 	};
+
+	// Je déclenche la recherche à chaque changement de filtre
+	useEffect(() => {
+		handleSearch();
+	}, [priceFilter, yearFilter, brandFilter, fuelTypeFilter]);
 
 	// Je rends le contenu JSX du composant
 	return (

@@ -54,7 +54,7 @@ const SearchFilters = ({
 
 	useEffect(() => {
 		handleFilter();
-	}, [selectedFuelType, priceMax]);
+	}, [selectedFuelType, priceMax, selectedBrands]);
 
 	// Fonction pour réinitialiser tous les filtres
 	const resetAllFilters = () => {
@@ -65,18 +65,19 @@ const SearchFilters = ({
 	};
 
 	return (
-		<div className="p-4 bg-zinc-100 rounded-lg shadow-lg text-gray-700">
+		<div className="p-4 mb-20">
 			<div className="mb-4">
 				<h3 className="text-lg font-semibold mb-8">
 					Sélectionnez vos marques :
 				</h3>
 				{isMobile ? (
-					<div className="grid grid-cols-2 gap-5">
+					<div className="grid grid-cols-2 gap-5 ">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
-								className="flex items-center justify-center cursor-pointer"
+								className="flex items-center cursor-pointer"
 								onClick={() => handleBrandFilter(brand.name)}
+								style={{ cursor: "pointer" }}
 							>
 								<Image
 									src={brand.logo}
@@ -103,7 +104,7 @@ const SearchFilters = ({
 									alt={"logo de " + brand.name}
 									height={50}
 									width={50}
-									className="mr-3"
+									className="mr-3  bg-gray-200 rounded-sm bg-opacity-80"
 								/>
 								<span>{brand.name}</span>
 							</div>
@@ -119,7 +120,7 @@ const SearchFilters = ({
 							setSelectedFuelType(e.target.value);
 							handleFuelTypeFilterChange(e.target.value);
 						}}
-						className="p-2 border border-gray-300 bg-gray-300 rounded-md text-sm mr-2 mb-2"
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm mr-2 mb-2"
 					>
 						<option value="">Carburant</option>
 						<option value="Essence">Essence</option>
@@ -133,7 +134,7 @@ const SearchFilters = ({
 							setPriceMax(e.target.value);
 							handlePriceFilterChange(e.target.value);
 						}}
-						className="p-2 border border-gray-300 bg-gray-300  rounded-md text-sm mr-2 mb-2"
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm mr-2 mb-2"
 					>
 						<option value="">Prix maximum</option>
 						<option value="10000">10 000</option>
@@ -160,7 +161,7 @@ const SearchFilters = ({
 						{selectedBrands.map((brand, index) => (
 							<li
 								key={index}
-								className="mr-2 mb-2 bg-gray-200 px-2 py-1 rounded-lg text-xs"
+								className="mr-2 mb-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-lg text-xs"
 							>
 								{brand}
 							</li>
