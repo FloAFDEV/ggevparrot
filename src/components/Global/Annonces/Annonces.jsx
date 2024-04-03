@@ -18,7 +18,8 @@ const Annonces = () => {
 	const [error, setError] = useState(null);
 	const [imagesData, setImagesData] = useState([]);
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
-	const [priceFilter, setPriceFilter] = useState("");
+	const [priceMaxFilter, setPriceMaxFilter] = useState("");
+	const [priceMinFilter, setPriceMinFilter] = useState("");
 	const [yearFilter, setYearFilter] = useState("");
 	const [brandFilter, setBrandFilter] = useState([]);
 	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
@@ -53,13 +54,16 @@ const Annonces = () => {
 			fetchData();
 		}
 	}, [allAnnonces]);
+
 	// Je définis la fonction pour filtrer les annonces
 	const handleSearch = () => {
 		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
 		filtered = filtered.filter((annonce) => {
 			return (
-				(priceFilter === "" ||
-					annonce.price <= parseInt(priceFilter)) &&
+				(priceMinFilter === "" ||
+					annonce.price >= parseInt(priceMinFilter)) &&
+				(priceMaxFilter === "" ||
+					annonce.price <= parseInt(priceMaxFilter)) &&
 				(yearFilter === "" ||
 					annonce.manufacture_year === parseInt(yearFilter)) &&
 				(brandFilter.length === 0 || // Si aucun filtre de marque n'est sélectionné
@@ -75,7 +79,6 @@ const Annonces = () => {
 						fuelTypeFilter.toLowerCase())
 			);
 		});
-
 		setFilteredAnnonces(filtered);
 	};
 
@@ -91,13 +94,18 @@ const Annonces = () => {
 	};
 
 	// Je définis la fonction pour gérer le changement de filtre de prix
-	const handlePriceFilterChange = (value) => {
-		setPriceFilter(value);
+	const handlePriceFilterChange = (value, filterType) => {
+		if (filterType === "min") {
+			setPriceMinFilter(value);
+		} else if (filterType === "max") {
+			setPriceMaxFilter(value);
+		}
 	};
 
 	// Je définis la fonction pour réinitialiser les filtres
 	const handleResetFilters = () => {
-		setPriceFilter("");
+		setPriceMinFilter("");
+		setPriceMaxFilter("");
 		setYearFilter("");
 		setBrandFilter([]);
 		setFuelTypeFilter("");
@@ -125,7 +133,13 @@ const Annonces = () => {
 	// Je déclenche la recherche à chaque changement de filtre
 	useEffect(() => {
 		handleSearch();
-	}, [priceFilter, yearFilter, brandFilter, fuelTypeFilter]);
+	}, [
+		priceMinFilter,
+		priceMaxFilter,
+		yearFilter,
+		brandFilter,
+		fuelTypeFilter,
+	]);
 
 	// Je rends le contenu JSX du composant
 	return (
@@ -141,7 +155,8 @@ const Annonces = () => {
 						handlePriceFilterChange={handlePriceFilterChange}
 						handleBrandFilterChange={handleBrandFilterChange}
 						resetFilters={handleResetFilters}
-						priceFilter={priceFilter}
+						priceMinFilter={priceMinFilter}
+						priceMaxFilter={priceMaxFilter}
 						yearFilter={yearFilter}
 						brandFilter={brandFilter}
 						fuelTypeFilter={fuelTypeFilter}
@@ -174,17 +189,23 @@ const Annonces = () => {
 												}
 												alt={annonce.annonce_title}
 												className="rounded-t-lg w-full rounded-lg"
-												width={200}
+												width={2000}
 												height={200}
 												priority={true}
 											/>
 										</figure>
 										<div className="card-body p-1 w-full">
-											<h2 className="card-title font-bold text-start">
-												{annonce.annonce_title}{" "}
+											<h2
+												className={`card-title font-bold ${
+													isMobileScreen
+														? "text-base text-end"
+														: "text-lg text-end"
+												}`}
+											>
+												{annonce.annonce_title}
 											</h2>
 											{isMobileScreen ? null : (
-												<div className="text-start font-light">
+												<div className="text-end font-light">
 													Année:{" "}
 													{annonce.manufacture_year}
 													<br />
@@ -202,7 +223,7 @@ const Annonces = () => {
 												Prix:{" "}
 												{Math.round(annonce.price)} €
 											</p>{" "}
-											<p className="text-xs font-thin text-end">
+											<p className="text-xs font-thin text-end mt-2 mb-1">
 												À partir de{" "}
 												{(
 													(annonce.price - 3000) /
@@ -221,7 +242,7 @@ const Annonces = () => {
 												</button>
 											</div>
 										</div>
-										<div className="h-9"></div>
+										<div className="h-7"></div>
 									</div>
 								)
 						)
