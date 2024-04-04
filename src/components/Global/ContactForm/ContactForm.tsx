@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { MessageAnnonceData, MessageAnnonce } from "../../utils/apiService";
 import Link from "next/link";
+import validator from "validator";
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -52,7 +53,15 @@ const ContactForm = ({
 			setError("Le numéro de téléphone est requis !");
 		} else {
 			try {
-				await MessageAnnonce(formData);
+				const escapedFormData: MessageAnnonceData = {
+					...formData,
+					userName: validator.escape(formData.userName),
+					userEmail: validator.escape(formData.userEmail),
+					userPhone: validator.escape(formData.userPhone),
+					message: validator.escape(formData.message),
+					botField: validator.escape(formData.botField),
+				};
+				await MessageAnnonce(escapedFormData);
 				setSuccess(true);
 				setTimeout(() => {
 					setFormData({

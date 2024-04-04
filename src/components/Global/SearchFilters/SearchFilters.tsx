@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { brandOptions } from "../brandsData.ts/brandsData";
+import { brandOptions } from "../brandsData/brandsData";
 
 const SearchFilters = ({
 	handleFilter,

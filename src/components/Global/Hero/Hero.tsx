@@ -24,7 +24,7 @@ const Hero: React.FunctionComponent = () => {
 					</h2>
 					<a
 						href="#annonces"
-						className="btn btn-secondary rounded-box mb-5 text-lg"
+						className="btn btn-primary rounded-box mb-5 text-lg"
 					>
 						Parcourez nos annonces
 					</a>

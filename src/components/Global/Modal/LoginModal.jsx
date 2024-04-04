@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Login from "@/components/Global/login/login";
+import validator from "validator";
 import { signIn } from "next-auth/react";
 
 const LoginModal = ({ closeModal }) => {
@@ -9,17 +10,21 @@ const LoginModal = ({ closeModal }) => {
 
 	const handleLogin = async (email, password) => {
 		try {
-			// Authentification avec les identifiants
+			// Echapper les données saisies par l'utilisateur
+			const escapedEmail = validator.escape(email);
+			const escapedPassword = validator.escape(password);
+
+			// Authentification avec les identifiants échappés
 			const result = await signIn("credentials", {
 				redirect: false,
-				email,
-				password,
+				email: escapedEmail,
+				password: escapedPassword,
 			});
 			// Gestion des erreurs
-			if (result.error) {
+			if (result && result.error) {
 				setError("Adresse e-mail ou mot de passe incorrect.");
 			} else {
-				router.push("/"); // Redirection après connexion réussie à remplacer !!!!
+				router.push("/"); // Redirection après connexion réussie
 			}
 		} catch (error) {
 			console.error("Erreur lors de la connexion :", error);
@@ -60,7 +65,7 @@ const LoginModal = ({ closeModal }) => {
 				<Login handleLogin={handleLogin} />
 				<div className="flex justify-end">
 					<button
-						className="mt-4 btn btn-secondary text-white rounded"
+						className="mt-4 btn btn-primary text-white rounded"
 						onClick={closeModal}
 					>
 						Oups ! Je me suis trompé

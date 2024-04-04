@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const Carousel = ({ isOpen, images, currentCarAnnonceId }) => {
-	const [currentImageIndex] = useState(0);
+	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 	useEffect(() => {}, [images, currentCarAnnonceId]);
+
+	const changeImage = (index) => {
+		setCurrentImageIndex(index);
+	};
 
 	// Filtrer les images en fonction de l'ID de l'annonce actuelle
 	const filteredImages = images

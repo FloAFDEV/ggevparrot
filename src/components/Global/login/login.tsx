@@ -78,7 +78,7 @@ const Login = () => {
 				</div>
 				<button
 					type="submit"
-					className="btn btn-secondary w-full px-4 py-2 text-lg text-white rounded-lg"
+					className="btn btn-primary w-full px-4 py-2 text-lg text-white rounded-lg"
 				>
 					Se connecter
 				</button>

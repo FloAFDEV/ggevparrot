@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendMessage } from "../../utils/apiService";
 import Image from "next/image";
+import validator from "validator";
 
 interface ContactFormData {
 	name: string;
@@ -40,17 +41,16 @@ const Contact = () => {
 			console.log("Formulaire soumis par un robot !");
 			return; // N'envoie pas le forrulaire si le champ est rempli
 		}
-		// Validation du champ de message
-		if (
-			!/^[A-Za-z0-9\sàáâäçèéêëìíîïñòóôöùúûü.,!?-]*$/.test(
-				formData.message
-			)
-		) {
-			console.log("Validation du champ de message échouée !");
-			return;
-		}
+		// Echappe les données saisies par l'utilisateur
+		const escapedFormData: ContactFormData = {
+			...formData,
+			name: validator.escape(formData.name),
+			email: validator.escape(formData.email),
+			phone: validator.escape(formData.phone),
+			message: validator.escape(formData.message),
+		};
 		try {
-			console.log("Données du formulaire à envoyer:", formData);
+			console.log("Données du formulaire à envoyer:", escapedFormData);
 			const success = await sendMessage(formData);
 			if (success) {
 				setSubmitMessage(
@@ -169,7 +169,7 @@ const Contact = () => {
 							/>{" "}
 							<button
 								type="submit"
-								className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary-dark w-full"
+								className="bg-accent text-white px-4 py-2 rounded-md hover:bg-primary w-full"
 							>
 								Envoyer
 							</button>

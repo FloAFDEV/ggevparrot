@@ -63,7 +63,6 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 						/>
 					</svg>
 				</button>
-
 				<div onClick={(e) => e.stopPropagation()}>
 					{showContactForm ? (
 						<ContactForm
@@ -90,7 +89,7 @@ const Modal = ({ annonce, handleCloseModal, imagesData, Id_CarAnnonce }) => {
 							)}
 							<button
 								onClick={toggleContactForm}
-								className="btn btn-secondary mt-4"
+								className="btn btn-primary mt-4 text-base"
 							>
 								Envoyer un message à propos de cette annonce
 							</button>

@@ -14,11 +14,8 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 		const handleResize = () => {
 			setIsMobileScreen(window.innerWidth <= 768); // On considère une largeur de 768px ou moins comme une taille d'écran mobile
 		};
-
 		handleResize(); // Appel initial pour définir la valeur initiale
-
 		window.addEventListener("resize", handleResize); // Ajoute un écouteur d'événements pour les changements de taille de l'écran
-
 		return () => {
 			window.removeEventListener("resize", handleResize); // Nettoie l'écouteur d'événements lors du démontage du composant
 		};
@@ -108,7 +105,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 					priority={true}
 				/>
 				<button
-					className="btn absolute top-0 right-0 p-2 m-2 btn-primary hover:btn-secondary rounded-md "
+					className="btn absolute top-0 right-0 p-2 m-2 btn-primary hover:btn-primary rounded-md "
 					onClick={handleToggleCarousel}
 				>
 					{carouselVisible ? "Moins d'images" : "Plus d'images"}
@@ -118,7 +115,7 @@ const Annonce = ({ annonce, toggleCarousel }) => {
 			<p className="text-start font-light">
 				{descriptionToShow}
 				{remainingDescription && (
-					<span className="color-primary-900 font-extra-bold cursor-pointer hover:text-secondary">
+					<span className="color-primary-900 font-extra-bold cursor-pointer hover:text-orange-400">
 						{" "}
 						<button
 							className="font-bold"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendTestimonial } from "../../utils/apiService";
 import Image from "next/image";
+import validator from "validator";
 
 interface TestimonialFormData {
 	pseudo: string;
@@ -63,6 +64,15 @@ const TestimonialsMessage = () => {
 				userId: formData.userId as number,
 				valid: false,
 			};
+
+			// Échappement des cractères avant de les envoyer à l'API
+			const escapedData = Object.fromEntries(
+				Object.entries(dataToSend).map(([key, value]) => [
+					key,
+					typeof value === "string" ? validator.escape(value) : value,
+				])
+			);
+
 			const success = await sendTestimonial(dataToSend);
 			if (success) {
 				setSubmitMessage(
@@ -115,7 +125,7 @@ const TestimonialsMessage = () => {
 					height={72}
 					className="mr-2"
 				/>
-				<h2 className="font-extrabold text-center text-2xl mt-2 leading-none max-w-2xl mx-auto md:mx-4">
+				<h2 className="font-extrabold text-center text-2xl mt-2 leading-none max-w-2xl mx-auto md:mx-4 hover:text-accent">
 					Laissez votre témoignage
 				</h2>
 			</button>
@@ -237,7 +247,7 @@ const TestimonialsMessage = () => {
 									</div>
 									<button
 										type="submit"
-										className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary-dark w-full"
+										className="bg-accent text-white px-4 py-2 rounded-md hover:bg-primary w-full"
 									>
 										Envoyer
 									</button>

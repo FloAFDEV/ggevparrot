@@ -165,7 +165,7 @@ const Annonces = () => {
 				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 					{error && <p>Erreur: {error}</p>}
 					{isLoading ? (
-						<span className="loading loading-spinner loading-lg h-30">
+						<span className="loading loading-spinner loading-lg h-40">
 							<p>Chargement...</p>
 						</span>
 					) : (
@@ -236,7 +236,7 @@ const Annonces = () => {
 													onClick={() =>
 														handleOpenModal(annonce)
 													}
-													className="btn btn-secondary text-lg absolute bottom-0 right-0 m-2 p-1"
+													className="btn btn-primary text-lg absolute bottom-0 right-0 m-2 p-1"
 												>
 													En savoir plus
 												</button>
