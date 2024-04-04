@@ -101,7 +101,7 @@ const ContactForm = ({
 					</h2>
 					<button
 						onClick={closeForm}
-						className="text-primary hover:text-secondary mb-2"
+						className="text-primary hover:text-green-600 mb-2"
 					>
 						Revenir à l'annonce
 					</button>
@@ -191,7 +191,7 @@ const ContactForm = ({
 						</div>
 						<button
 							type="submit"
-							className="w-full bg-secondary text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
+							className="w-full bg-primary text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
 						>
 							Envoyer
 						</button>
@@ -199,7 +199,7 @@ const ContactForm = ({
 					<p>
 						<Link
 							href="tel:+33562119446"
-							className="font-bold justify-center flex text-md text-primary  hover:text-secondary"
+							className="font-bold justify-center flex text-md text-primary hover:text-green-600"
 						>
 							Nous appeler
 						</Link>

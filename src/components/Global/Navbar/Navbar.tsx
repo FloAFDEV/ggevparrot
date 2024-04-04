@@ -101,6 +101,14 @@ const Navbar: React.FunctionComponent = () => {
 											</li>
 											<li>
 												<Link
+													href="/#services"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												>
+													Financement
+												</Link>
+											</li>
+											<li>
+												<Link
 													href="/#contact"
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 												>
@@ -149,6 +157,14 @@ const Navbar: React.FunctionComponent = () => {
 												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 											>
 												Expertises
+											</Link>
+										</li>
+										<li>
+											<Link
+												href="/#services"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+											>
+												Financement
 											</Link>
 										</li>
 										<li>

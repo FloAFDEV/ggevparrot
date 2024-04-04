@@ -169,7 +169,7 @@ const Contact = () => {
 							/>{" "}
 							<button
 								type="submit"
-								className="bg-accent text-white px-4 py-2 rounded-md hover:bg-primary w-full"
+								className="bg-primary text-black px-4 py-2 rounded-md hover:bg-accent w-full"
 							>
 								Envoyer
 							</button>

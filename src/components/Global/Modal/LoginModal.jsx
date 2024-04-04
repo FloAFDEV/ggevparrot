@@ -13,7 +13,6 @@ const LoginModal = ({ closeModal }) => {
 			// Echapper les données saisies par l'utilisateur
 			const escapedEmail = validator.escape(email);
 			const escapedPassword = validator.escape(password);
-
 			// Authentification avec les identifiants échappés
 			const result = await signIn("credentials", {
 				redirect: false,
@@ -21,10 +20,14 @@ const LoginModal = ({ closeModal }) => {
 				password: escapedPassword,
 			});
 			// Gestion des erreurs
-			if (result && result.error) {
-				setError("Adresse e-mail ou mot de passe incorrect.");
+			if (result && !result.error) {
+				// La connexion a réussi, vous pouvez effectuer des actions supplémentaires ici
+				console.log("Connexion réussie !", result);
+				// Redirigez l'utilisateur vers une autre page ou mettez à jour l'interface utilisateur
+				router.push("/");
 			} else {
-				router.push("/"); // Redirection après connexion réussie
+				// La connexion a échoué, affichez un message d'erreur à l'utilisateur
+				setError("Adresse e-mail ou mot de passe incorrect.");
 			}
 		} catch (error) {
 			console.error("Erreur lors de la connexion :", error);
