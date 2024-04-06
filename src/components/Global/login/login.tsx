@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Login = () => {
 	const router = useRouter();
@@ -65,11 +66,13 @@ const Login = () => {
 						onClick={() => setShowPassword(!showPassword)}
 						className="absolute inset-y-0 right-0 flex items-end px-2 focus:outline-none"
 					>
-						<img
+						<Image
 							src="/assets/Stylized-Eye.svg"
 							alt={
 								showPassword ? "Hide password" : "Show password"
 							}
+							width={24} // Spécifiez la largeur de l'image
+							height={24}
 							className={`h-6 w-6 rounded-full ${
 								showPassword ? "bg-secondary" : "bg-slate-100"
 							} top-1/2 transform -translate-y-1/2`}
