@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { fetchAllUsers } from "@/components/utils/apiService";
 import NextAuth, { DefaultUser, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -20,7 +19,8 @@ async function comparePasswords(
 	password: string,
 	hashedPassword: string
 ): Promise<boolean> {
-	return await bcrypt.compare(password, hashedPassword);
+	// return await bcrypt.compare(password, hashedPassword);
+	return false; // Replace with your desired implementation
 }
 
 // Fonction pour l'authentification
