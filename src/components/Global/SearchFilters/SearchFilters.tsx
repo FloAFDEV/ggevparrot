@@ -105,9 +105,9 @@ const SearchFilters = ({
 								<Image
 									className="mr-3 bg-gray-200 rounded-md bg-opacity-80"
 									src={brand.logo}
-									width={40}
-									height={40}
-									style={{ height: "auto" }}
+									width={50}
+									height={50}
+									style={{ width: "auto", height: "auto" }}
 									alt={"logo de " + brand.name}
 								/>
 								<span>{brand.name}</span>
