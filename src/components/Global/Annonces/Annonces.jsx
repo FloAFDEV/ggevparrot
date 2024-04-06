@@ -139,6 +139,7 @@ const Annonces = () => {
 		yearFilter,
 		brandFilter,
 		fuelTypeFilter,
+		handleSearch,
 	]);
 
 	// Je rends le contenu JSX du composant

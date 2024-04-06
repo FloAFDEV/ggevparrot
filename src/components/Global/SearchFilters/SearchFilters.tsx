@@ -55,7 +55,7 @@ const SearchFilters = ({
 
 	useEffect(() => {
 		handleFilter();
-	}, [selectedFuelType, priceMin, priceMax, selectedBrands]);
+	}, [selectedFuelType, priceMin, priceMax, selectedBrands, handleFilter]);
 
 	// Fonction pour réinitialiser tous les filtres
 	const resetAllFilters = () => {
