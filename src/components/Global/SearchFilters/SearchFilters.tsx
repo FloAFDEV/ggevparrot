@@ -77,16 +77,17 @@ const SearchFilters = ({
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
-								className="flex items-center cursor-pointer"
+								className="flex items-center cursor-pointer text-start"
 								onClick={() => handleBrandFilter(brand.name)}
 								style={{ cursor: "pointer" }}
 							>
 								<Image
-									src={brand.logo}
-									alt={"logo de " + brand.name}
-									height={40}
-									width={40}
 									className="mr-2 bg-gray-200 rounded-md bg-opacity-80"
+									src={brand.logo}
+									width={40}
+									height={40}
+									style={{ width: "auto", height: "auto" }}
+									alt={"logo de " + brand.name}
 								/>
 								<span className="text-sm">{brand.name}</span>
 							</div>
@@ -102,11 +103,12 @@ const SearchFilters = ({
 								style={{ cursor: "pointer" }}
 							>
 								<Image
-									src={brand.logo}
-									alt={"logo de " + brand.name}
-									height={50}
-									width={50}
 									className="mr-3 bg-gray-200 rounded-md bg-opacity-80"
+									src={brand.logo}
+									width={50}
+									height={50}
+									style={{ width: "auto", height: "auto" }}
+									alt={"logo de " + brand.name}
 								/>
 								<span>{brand.name}</span>
 							</div>
@@ -115,7 +117,7 @@ const SearchFilters = ({
 				)}
 			</div>
 			<div className="mb-4">
-				<div className="flex flex-wrap items-center">
+				<div className="flex flex-wrap items-center justify-center">
 					<select
 						value={priceMin}
 						onChange={(e) => {

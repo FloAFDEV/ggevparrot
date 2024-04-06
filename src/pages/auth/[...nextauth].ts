@@ -67,6 +67,7 @@ async function authenticate(
 			password_hash: user.password_hash,
 		};
 	} catch (error) {
+		// Erreur lors de l'authentification
 		console.error("Erreur lors de l'authentification :", error);
 		return null;
 	}
@@ -95,29 +96,47 @@ const authOptions: NextAuthOptions = {
 				credentials: Record<"email" | "password", string> | undefined,
 				req: any
 			): Promise<DefaultUser | null> {
-				if (
-					!credentials ||
-					!credentials.email ||
-					!credentials.password
-				) {
-					// Si les informations d'identification sont absentes ou incomplètes, retournez null
-					return null;
-				}
-				const { email, password } = credentials;
 				try {
-					// Appel de la fonction authenticate
-					const user: User | null = await authenticate(
-						email,
-						password
-					);
-					if (!user) {
-						throw new Error("Authentification échouée");
+					// Console log pour les credentials
+					console.log("Credentials:", credentials);
+					if (
+						!credentials ||
+						!credentials.email ||
+						!credentials.password
+					) {
+						// Informations d'identification incomplètes
+						console.log(
+							"Informations d'identification incomplètes."
+						);
+						return null;
 					}
-					return {
-						...user,
-						id: user.Id_Users.toString(),
-					};
+					const { email, password } = credentials;
+					// Console log pour l'email et le mot de passe
+					console.log("Email:", email);
+					console.log("Password:", password);
+					try {
+						// Appel de la fonction authenticate
+						const user: User | null = await authenticate(
+							email,
+							password
+						);
+						if (!user) {
+							throw new Error("Authentification échouée");
+						}
+						return {
+							...user,
+							id: user.Id_Users.toString(),
+						};
+					} catch (error) {
+						// Erreur lors de l'authentification
+						console.error(
+							"Erreur lors de l'authentification :",
+							error
+						);
+						return null; // Retourne null en cas d'erreur
+					}
 				} catch (error) {
+					// Erreur lors de l'authentification
 					console.error("Erreur lors de l'authentification :", error);
 					return null; // Retourne null en cas d'erreur
 				}
