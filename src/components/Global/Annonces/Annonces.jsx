@@ -146,6 +146,7 @@ const Annonces = () => {
 		yearFilter,
 		brandFilter,
 		fuelTypeFilter,
+		handleSearch, // Je mets handleSearch en dépendance pour éviter une boucle infinie
 	]);
 
 	// Je rends le contenu JSX du composant
