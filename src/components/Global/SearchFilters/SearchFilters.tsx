@@ -73,11 +73,11 @@ const SearchFilters = ({
 					Sélectionnez vos marques :
 				</h3>
 				{isMobile ? (
-					<div className="grid grid-cols-2 gap-5 ">
+					<div className="grid grid-cols-2 gap-5">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
-								className="flex items-center cursor-pointer text-start"
+								className="flex items-center cursor-pointer text-start gap-2"
 								onClick={() => handleBrandFilter(brand.name)}
 								style={{ cursor: "pointer" }}
 							>
@@ -94,7 +94,7 @@ const SearchFilters = ({
 						))}
 					</div>
 				) : (
-					<fieldset className="grid grid-cols-5 gap-5 pl-20">
+					<fieldset className="grid lg:grid-cols-5 md:grid-cols-4 gap-5 pl-20">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
