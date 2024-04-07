@@ -151,7 +151,7 @@ const Annonces = () => {
 
 	// Je rends le contenu JSX du composant
 	return (
-		<div id="annonces" className="flex pb-10 pt-8">
+		<div id="annonces" className="flex pb-10 pt-8 z-10">
 			<div className="w-full px-4">
 				<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 					Nos annonces
