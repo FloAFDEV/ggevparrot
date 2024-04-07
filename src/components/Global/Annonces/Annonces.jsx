@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Modal from "../Modal/Modal";
 import SearchFilters from "../SearchFilters/SearchFilters";
 import Image from "next/image";
@@ -146,7 +146,6 @@ const Annonces = () => {
 		yearFilter,
 		brandFilter,
 		fuelTypeFilter,
-		handleSearch,
 	]);
 
 	// Je rends le contenu JSX du composant
