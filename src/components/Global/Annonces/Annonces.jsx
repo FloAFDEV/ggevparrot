@@ -56,7 +56,7 @@ const Annonces = () => {
 	}, [allAnnonces]);
 
 	// Je définis la fonction pour filtrer les annonces
-	const handleSearch = useCallback(() => {
+	const handleSearch = () => {
 		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
 		filtered = filtered.filter((annonce) => {
 			return (
@@ -80,14 +80,7 @@ const Annonces = () => {
 			);
 		});
 		setFilteredAnnonces(filtered);
-	}, [
-		allAnnonces,
-		priceMinFilter,
-		priceMaxFilter,
-		yearFilter,
-		brandFilter,
-		fuelTypeFilter,
-	]);
+	};
 
 	// Je définis la fonction pour gérer le changement de filtre de marque
 	const handleBrandFilterChange = (brands) => {
