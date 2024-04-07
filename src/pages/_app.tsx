@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/Global/Context/ThemeContext";
 import ClientThemeWrapper from "@/components/Global/Context/ClientThemeWrapper";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
+
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 

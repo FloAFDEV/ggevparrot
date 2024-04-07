@@ -94,7 +94,7 @@ const SearchFilters = ({
 						))}
 					</div>
 				) : (
-					<fieldset className="grid lg:grid-cols-5 md:grid-cols-4 gap-5 pl-20">
+					<fieldset className="grid lg:grid-cols-4 md:grid-cols-4 gap-5 pl-20">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
