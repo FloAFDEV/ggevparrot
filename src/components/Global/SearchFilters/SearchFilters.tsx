@@ -124,6 +124,7 @@ const SearchFilters = ({
 											height: "auto",
 										}}
 										alt={"logo de " + brand.name}
+										priority={true}
 									/>
 									<span>{brand.name}</span>
 								</div>
