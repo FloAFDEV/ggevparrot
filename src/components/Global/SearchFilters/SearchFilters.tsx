@@ -90,6 +90,7 @@ const SearchFilters = ({
 										src={brand.logo}
 										width={40}
 										height={40}
+										priority={true}
 										style={{
 											width: "auto",
 											height: "auto",
