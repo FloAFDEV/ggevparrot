@@ -31,14 +31,14 @@ export const TracingBeam = ({
 	}, []);
 
 	const y1 = useSpring(
-		useTransform(scrollYProgress, [0, 0.6], [50, svgHeight * 1.5]),
+		useTransform(scrollYProgress, [0, 0.4], [50, svgHeight * 1.2]),
 		{
 			stiffness: 500,
 			damping: 70,
 		}
 	);
 	const y2 = useSpring(
-		useTransform(scrollYProgress, [0, 0.8], [50, svgHeight - 200]),
+		useTransform(scrollYProgress, [0, 0.7], [50, svgHeight - 150]),
 		{
 			stiffness: 500,
 			damping: 70,
@@ -106,7 +106,7 @@ export const TracingBeam = ({
 						} l -18 24V ${svgHeight}`}
 						fill="none"
 						stroke="url(#gradient)"
-						strokeWidth="3"
+						strokeWidth="7"
 						className="motion-reduce:hidden"
 						transition={{
 							duration: 10,
