@@ -183,9 +183,7 @@ const Annonces = () => {
 									<div
 										key={annonce.annonce_title}
 										className={`max-w-[300px] cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
-											isMobileScreen
-												? "p-2 text-sm"
-												: "p-2"
+											isMobileScreen ? "p-2 text-sm" : ""
 										}`}
 									>
 										<figure>
