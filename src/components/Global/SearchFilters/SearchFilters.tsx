@@ -188,7 +188,7 @@ const SearchFilters = ({
 							<option value="Hybride">Hybride</option>
 							<option value="Électrique">Électrique</option>
 						</select>
-					</div>{" "}
+					</div>
 					<button
 						onClick={resetAllFilters}
 						className="mt-4 bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition duration-300 ease-in-out"

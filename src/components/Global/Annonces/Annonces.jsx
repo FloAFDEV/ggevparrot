@@ -182,8 +182,10 @@ const Annonces = () => {
 								annonce.annonce_valid === 1 && (
 									<div
 										key={annonce.annonce_title}
-										className={`max-w-[300px] cardrounded-lg max-w-70 border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
-											isMobileScreen ? "p-2 text-sm" : ""
+										className={`max-w-[300px] cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
+											isMobileScreen
+												? "p-2 text-sm"
+												: "p-2"
 										}`}
 									>
 										<figure>
@@ -197,8 +199,8 @@ const Annonces = () => {
 												}
 												alt={annonce.annonce_title}
 												className="rounded-t-lg w-full rounded-lg"
-												width={2000}
-												height={200}
+												width={300}
+												height={150}
 												priority={true}
 											/>
 										</figure>
