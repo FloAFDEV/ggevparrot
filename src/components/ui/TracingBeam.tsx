@@ -25,7 +25,7 @@ export const TracingBeam = ({
 	}, []);
 
 	const y1 = useSpring(
-		useTransform(scrollYProgress, [0, 0.4], [50, svgHeight * 1.2]),
+		useTransform(scrollYProgress, [0, 0.4], [50, svgHeight * 0.5]),
 		{
 			stiffness: 500,
 			damping: 70,
@@ -42,7 +42,7 @@ export const TracingBeam = ({
 	return (
 		<motion.div
 			ref={ref}
-			className={cn("relative w-11/12 mx-auto h-4/6 -z-1", className)}
+			className={cn("relative w-11/12 mx-auto h-4/6", className)}
 		>
 			<div className="absolute -left-10 md:-left-20 top-3 -z-1">
 				<motion.div
