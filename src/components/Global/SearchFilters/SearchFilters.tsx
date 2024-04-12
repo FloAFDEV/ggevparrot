@@ -45,6 +45,7 @@ const SearchFilters = ({
 	// Fonction handleBrandFilter pour filtrer les marques sélectionnées
 	const handleBrandFilter = useCallback(
 		(brandName: string) => {
+			// Cette fonction sera mémorisée et ne sera recréée que si les dépendances changent
 			if (!selectedBrands.includes(brandName)) {
 				setSelectedBrands([...selectedBrands, brandName]);
 			} else {
