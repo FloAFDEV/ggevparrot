@@ -1,15 +1,19 @@
+// Import des hooks et des composants nécessaires depuis React
 import React, { useEffect, useState, useCallback } from "react";
 import Modal from "../Modal/Modal";
 import SearchFilters from "../SearchFilters/SearchFilters";
 import Image from "next/image";
+
+// Import des fonctions utilitaires depuis apiService
 import {
 	BASE_URL,
 	fetchAllAnnonces,
 	fetchAllImages,
 } from "@/components/utils/apiService";
 
+// Définition du composant Annonces
 const Annonces = () => {
-	// Je déclare les états nécessaires pour gérer les annonces
+	// Déclaration des différents états nécessaires au composant
 	const [allAnnonces, setAllAnnonces] = useState([]);
 	const [filteredAnnonces, setFilteredAnnonces] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +28,7 @@ const Annonces = () => {
 	const [brandFilter, setBrandFilter] = useState([]);
 	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
 
-	// Je définis un effet pour détecter le redimensionnement de l'écran
+	// Utilisation de useEffect pour détecter le changement de taille de l'écran
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobileScreen(window.innerWidth <= 768);
@@ -36,7 +40,7 @@ const Annonces = () => {
 		};
 	}, []);
 
-	// Je récupère les annonces une fois que le composant est monté
+	// Utilisation de useEffect pour charger les annonces au chargement de la page
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -55,9 +59,21 @@ const Annonces = () => {
 		}
 	}, [allAnnonces]);
 
-	// Je définis la fonction pour filtrer les annonces
+	// Utilisation de useEffect pour filtrer les annonces lorsque les filtres changent
+	useEffect(() => {
+		handleSearch();
+	}, [
+		priceMinFilter,
+		priceMaxFilter,
+		yearFilter,
+		brandFilter,
+		fuelTypeFilter,
+		allAnnonces,
+	]);
+
+	// Fonction handleSearch utilisant useCallback pour éviter les re-render inutiles
 	const handleSearch = useCallback(() => {
-		let filtered = [...allAnnonces]; // Je fais une copie de toutes les annonces
+		let filtered = [...allAnnonces];
 		filtered = filtered.filter((annonce) => {
 			return (
 				(priceMinFilter === "" ||
@@ -66,13 +82,11 @@ const Annonces = () => {
 					annonce.price <= parseInt(priceMaxFilter)) &&
 				(yearFilter === "" ||
 					annonce.manufacture_year === parseInt(yearFilter)) &&
-				(brandFilter.length === 0 || // Si aucun filtre de marque n'est sélectionné
-					brandFilter.some(
-						(brand) =>
-							annonce.brand_name &&
-							annonce.brand_name
-								.toLowerCase()
-								.includes(brand.toLowerCase())
+				(brandFilter.length === 0 ||
+					brandFilter.some((brand) =>
+						annonce.brand_name
+							.toLowerCase()
+							.includes(brand.toLowerCase())
 					)) &&
 				(!fuelTypeFilter ||
 					annonce.fuel_type.toLowerCase() ===
@@ -89,18 +103,20 @@ const Annonces = () => {
 		fuelTypeFilter,
 	]);
 
-	// Je définis la fonction pour gérer le changement de filtre de marque
-	const handleBrandFilterChange = (brands) => {
-		setBrandFilter(brands.split(","));
-		console.log(brands);
-	};
+	// Fonction handleBrandFilterChange pour mettre à jour le filtre de marque
+	const handleBrandFilterChange = useCallback(
+		(brands) => {
+			setBrandFilter(brands.split(","));
+		},
+		[setBrandFilter]
+	);
 
-	// Je définis la fonction pour gérer le changement de filtre de type de carburant
+	// Fonction handleFuelTypeFilterChange pour mettre à jour le filtre de type de carburant
 	const handleFuelTypeFilterChange = (value) => {
 		setFuelTypeFilter(value);
 	};
 
-	// Je définis la fonction pour gérer le changement de filtre de prix
+	// Fonction handlePriceFilterChange pour mettre à jour les filtres de prix
 	const handlePriceFilterChange = (value, filterType) => {
 		if (filterType === "min") {
 			setPriceMinFilter(value);
@@ -109,7 +125,7 @@ const Annonces = () => {
 		}
 	};
 
-	// Je définis la fonction pour réinitialiser les filtres
+	// Fonction handleResetFilters pour réinitialiser tous les filtres
 	const handleResetFilters = () => {
 		setPriceMinFilter("");
 		setPriceMaxFilter("");
@@ -119,7 +135,7 @@ const Annonces = () => {
 		handleSearch();
 	};
 
-	// Je définis la fonction pour ouvrir le modal avec les détails de l'annonce sélectionnée
+	// Fonction handleOpenModal pour ouvrir le modal avec les détails de l'annonce
 	const handleOpenModal = async (annonce) => {
 		setModalAnnonce(annonce);
 		setShowModal(true);
@@ -132,24 +148,12 @@ const Annonces = () => {
 		}
 	};
 
-	// Je définis la fonction pour fermer le modal
+	// Fonction handleCloseModal pour fermer le modal
 	const handleCloseModal = () => {
 		setShowModal(false);
 	};
 
-	// Je déclenche la recherche à chaque changement de filtre
-	useEffect(() => {
-		handleSearch();
-	}, [
-		priceMinFilter,
-		priceMaxFilter,
-		yearFilter,
-		brandFilter,
-		fuelTypeFilter,
-		handleSearch, // Je mets handleSearch en dépendance pour éviter une boucle infinie
-	]);
-
-	// Je rends le contenu JSX du composant
+	// Rendu JSX du composant Annonces
 	return (
 		<div id="annonces" className="flex pb-10 pt-8 z-50">
 			<div className="w-full px-4">

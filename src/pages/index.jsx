@@ -51,7 +51,7 @@ export default function Home({
 					<div className="w-full text-center font-bold mt-4">
 						<Annonces annonces={annonces} />
 					</div>
-				</section>{" "}
+				</section>
 				<section>
 					<Contact />
 				</section>

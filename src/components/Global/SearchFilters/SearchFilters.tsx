@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+// Import des hooks et des composants nécessaires depuis React et Next.js
+import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import { brandOptions } from "../brandsData/brandsData";
-import TracingBeam from "@/components/ui/TracingBeam";
 
+// Import des données des marques
+import { brandOptions } from "../brandsData/brandsData";
+
+// Import des composants utilitaires
+import TracingBeam from "@/components/ui/TracingBeam";
+import WindowResize from "../WindowResize/WindowResize";
+
+// Définition du composant SearchFilters
 const SearchFilters = ({
 	handleFilter,
 	handleFuelTypeFilterChange,
@@ -12,17 +19,18 @@ const SearchFilters = ({
 }: {
 	handleFilter: () => void;
 	handleFuelTypeFilterChange: (value: string) => void;
-	handlePriceFilterChange: (value: string, type: string) => void; // Deux arguments passés dans la fonction un 'min' et 'max' Price
+	handlePriceFilterChange: (value: string, type: string) => void;
 	handleBrandFilterChange: (value: string) => void;
 	resetFilters: () => void;
 }) => {
+	// Déclaration des états nécessaires au composant
 	const [priceMin, setPriceMin] = useState("");
 	const [priceMax, setPriceMax] = useState("");
 	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 	const [selectedFuelType, setSelectedFuelType] = useState<string>("");
 	const [isMobile, setIsMobile] = useState(false);
 
-	// Effet pour détecter le redimensionnement de l'écran
+	// Utilisation de useEffect pour détecter le changement de taille de l'écran
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth <= 768);
@@ -34,31 +42,31 @@ const SearchFilters = ({
 		};
 	}, []);
 
-	// Fonction pour gérer la sélection des marques
-	const handleBrandFilter = (brandName: string) => {
-		// Vérifier si la marque est déjà sélectionnée
-		if (!selectedBrands.includes(brandName)) {
-			// Si elle n'est pas sélectionnée, l'ajouter à la liste des marques sélectionnées
-			setSelectedBrands([...selectedBrands, brandName]);
-		} else {
-			// Sinon, la retirer de la liste des marques sélectionnées
-			setSelectedBrands(
-				selectedBrands.filter((brand) => brand !== brandName)
-			);
-		}
-	};
+	// Fonction handleBrandFilter pour filtrer les marques sélectionnées
+	const handleBrandFilter = useCallback(
+		(brandName: string) => {
+			if (!selectedBrands.includes(brandName)) {
+				setSelectedBrands([...selectedBrands, brandName]);
+			} else {
+				setSelectedBrands((prevSelectedBrands) =>
+					prevSelectedBrands.filter((brand) => brand !== brandName)
+				);
+			}
+		},
+		[selectedBrands]
+	);
 
-	// Effet pour appliquer les filtres lorsque les valeurs changent
+	// Utilisation de useEffect pour mettre à jour les filtres de marque sélectionnés
 	useEffect(() => {
 		handleBrandFilterChange(selectedBrands.join(","));
-		handleFilter();
-	}, [selectedBrands, handleBrandFilterChange, handleFilter]);
+	}, [selectedBrands, handleBrandFilterChange]);
 
+	// Utilisation de useEffect pour déclencher le filtrage lorsque les filtres changent
 	useEffect(() => {
 		handleFilter();
-	}, [selectedFuelType, priceMin, priceMax, selectedBrands, handleFilter]);
+	}, [selectedFuelType, priceMin, priceMax, handleFilter]);
 
-	// Fonction pour réinitialiser tous les filtres
+	// Fonction resetAllFilters pour réinitialiser tous les filtres
 	const resetAllFilters = () => {
 		setPriceMin("");
 		setPriceMax("");
@@ -67,8 +75,11 @@ const SearchFilters = ({
 		resetFilters();
 	};
 
+	// Rendu JSX du composant SearchFilters
+
 	return (
 		<TracingBeam>
+			<WindowResize />
 			<div className="p-4 mb-2">
 				<div className="mb-4">
 					<h3 className="text-lg font-semibold mb-8">
