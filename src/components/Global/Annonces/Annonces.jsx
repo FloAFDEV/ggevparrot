@@ -158,7 +158,7 @@ const Annonces = () => {
 	return (
 		<TracingBeam>
 			<div id="annonces" className="flex pb-10 pt-8 z-50">
-				<div className="w-full px-4">
+				<div className="w-full px-4 max-w-[1200px]">
 					<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 						Nos annonces
 					</h2>
@@ -206,7 +206,7 @@ const Annonces = () => {
 															: "/assets/CarDefaultImage.webp"
 													}
 													alt={annonce.annonce_title}
-													className="rounded-t-lg w-full rounded-lg"
+													className="rounded-t-lg w-full h-full object-cover"
 													width={300}
 													height={150}
 													priority={true}
@@ -261,7 +261,7 @@ const Annonces = () => {
 																annonce
 															)
 														}
-														className="btn btn-primary text-lg absolute bottom-0 right-0 m-2 p-1"
+														className="btn btn-primary text-lg absolute bottom-0 right-0 m-1 p-1"
 													>
 														En savoir plus
 													</button>
