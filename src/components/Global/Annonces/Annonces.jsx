@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Modal from "../Modal/Modal";
 import SearchFilters from "../SearchFilters/SearchFilters";
 import Image from "next/image";
+import TracingBeam from "@/components/ui/TracingBeam";
 
 // Import des fonctions utilitaires depuis apiService
 import {
@@ -155,120 +156,133 @@ const Annonces = () => {
 
 	// Rendu JSX du composant Annonces
 	return (
-		<div id="annonces" className="flex pb-10 pt-8 z-50">
-			<div className="w-full px-4">
-				<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
-					Nos annonces
-				</h2>
-				<div className="w-full h-auto">
-					<SearchFilters
-						handleFilter={handleSearch}
-						handleFuelTypeFilterChange={handleFuelTypeFilterChange}
-						handlePriceFilterChange={handlePriceFilterChange}
-						handleBrandFilterChange={handleBrandFilterChange}
-						resetFilters={handleResetFilters}
-						priceMinFilter={priceMinFilter}
-						priceMaxFilter={priceMaxFilter}
-						yearFilter={yearFilter}
-						brandFilter={brandFilter}
-						fuelTypeFilter={fuelTypeFilter}
-					/>
-				</div>
-				<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-					{error && <p>Erreur: {error}</p>}
-					{isLoading ? (
-						<span className="loading loading-spinner loading-lg h-40">
-							<p>Chargement...</p>
-						</span>
-					) : (
-						filteredAnnonces.map(
-							(annonce) =>
-								annonce.annonce_valid === 1 && (
-									<div
-										key={annonce.annonce_title}
-										className={`max-w-[300px] cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
-											isMobileScreen ? "p-2 text-sm" : ""
-										}`}
-									>
-										<figure>
-											<Image
-												src={
-													annonce.main_image_url &&
-													annonce.main_image_url !==
-														""
-														? annonce.main_image_url
-														: "/assets/CarDefaultImage.webp"
-												}
-												alt={annonce.annonce_title}
-												className="rounded-t-lg w-full rounded-lg"
-												width={300}
-												height={150}
-												priority={true}
-											/>
-										</figure>
-										<div className="card-body p-1 w-full">
-											<h2
-												className={`card-title font-bold ${
-													isMobileScreen
-														? "text-base text-end"
-														: "text-lg text-end"
-												}`}
-											>
-												{annonce.annonce_title}
-											</h2>
-											{isMobileScreen ? null : (
-												<div className="text-end font-light">
-													Année:{" "}
-													{annonce.manufacture_year}
-													<br />
-													{annonce.color} <br />
-													{annonce.fuel_type}
-													<br />
-													{annonce.mileage} km
-													<p>
-														Catégorie:{" "}
-														{annonce.category_model}
-													</p>
-												</div>
-											)}
-											<p className="text-end font-semibold">
-												Prix:{" "}
-												{Math.round(annonce.price)} €
-											</p>{" "}
-											<p className="text-xs font-thin text-end mt-2 mb-1">
-												À partir de{" "}
-												{(
-													(annonce.price - 3000) /
-													60
-												).toFixed(2)}{" "}
-												€/mois
-											</p>
-											<div className="card-actions justify-end m-1 pt-2 ">
-												<button
-													onClick={() =>
-														handleOpenModal(annonce)
+		<TracingBeam>
+			<div id="annonces" className="flex pb-10 pt-8 z-50">
+				<div className="w-full px-4">
+					<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
+						Nos annonces
+					</h2>
+					<div className="w-full h-auto">
+						<SearchFilters
+							handleFilter={handleSearch}
+							handleFuelTypeFilterChange={
+								handleFuelTypeFilterChange
+							}
+							handlePriceFilterChange={handlePriceFilterChange}
+							handleBrandFilterChange={handleBrandFilterChange}
+							resetFilters={handleResetFilters}
+							priceMinFilter={priceMinFilter}
+							priceMaxFilter={priceMaxFilter}
+							yearFilter={yearFilter}
+							brandFilter={brandFilter}
+							fuelTypeFilter={fuelTypeFilter}
+						/>
+					</div>
+					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+						{error && <p>Erreur: {error}</p>}
+						{isLoading ? (
+							<span className="loading loading-spinner loading-lg h-40">
+								<p>Chargement...</p>
+							</span>
+						) : (
+							filteredAnnonces.map(
+								(annonce) =>
+									annonce.annonce_valid === 1 && (
+										<div
+											key={annonce.annonce_title}
+											className={`max-w-[300px] cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
+												isMobileScreen
+													? "p-2 text-sm"
+													: ""
+											}`}
+										>
+											<figure>
+												<Image
+													src={
+														annonce.main_image_url &&
+														annonce.main_image_url !==
+															""
+															? annonce.main_image_url
+															: "/assets/CarDefaultImage.webp"
 													}
-													className="btn btn-primary text-lg absolute bottom-0 right-0 m-2 p-1"
+													alt={annonce.annonce_title}
+													className="rounded-t-lg w-full rounded-lg"
+													width={300}
+													height={150}
+													priority={true}
+												/>
+											</figure>
+											<div className="card-body p-1 w-full">
+												<h2
+													className={`card-title font-bold ${
+														isMobileScreen
+															? "text-base text-end"
+															: "text-lg text-end"
+													}`}
 												>
-													En savoir plus
-												</button>
+													{annonce.annonce_title}
+												</h2>
+												{isMobileScreen ? null : (
+													<div className="text-end font-light">
+														Année:{" "}
+														{
+															annonce.manufacture_year
+														}
+														<br />
+														{annonce.color} <br />
+														{annonce.fuel_type}
+														<br />
+														{annonce.mileage} km
+														<p>
+															Catégorie:{" "}
+															{
+																annonce.category_model
+															}
+														</p>
+													</div>
+												)}
+												<p className="text-end font-semibold">
+													Prix:{" "}
+													{Math.round(annonce.price)}{" "}
+													€
+												</p>{" "}
+												<p className="text-xs font-thin text-end mt-2 mb-1">
+													À partir de{" "}
+													{(
+														(annonce.price - 3000) /
+														60
+													).toFixed(2)}{" "}
+													€/mois
+												</p>
+												<div className="card-actions justify-end m-1 pt-2 ">
+													<button
+														onClick={() =>
+															handleOpenModal(
+																annonce
+															)
+														}
+														className="btn btn-primary text-lg absolute bottom-0 right-0 m-2 p-1"
+													>
+														En savoir plus
+													</button>
+												</div>
 											</div>
+											<div className="h-7"></div>
 										</div>
-										<div className="h-7"></div>
-									</div>
-								)
-						)
-					)}
+									)
+							)
+						)}
+					</div>
 				</div>
+				{showModal && (
+					<Modal
+						annonce={modalAnnonce}
+						handleCloseModal={handleCloseModal}
+						imagesData={imagesData}
+					/>
+				)}
 			</div>
-			{showModal && (
-				<Modal
-					annonce={modalAnnonce}
-					handleCloseModal={handleCloseModal}
-					imagesData={imagesData}
-				/>
-			)}
-		</div>
+		</TracingBeam>
 	);
 };
 

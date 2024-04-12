@@ -13,8 +13,8 @@ import {
 	fetchAllServices,
 	fetchOpeningHours,
 	fetchAllTestimonials,
-} from "../components/utils/apiService";
-import Contact from "../components/Global/Contact/Contact";
+} from "@/components/utils/apiService";
+import Contact from "@/components/Global/Contact/Contact";
 
 export default function Home({
 	servicesData,
