@@ -65,7 +65,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								<p>
 									<Link
 										href={`tel:${service.phoneNumber}`}
-										className="font-bold text-lg text-accent hover:text-accent"
+										className="font-bold text-lg text-green-700 hover:text-accent"
 									>
 										{service.phoneNumber}
 									</Link>{" "}
@@ -73,7 +73,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								<p className="mt-2">
 									<Link
 										href="/#contact"
-										className="text-gray-500 font-bold hover:text-accent"
+										className="text-green-700 font-bold hover:text-accent"
 									>
 										Vous préférez nous écrire?
 									</Link>

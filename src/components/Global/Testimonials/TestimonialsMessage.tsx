@@ -125,7 +125,7 @@ const TestimonialsMessage = () => {
 					height={72}
 					className="mr-2"
 				/>
-				<h2 className="font-extrabold text-center text-2xl mt-2 leading-none max-w-2xl mx-auto md:mx-4 text-accent">
+				<h2 className="font-extrabold text-center text-2xl mt-2 leading-none max-w-2xl mx-auto md:mx-4 text-green-700 hover:text-accent">
 					Laissez votre témoignage
 				</h2>
 			</button>

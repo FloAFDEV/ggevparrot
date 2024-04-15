@@ -110,7 +110,7 @@ const SearchFilters = ({
 						))}
 					</div>
 				) : (
-					<fieldset className="grid lg:grid-cols-4 md:grid-cols-4 gap-5 pl-20">
+					<fieldset className="grid lg:grid-cols-4 md:grid-cols-4 gap-6 pl-20">
 						{brandOptions.map((brand, index) => (
 							<div
 								key={index}
@@ -119,12 +119,12 @@ const SearchFilters = ({
 								style={{ cursor: "pointer" }}
 							>
 								<Image
-									className="mr-3 bg-gray-200 rounded-md bg-opacity-80"
+									className="mr-3 bg-gray-200 rounded-md bg-opacity-80 w-300"
 									src={brand.logo}
 									width={50}
 									height={50}
 									style={{
-										width: "auto",
+										width: "40px",
 										height: "auto",
 									}}
 									alt={"logo de " + brand.name}
