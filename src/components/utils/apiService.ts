@@ -12,8 +12,71 @@ export async function fetchAllAnnonces() {
 				`Erreur dans la récupération des annonces: ${response.status}`
 			);
 		}
-
 		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+// Mettre à jour une annonce
+export async function updateAnnonce(annonceId: number, formData: any) {
+	try {
+		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		});
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de la mise à jour de l'annonce : ${response.status}`
+			);
+		}
+		console.log("Annonce mise à jour avec succès !");
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+// Ajouter une annonce
+export async function addAnnonce(formData: any) {
+	try {
+		const response = await fetch(`${BASE_URL}annonces`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		});
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de l'ajout de l'annonce : ${response.status}`
+			);
+		}
+		console.log("Annonce ajoutée avec succès !");
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+// Ssupprimer une annonce
+export async function deleteAnnonce(annonceId: number) {
+	try {
+		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
+			method: "DELETE",
+		});
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de la suppression de l'annonce : ${response.status}`
+			);
+		}
+		console.log("Annonce supprimée avec succès !");
 	} catch (error) {
 		console.error(error);
 		throw error;
