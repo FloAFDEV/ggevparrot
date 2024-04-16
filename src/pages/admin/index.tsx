@@ -113,15 +113,17 @@ const AdminPage = () => {
 									annonce.Id_CarAnnonce && (
 									<tr>
 										<td colSpan={4}>
+											<div className="mb-8 mx-4">
+												<h2 className="text-xl font-bold py-2">
+													Détails de l'annonce n°{" "}
+													{annonce.Id_CarAnnonce}
+												</h2>
+											</div>
 											<div className="grid grid-cols-2 gap-8 m-5">
 												<div className="col-span-2 md:col-span-1">
-													<h2 className="text-xl font-bold mb-4">
-														Détails de l'annonce n°{" "}
-														{annonce.Id_CarAnnonce}
-													</h2>
 													<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-														<div>
-															<p className="font-semibold">
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Date de création
 																:
 															</p>
@@ -130,7 +132,9 @@ const AdminPage = () => {
 																	annonce.annonce_createdAt
 																}
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Marque :
 															</p>
 															<p>
@@ -138,7 +142,9 @@ const AdminPage = () => {
 																	annonce.brand_name
 																}
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Modèle :
 															</p>
 															<p>
@@ -147,8 +153,8 @@ const AdminPage = () => {
 																}
 															</p>
 														</div>
-														<div>
-															<p className="font-semibold">
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Année de
 																fabrication :
 															</p>
@@ -157,13 +163,17 @@ const AdminPage = () => {
 																	annonce.manufacture_year
 																}
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Couleur :
 															</p>
 															<p>
 																{annonce.color}
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Carburant :
 															</p>
 															<p>
@@ -172,12 +182,8 @@ const AdminPage = () => {
 																}
 															</p>
 														</div>
-													</div>
-												</div>
-												<div className="col-span-2 md:col-span-1">
-													<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-														<div>
-															<p className="font-semibold">
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Kilométrage :
 															</p>
 															<p>
@@ -186,7 +192,9 @@ const AdminPage = () => {
 																}{" "}
 																km
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Immatriculation
 																:
 															</p>
@@ -195,7 +203,9 @@ const AdminPage = () => {
 																	annonce.registration
 																}
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Puissance :
 															</p>
 															<p>
@@ -205,15 +215,17 @@ const AdminPage = () => {
 																}
 															</p>
 														</div>
-														<div>
-															<p className="font-semibold">
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Prix :
 															</p>
 															<p>
 																{annonce.price}{" "}
 																€
 															</p>
-															<p className="font-semibold">
+														</div>
+														<div className="mb-4">
+															<p className="font-semibold mb-1">
 																Options :
 															</p>
 															<p>
@@ -221,15 +233,19 @@ const AdminPage = () => {
 																	annonce.options_name
 																}
 															</p>
-															<p className="font-semibold">
-																Description :
-															</p>
-															<p>
-																{
-																	annonce.description
-																}
-															</p>
 														</div>
+													</div>
+												</div>
+												<div className="col-span-2 md:col-span-1">
+													<div>
+														<p className="font-semibold mb-1">
+															Description :
+														</p>
+														<p>
+															{
+																annonce.description
+															}
+														</p>
 													</div>
 												</div>
 											</div>
