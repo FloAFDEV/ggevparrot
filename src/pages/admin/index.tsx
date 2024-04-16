@@ -52,7 +52,11 @@ const AdminPage = () => {
 	};
 
 	const handleSelectAnnonce = async (Id_CarAnnonce: number) => {
-		setSelectedAnnonceId(Id_CarAnnonce);
+		if (selectedAnnonceId === Id_CarAnnonce) {
+			setSelectedAnnonceId(null);
+		} else {
+			setSelectedAnnonceId(Id_CarAnnonce);
+		}
 	};
 
 	return (
