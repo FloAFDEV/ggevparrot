@@ -19,7 +19,7 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 	onShowAnnonces,
 }) => {
 	return (
-		<div className="navbar bg-accent">
+		<div className="navbar bg-accent w-full">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<div
@@ -42,11 +42,9 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 							/>
 						</svg>
 					</div>
-
-					{/* le passer en composant, adminMenu et employeeMenu et modifier en fonction du rôle*/}
 					<ul
 						tabIndex={0}
-						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-48 lg:w-52"
 					>
 						<li>
 							<button onClick={onShowAnnonces}>
@@ -72,25 +70,27 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 				</div>
 			</div>
 
-			<div className="navbar-center">
-				<Link href="/">
-					<Logo
-						src="/favicon.ico"
-						className="p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
-					/>
-				</Link>
-				<a className="text-2xl font-extrabold">
-					Bienvenue sur votre interface d'administration
-				</a>{" "}
-				<Link href="/">
-					<Logo
-						src="/favicon.ico"
-						className="p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
-					/>
-				</Link>
+			<div className="navbar-center flex items-center justify-center">
+				<div className="flex items-center justify-center">
+					<Link href="/">
+						<Logo
+							src="/favicon.ico"
+							className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
+						/>
+					</Link>
+					<a className="text-lg font-extrabold md:ml-2 md:block text-center md:text-left">
+						Bienvenue sur votre interface d'administration
+					</a>
+				</div>
 			</div>
 
 			<div className="navbar-end">
+				<Link href="/">
+					<Logo
+						src="/favicon.ico"
+						className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
+					/>
+				</Link>
 				<button className="btn btn-ghost btn-circle">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
