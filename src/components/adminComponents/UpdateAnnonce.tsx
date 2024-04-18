@@ -188,6 +188,7 @@ const UpdateAnnonce = ({
 							<Image
 								src={mainImageUrl}
 								alt={initialAnnonce.annonce_title}
+								style={{ objectFit: "contain" }}
 								width={200}
 								height={200}
 								priority={true}
@@ -205,6 +206,7 @@ const UpdateAnnonce = ({
 							<Image
 								src={selectedImage}
 								alt={updatedAnnonce.annonce_title}
+								style={{ objectFit: "contain" }}
 								width="200"
 								height="200"
 								priority={true}
@@ -223,6 +225,7 @@ const UpdateAnnonce = ({
 						id="main_image_url"
 						name="main_image_url"
 						alt={updatedAnnonce.annonce_title}
+						style={{ objectFit: "contain" }}
 						accept="image/jpeg, image/jpg, image/webp, image/png"
 						onChange={handleImageChange}
 						className="w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none"
