@@ -133,7 +133,7 @@ const UpdateAnnonce = ({
 
 	return (
 		<div className="bg-slate-400 p-4 rounded-lg max-w-6xl h-[90vh] overflow-auto">
-			<div className="grid grid-cols-4 gap-4 font-bold">
+			<div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 sm:gap-2 gap-4 font-bold text-sm md:text-base">
 				{/* Les champs du formulaire */}
 				<div className="col-span-full">
 					<CustomInput
