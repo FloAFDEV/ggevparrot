@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
 
+// récupérer le props "rôle"
 interface AdmiNavbarProps {
 	onFetchAnnonces: () => Promise<void>;
 	onAddAnnonce: () => void;
@@ -41,6 +42,8 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 							/>
 						</svg>
 					</div>
+
+					{/* le passer en composant, adminMenu et employeeMenu et modifier en fonction du rôle*/}
 					<ul
 						tabIndex={0}
 						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"

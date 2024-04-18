@@ -90,7 +90,7 @@ const TestimonialsMessage = () => {
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
-				}, 6000); // -> après 6 secondes
+				}, 60000); // -> après 6 secondes
 			} else {
 				throw new Error("Erreur lors de l'envoi du formulaire.");
 			}
@@ -209,7 +209,7 @@ const TestimonialsMessage = () => {
 										value={formData.botField}
 										style={{ display: "none" }}
 										onChange={handleChange}
-									/>{" "}
+									/>
 									<div className="mb-2">
 										<label
 											htmlFor="rating"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { fetchAllAnnonces } from "@/components/utils/apiService";
+import UpdateAnnonce from "@/components/adminComponents/UpdateAnnonce";
 
 // Définition de l'interface
 interface Annonce {
@@ -30,6 +31,11 @@ const ReadAnnonce = () => {
 		null
 	);
 
+	const handleUpdateClick = (annonce: Annonce) => {
+		setSelectedAnnonce(annonce);
+		setShowUpdateModal(true);
+	};
+
 	useEffect(() => {
 		handleFetchAnnonces();
 	}, []);
@@ -50,8 +56,14 @@ const ReadAnnonce = () => {
 		setSelectedAnnonce(annonce);
 	};
 
+	const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+
 	const handleCloseModal = () => {
 		setSelectedAnnonce(null);
+	};
+
+	const handleCloseUpdateModal = () => {
+		setShowUpdateModal(false);
 	};
 
 	return (
@@ -74,9 +86,17 @@ const ReadAnnonce = () => {
 							onClick={() => handleSelectAnnonce(annonce)}
 						>
 							<td className="px-4 py-2 font-bold">
+								{" "}
+								<Image
+									src={annonce.brand_logo_url}
+									alt={annonce.annonce_title}
+									width={45}
+									height={45}
+									className="float-left ml-4"
+								/>
 								{annonce.annonce_title}
 							</td>
-							<td className="px-4 py-2">{annonce.brand_name}</td>
+							<td className="p-4">{annonce.brand_name}</td>
 							<td className="px-4 py-2">
 								{new Date(
 									annonce.annonce_createdAt
@@ -128,11 +148,11 @@ const ReadAnnonce = () => {
 									<Image
 										src={selectedAnnonce.main_image_url}
 										alt={selectedAnnonce.annonce_title}
-										layout="fill"
-										objectFit="cover"
+										width="220"
+										height="200"
 									/>
-									<p className="absolute bottom-2 right-2 text-white">
-										ID de l'annonce:{" "}
+									<p className="absolute bottom-2 font-semibold text-xl right-20 text-white">
+										Annonce n°{" "}
 										{selectedAnnonce.Id_CarAnnonce}
 									</p>
 								</div>
@@ -196,8 +216,35 @@ const ReadAnnonce = () => {
 							<p>{selectedAnnonce.description}</p>
 						</div>
 						<button
+							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded mr-4"
+							onClick={() => handleUpdateClick(selectedAnnonce)}
+						>
+							Modifier l'annonce n°{" "}
+							{selectedAnnonce.Id_CarAnnonce}
+						</button>
+						{/* Bouton Fermer pour la première modale */}
+						<button
 							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
 							onClick={handleCloseModal}
+						>
+							Fermer
+						</button>
+					</div>
+				</div>
+			)}
+			{showUpdateModal && selectedAnnonce && (
+				<div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+					<div className="bg-white p-8 rounded-lg max-w-4xl overflow-auto">
+						{/* Bouton Fermer pour la deuxième modale */}
+						<UpdateAnnonce
+							annonceId={selectedAnnonce.Id_CarAnnonce}
+							initialAnnonce={selectedAnnonce}
+							mainImageUrl={selectedAnnonce.main_image_url}
+							closeModal={handleCloseUpdateModal}
+						/>
+						<button
+							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+							onClick={handleCloseUpdateModal}
 						>
 							Fermer
 						</button>
@@ -207,5 +254,4 @@ const ReadAnnonce = () => {
 		</div>
 	);
 };
-
 export default ReadAnnonce;

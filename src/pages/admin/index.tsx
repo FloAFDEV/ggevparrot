@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "./AdminNavbar";
-import ReadAnnonce from "../admin/actions/annonces/ReadAnnonce";
+import AdminNavbar from "@/components/adminComponents/AdminNavbar";
+import ReadAnnonce from "@/components/adminComponents/ReadAnnonce";
+
+// Récupérer le token avec le rôle de l'user connecté
 
 const AdminPage = () => {
 	const [showAnnonces, setShowAnnonces] = useState(false);
@@ -27,6 +29,7 @@ const AdminPage = () => {
 				onAddAnnonce={() => {}}
 				onDeleteAnnonce={() => {}}
 				onUpdateAnnonce={() => {}}
+				// token du user connecté => rôle
 			/>
 			{showAnnonces && <ReadAnnonce />}
 		</div>
@@ -34,3 +37,5 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
+
+// migrer les "pages" admin en tant que composants dans "adminComponents"
