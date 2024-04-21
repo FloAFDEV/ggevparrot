@@ -19,10 +19,10 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 	testimonials,
 }) => {
 	// Filtre les témoignages avec valid à true
-	const validTestimonials = testimonials.filter(
-		(testimonial) => testimonial.valid
-	);
-
+	const validTestimonials =
+		testimonials && Array.isArray(testimonials)
+			? testimonials.filter((testimonial) => testimonial.valid)
+			: [];
 	// On récupère les 3 derniers témoignages valides
 	const recentTestimonials = validTestimonials.slice(-3);
 

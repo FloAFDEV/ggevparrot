@@ -127,7 +127,7 @@ const Navbar: React.FunctionComponent = () => {
 							/>
 						</Link>
 					</div>
-					<div className="navbar-end px-3 hidden lg:flex">
+					<div className="navbar-end px-3 hidden lg:flex justify-around">
 						<ul className="menu menu-horizontal px-1 text-lg">
 							<li>
 								<Link

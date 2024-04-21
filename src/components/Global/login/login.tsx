@@ -9,22 +9,32 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleLogin = async () => {
 		try {
-			const result = await signIn("credentials", {
+			const result = (await signIn("credentials", {
 				email,
 				password,
 				redirect: false,
-			});
+			})) as
+				| {
+						error: { token: string } | undefined;
+						token: string;
+				  }
+				| undefined;
 			if (result && result.error) {
 				setError("Adresse e-mail ou mot de passe incorrect.");
 			} else {
-				router.push("/");
+				// Je stocke le token JWT dans le localStorage après une connexion réussie
+				localStorage.setItem("jwtToken", result?.token as string);
+				router.push("/admin");
 			}
 		} catch (error) {
 			console.error("Erreur lors de la connexion :", error);
 			setError("Une erreur s'est produite. Veuillez réessayer.");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -35,16 +45,20 @@ const Login = () => {
 
 	return (
 		<div className="p-4 text-base-content space-y-4">
+			{loading && <div>Loading...</div>}
 			{error && <p style={{ color: "red" }}>{error}</p>}
 			<form onSubmit={handleSubmit} className="space-y-4 font-bold">
 				<div>
+					<label htmlFor="email" className="sr-only">
+						Adresse e-mail
+					</label>
 					<input
 						type="email"
 						value={email}
 						placeholder="Votre e-mail"
 						onChange={(e) => setEmail(e.target.value)}
 						required
-						pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$"
+						// pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$"
 						autoComplete="email"
 						className="w-full px-4 py-2 text-white bg-neutral rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 bg-opacity-60"
 					/>

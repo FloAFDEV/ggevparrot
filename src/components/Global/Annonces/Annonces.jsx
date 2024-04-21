@@ -157,8 +157,8 @@ const Annonces = () => {
 	// Rendu JSX du composant Annonces
 	return (
 		<TracingBeam>
-			<div id="annonces" className="flex pb-10 pt-8 z-50">
-				<div className="w-full px-4 max-w-[1200px]">
+			<div id="annonces" className="flex pb-10 pt-8 z-50 justify-center">
+				<div className="w-full px-2 max-w-[1500px]">
 					<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
 						Nos annonces
 					</h2>
@@ -178,7 +178,7 @@ const Annonces = () => {
 							fuelTypeFilter={fuelTypeFilter}
 						/>
 					</div>
-					<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 						{error && <p>Erreur: {error}</p>}
 						{isLoading ? (
 							<span className="loading loading-spinner loading-lg h-40">
@@ -206,7 +206,7 @@ const Annonces = () => {
 															: "/assets/CarDefaultImage.webp"
 													}
 													alt={annonce.annonce_title}
-													className="rounded-t-lg w-full h-full object-cover"
+													className="rounded-t-md w-full h-full object-cover"
 													width={300}
 													height={150}
 													priority={true}
