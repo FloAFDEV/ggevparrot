@@ -70,6 +70,7 @@ const Annonces = () => {
 		brandFilter,
 		fuelTypeFilter,
 		allAnnonces,
+		handleSearch,
 	]);
 
 	// Fonction handleSearch utilisant useCallback pour éviter les re-render inutiles
