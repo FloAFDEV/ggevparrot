@@ -1,6 +1,7 @@
 import { fetchAllUsers } from "@/components/utils/apiService";
-import NextAuth, { DefaultUser, NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { DefaultUser } from "next-auth";
 
 // Je déclare le type
 interface User {
@@ -64,78 +65,67 @@ async function authenticate(
 	}
 }
 
+// Configuration de NextAuth
+const authOptions: NextAuthOptions = {
+	session: {
+		strategy: "jwt",
+	},
+	providers: [
+		CredentialsProvider({
+			name: "Credentials",
+			credentials: {
+				email: {
+					label: "Email",
+					type: "email",
+					placeholder: "Votre e-mail",
+				},
+				password: {
+					label: "Password",
+					type: "password",
+				},
+			},
+			async authorize(
+				credentials: Record<"email" | "password", string> | undefined,
+				req: any
+			): Promise<DefaultUser | null> {
+				try {
+					if (
+						!credentials ||
+						!credentials.email ||
+						!credentials.password
+					) {
+						console.log(
+							"Informations d'identification incomplètes."
+						);
+						return null;
+					}
+					const { email, password } = credentials;
+					try {
+						const user: User | null = await authenticate(
+							email,
+							password
+						);
+						if (!user) {
+							throw new Error("Authentification échouée");
+						}
+						return {
+							...user,
+							id: user.Id_Users.toString(),
+						};
+					} catch (error) {
+						console.error(
+							"Erreur lors de l'authentification :",
+							error
+						);
+						return null;
+					}
+				} catch (error) {
+					console.error("Erreur lors de l'authentification :", error);
+					return null;
+				}
+			},
+		}),
+	],
+};
+
 export default NextAuth(authOptions);
-
-// // Configuration de NextAuth
-// const authOptions: NextAuthOptions = {
-// 	session: {
-// 		strategy: "jwt",
-// 	},
-// 	providers: [
-// 		CredentialsProvider({
-// 			name: "Credentials",
-// 			credentials: {
-// 				email: {
-// 					label: "Email",
-// 					type: "email",
-// 					placeholder: "Votre e-mail",
-// 				},
-// 				password: {
-// 					label: "Password",
-// 					type: "password",
-// 				},
-// 			},
-// 			async authorize(
-// 				credentials: Record<"email" | "password", string> | undefined,
-// 				req: any
-// 			): Promise<DefaultUser | null> {
-// 				try {
-// 					// Console log pour les credentials
-// 					console.log("Credentials:", credentials);
-// 					if (
-// 						!credentials ||
-// 						!credentials.email ||
-// 						!credentials.password
-// 					) {
-// 						// Informations d'identification incomplètes
-// 						console.log(
-// 							"Informations d'identification incomplètes."
-// 						);
-// 						return null;
-// 					}
-// 					const { email, password } = credentials;
-// 					// Console log pour l'email et le mot de passe
-// 					console.log("Email:", email);
-// 					console.log("Password:", password);
-// 					try {
-// 						// Appel de la fonction authenticate
-// 						const user: User | null = await authenticate(
-// 							email,
-// 							password
-// 						);
-// 						if (!user) {
-// 							throw new Error("Authentification échouée");
-// 						}
-// 						return {
-// 							...user,
-// 							id: user.Id_Users.toString(),
-// 						};
-// 					} catch (error) {
-// 						// Erreur lors de l'authentification
-// 						console.error(
-// 							"Erreur lors de l'authentification :",
-// 							error
-// 						);
-// 						return null; // Retourne null en cas d'erreur
-// 					}
-// 				} catch (error) {
-// 					// Erreur lors de l'authentification
-// 					console.error("Erreur lors de l'authentification :", error);
-// 					return null; // Retourne null en cas d'erreur
-// 				}
-// 			},
-// 		}),
-// 	],
-// };
-
-// export default NextAuth(authOptions);
