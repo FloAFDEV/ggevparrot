@@ -72,21 +72,21 @@ const Navbar: React.FunctionComponent = () => {
 								<li>
 									<Link
 										href="/#annonces"
-										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 									>
 										Nos annonces
 									</Link>
 								</li>
 								<li>
 									<details>
-										<summary className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400">
+										<summary className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer">
 											Nos Services
 										</summary>
 										<ul className="p-2 bg-neutral">
 											<li>
 												<Link
 													href="/#services"
-													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Mécanique
 												</Link>
@@ -94,7 +94,7 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#services"
-													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Expertises
 												</Link>
@@ -102,7 +102,7 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#services"
-													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Financement
 												</Link>
@@ -110,7 +110,7 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#contact"
-													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Contact
 												</Link>
@@ -146,7 +146,7 @@ const Navbar: React.FunctionComponent = () => {
 										<li>
 											<Link
 												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 											>
 												Mécanique
 											</Link>
@@ -154,7 +154,7 @@ const Navbar: React.FunctionComponent = () => {
 										<li>
 											<Link
 												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 											>
 												Expertises
 											</Link>
@@ -162,7 +162,7 @@ const Navbar: React.FunctionComponent = () => {
 										<li>
 											<Link
 												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 											>
 												Financement
 											</Link>
@@ -170,7 +170,7 @@ const Navbar: React.FunctionComponent = () => {
 										<li>
 											<Link
 												href="/pages/404.tsx"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 											>
 												404
 											</Link>
@@ -181,7 +181,7 @@ const Navbar: React.FunctionComponent = () => {
 							<li>
 								<Link
 									href="/#contact"
-									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 								>
 									Contact
 								</Link>

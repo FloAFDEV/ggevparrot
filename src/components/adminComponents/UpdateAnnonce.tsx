@@ -173,7 +173,7 @@ const UpdateAnnonce = ({
 							name="brand_name"
 							value={updatedAnnonce.brand_name}
 							onChange={handleInputChange}
-							className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none"
+							className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none cursor-pointer"
 						>
 							<option value="">Sélectionnez une marque</option>
 							{brandOptions.map((brand, index) => (
@@ -224,7 +224,7 @@ const UpdateAnnonce = ({
 
 				<div className="form-group mb-4">
 					{selectedImage && typeof selectedImage === "object" && (
-						<div className="w-full h-auto mb-2 rounded border border-gray-300">
+						<div className="w-full h-auto mb-2 rounded border border-gray-300 ">
 							<Image
 								src={selectedImage.url}
 								alt={updatedAnnonce.annonce_title}
@@ -255,7 +255,7 @@ const UpdateAnnonce = ({
 						}}
 						accept="image/jpeg, image/jpg, image/webp, image/png"
 						onChange={handleImageChange}
-						className="w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none text-neutral-content"
+						className=" cursor-pointer w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none text-neutral-content"
 					/>
 					{selectedImage && (
 						<button

@@ -92,7 +92,7 @@ const ReadAnnonce = () => {
 									alt={annonce.annonce_title}
 									width={45}
 									height={45}
-									className="float-left ml-4"
+									className="float-left ml-4 mr-4 bg-gray-200 w-10 h-auto rounded"
 								/>
 								{annonce.annonce_title}
 							</td>

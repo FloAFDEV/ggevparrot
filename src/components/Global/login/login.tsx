@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { setCookie } from "nookies";
+import { BASE_URL } from "@/components/utils/apiService";
 
 const Login = () => {
 	const router = useRouter();
@@ -13,26 +14,36 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		try {
-			const result = (await signIn("credentials", {
-				email,
-				password,
-				redirect: false,
-			})) as
-				| {
-						error: { token: string } | undefined;
-						token: string;
-				  }
-				| undefined;
-			if (result && result.error) {
-				setError("Adresse e-mail ou mot de passe incorrect.");
-			} else {
-				// Je stocke le token JWT dans le localStorage après une connexion réussie
-				localStorage.setItem("jwtToken", result?.token as string);
-				router.push("/admin");
+			// Envoie les informations d'identification à votre endpoint d'authentification
+			const response = await fetch(`${BASE_URL}admin`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email: email, // Récupére l'email de l'état local
+					password: password, // Récupére le mot de passe de l'état local
+				}),
+			});
+			// Vérifie si la requête s'est bien passée
+			if (!response.ok) {
+				throw new Error("Failed to authenticate");
 			}
+			// Extraire le jeton JWT de la réponse
+			const data = await response.json();
+			const token = data.token;
+			// Enregistre le jeton JWT dans les cookies
+			setCookie(null, "jwtToken", token, {
+				maxAge: 3600, // Cookie expire après 1 heure
+				path: "/",
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "strict",
+			});
+			// Redirige l'utilisateur vers la page d'administration
+			router.push("/admin");
 		} catch (error) {
-			console.error("Erreur lors de la connexion :", error);
-			setError("Une erreur s'est produite. Veuillez réessayer.");
+			console.error("Error logging in:", error);
+			setError("Une erreur est survenue");
 		} finally {
 			setLoading(false);
 		}
@@ -40,25 +51,29 @@ const Login = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setLoading(true);
 		await handleLogin();
 	};
 
 	return (
 		<div className="p-4 text-base-content space-y-4">
-			{loading && <div>Loading...</div>}
-			{error && <p style={{ color: "red" }}>{error}</p>}
+			{loading && <div>Loading...</div>}{" "}
+			{error && (
+				<div className="bg-white p-2 rounded-lg text-2xl font-bold text-center">
+					<p style={{ color: "red" }}>{error}</p>
+				</div>
+			)}
 			<form onSubmit={handleSubmit} className="space-y-4 font-bold">
 				<div>
 					<label htmlFor="email" className="sr-only">
-						Adresse e-mail
+						Email Address
 					</label>
 					<input
 						type="email"
 						value={email}
-						placeholder="Votre e-mail"
+						placeholder="Votre email"
 						onChange={(e) => setEmail(e.target.value)}
 						required
-						// pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$"
 						autoComplete="email"
 						className="w-full px-4 py-2 text-white bg-neutral rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 bg-opacity-60"
 					/>
@@ -68,7 +83,6 @@ const Login = () => {
 						type={showPassword ? "text" : "password"}
 						id="password"
 						placeholder="Votre mot de passe"
-						// pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])(?!.*\s).{8,}$"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
@@ -85,7 +99,7 @@ const Login = () => {
 							alt={
 								showPassword ? "Hide password" : "Show password"
 							}
-							width={24} // Spécifiez la largeur de l'image
+							width={24}
 							height={24}
 							className={`h-6 w-6 rounded-full ${
 								showPassword ? "bg-secondary" : "bg-slate-100"
@@ -97,7 +111,7 @@ const Login = () => {
 					type="submit"
 					className="btn btn-primary w-full px-4 py-2 text-lg text-white rounded-lg"
 				>
-					Se connecter
+					Log In
 				</button>
 			</form>
 		</div>
