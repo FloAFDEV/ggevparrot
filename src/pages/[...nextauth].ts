@@ -2,7 +2,7 @@ import { fetchAllUsers } from "@/components/utils/apiService";
 import NextAuth, { DefaultUser, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Je déclare le type de l'utilisateur
+// Je déclare le type
 interface User {
 	Id_Users: number;
 	email: string;
@@ -63,6 +63,8 @@ async function authenticate(
 		return null;
 	}
 }
+
+export default NextAuth(authOptions);
 
 // // Configuration de NextAuth
 // const authOptions: NextAuthOptions = {
