@@ -225,7 +225,7 @@ const UpdateAnnonce = ({
 				<div className="form-group mb-4">
 					{selectedImage && typeof selectedImage === "object" && (
 						<div className="w-full h-auto mb-2 rounded border border-gray-300">
-							<img
+							<Image
 								src={selectedImage.url}
 								alt={updatedAnnonce.annonce_title}
 								style={{
