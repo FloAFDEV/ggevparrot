@@ -39,7 +39,10 @@ const UpdateAnnonce = ({
 	// Je déclare les états nécessaires pour gérer les données du formulaire
 	const [updatedAnnonce, setUpdatedAnnonce] =
 		useState<Annonce>(initialAnnonce);
-	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+	const [selectedImage, setSelectedImage] = useState<{
+		url: string;
+		name: string;
+	} | null>(null);
 	const [registrationError, setRegistrationError] = useState<string | null>(
 		null
 	);
@@ -88,18 +91,31 @@ const UpdateAnnonce = ({
 			setRegistrationError(null);
 		}
 	};
-
 	// Je définis la fonction de gestion du changement de l'image sélectionnée
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
-		if (file) {
+		if (!file) {
+			return; // Si aucun fichier n'est sélectionné, ne rien faire
+		}
+		const extension = file.name.split(".").pop()?.toLowerCase(); // Récupérer l'extension du fichier
+		const acceptedExtensions = ["jpg", "jpeg", "png", "webp"]; // Liste des extensions d'image acceptées
+		if (extension && acceptedExtensions.includes(extension)) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
-				setSelectedImage(reader.result as string);
+				// Récupérer l'URL base64 de l'image
+				const imageDataURL = reader.result as string;
+				// Mettre à jour l'état avec l'URL de l'image et le nom du fichier
+				setSelectedImage({ url: imageDataURL, name: file.name });
 			};
-			reader.readAsDataURL(file);
+			reader.readAsDataURL(file); // Lire le fichier en tant que données URL
 		} else {
-			setSelectedImage(null);
+			// Afficher un message d'erreur si le fichier n'est pas une image
+			console.error(
+				"Veuillez sélectionner un fichier d'image valide (jpg, jpeg, png ou webp)."
+			);
+			alert(
+				"Veuillez sélectionner un fichier d'image valide (jpg, jpeg, png ou webp)."
+			);
 		}
 	};
 
@@ -132,7 +148,7 @@ const UpdateAnnonce = ({
 	};
 
 	return (
-		<div className="bg-slate-400 p-4 rounded-lg max-w-6xl h-[90vh] overflow-auto text-white">
+		<div className="bg-neutral p-4 rounded-lg max-w-6xl h-[80vh] overflow-auto">
 			<div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 sm:gap-2 gap-4 font-bold text-sm md:text-base">
 				{/* Les champs du formulaire */}
 				<div className="col-span-full">
@@ -144,11 +160,14 @@ const UpdateAnnonce = ({
 					/>
 				</div>
 
-				<div className="form-group mb-4">
-					<label htmlFor="brand_name" className="block mb-2">
+				<div className="form-group mb-4 ">
+					<label
+						htmlFor="brand_name"
+						className="block mb-2 text-neutral-content"
+					>
 						Marque
 					</label>
-					<div className="relative">
+					<div className="relative ">
 						<select
 							id="brand_name"
 							name="brand_name"
@@ -181,7 +200,10 @@ const UpdateAnnonce = ({
 
 				<div className="flex-grow">
 					<div className="relative w-auto h-40 ml-auto">
-						<label htmlFor="main_image_url" className="block mb-2">
+						<label
+							htmlFor="main_image_url"
+							className="block mb-2 text-neutral-content"
+						>
 							Image Principale
 						</label>
 						{mainImageUrl && (
@@ -194,22 +216,23 @@ const UpdateAnnonce = ({
 								priority={true}
 							/>
 						)}
-						<p className="absolute right-2 text-white">
+						<p className="absolute right-2 text-neutral-content">
 							ID annonce n° {initialAnnonce.Id_CarAnnonce}
 						</p>
 					</div>
 				</div>
 
 				<div className="form-group mb-4">
-					{selectedImage && typeof selectedImage === "string" && (
+					{selectedImage && typeof selectedImage === "object" && (
 						<div className="w-full h-auto mb-2 rounded border border-gray-300">
-							<Image
-								src={selectedImage}
+							<img
+								src={selectedImage.url}
 								alt={updatedAnnonce.annonce_title}
-								style={{ objectFit: "contain" }}
-								width="200"
-								height="200"
-								priority={true}
+								style={{
+									objectFit: "contain",
+									maxWidth: "100%",
+									maxHeight: "100%",
+								}}
 								className="float-center"
 								onError={(e) =>
 									console.error(
@@ -225,15 +248,19 @@ const UpdateAnnonce = ({
 						id="main_image_url"
 						name="main_image_url"
 						alt={updatedAnnonce.annonce_title}
-						style={{ objectFit: "contain" }}
+						style={{
+							objectFit: "contain",
+							maxHeight: 200,
+							width: "auto",
+						}}
 						accept="image/jpeg, image/jpg, image/webp, image/png"
 						onChange={handleImageChange}
-						className="w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none"
+						className="w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none text-neutral-content"
 					/>
 					{selectedImage && (
 						<button
 							onClick={() => setSelectedImage(null)}
-							className="block mt-2 text-sm text-red-500 "
+							className="block mt-2 text-sm text-red-500 justify-center w-full px-3 py-2 rounded border border-red-500 hover:bg-red-500 hover:text-white focus:outline-none focus:bg-red-500 focus:text-white"
 						>
 							Supprimer l'image
 						</button>
@@ -241,8 +268,11 @@ const UpdateAnnonce = ({
 				</div>
 
 				{/* Update the input for Description to use a textarea */}
-				<div className="form-group mb-4 col-span-4">
-					<label htmlFor="description" className="block mb-2">
+				<div className="form-group mb-4 col-span-4 ">
+					<label
+						htmlFor="description"
+						className="block mb-2 text-neutral-content"
+					>
 						Description
 					</label>
 					<textarea
@@ -304,6 +334,7 @@ const UpdateAnnonce = ({
 						"SUV",
 						"Monospace",
 						"Coupé",
+						"Familiale",
 					]}
 				/>
 
@@ -330,7 +361,10 @@ const UpdateAnnonce = ({
 				/>
 
 				<div className="form-group mb-4 col-span-4">
-					<label htmlFor="options_name" className="block mb-2">
+					<label
+						htmlFor="options_name"
+						className="block mb-2 text-neutral-content"
+					>
 						Options
 					</label>
 					<textarea
@@ -348,12 +382,11 @@ const UpdateAnnonce = ({
 					onClick={handleUpdateAnnonce}
 					className="bg-secondary font-bold text-xl text-white py-2 px-4 rounded hover:bg-accent col-span-4"
 				>
-					Mettre à jour l'annonce
+					Mettre l'annonce n°{initialAnnonce.Id_CarAnnonce} à jour
 				</button>
-
 				{/* Message de soumission */}
 				{submissionMessage && (
-					<p className="text-center text-green-500">
+					<p className="text-center font-bold text-green-500">
 						{submissionMessage}
 					</p>
 				)}

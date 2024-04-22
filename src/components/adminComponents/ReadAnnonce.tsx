@@ -70,7 +70,7 @@ const ReadAnnonce = () => {
 		<div className="admin-page">
 			<table className="w-full border-collapse">
 				<thead>
-					<tr className="bg-gray-200">
+					<tr className="bg-neutral text-neutral-content">
 						<th className="px-4 py-2">Titre de l'annonce</th>
 						<th className="px-4 py-2">Marque</th>
 						<th className="px-4 py-2">Date de création</th>
@@ -82,7 +82,7 @@ const ReadAnnonce = () => {
 					{annonces.map((annonce) => (
 						<tr
 							key={annonce.Id_CarAnnonce}
-							className="border-b hover:bg-gray-100 cursor-pointer text-center"
+							className="border-b hover:bg-neutral-content  hover:text-green-400 cursor-pointer text-center"
 							onClick={() => handleSelectAnnonce(annonce)}
 						>
 							<td className="px-4 py-2 font-bold">
@@ -127,8 +127,8 @@ const ReadAnnonce = () => {
 				</tbody>
 			</table>
 			{selectedAnnonce && (
-				<div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-					<div className="bg-white p-8 rounded-lg max-w-4xl overflow-auto">
+				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
+					<div className="bg-neutral text-neutral-content p-8 rounded-lg max-w-4xl overflow-auto">
 						<h2 className="text-xl font-bold mb-4">
 							Détails de l'annonce:{" "}
 							{selectedAnnonce.annonce_title}
@@ -216,7 +216,7 @@ const ReadAnnonce = () => {
 							<p>{selectedAnnonce.description}</p>
 						</div>
 						<button
-							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded mr-4"
+							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded mr-4"
 							onClick={() => handleUpdateClick(selectedAnnonce)}
 						>
 							Modifier l'annonce n°{" "}
@@ -224,7 +224,7 @@ const ReadAnnonce = () => {
 						</button>
 						{/* Bouton Fermer pour la première modale */}
 						<button
-							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
 							onClick={handleCloseModal}
 						>
 							Fermer
@@ -234,7 +234,7 @@ const ReadAnnonce = () => {
 			)}
 			{showUpdateModal && selectedAnnonce && (
 				<div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-					<div className="bg-white p-8 rounded-lg max-w-4xl overflow-auto">
+					<div className="bg-neutral p-8 rounded-lg max-w-4xl overflow-auto">
 						{/* Bouton Fermer pour la deuxième modale */}
 						<UpdateAnnonce
 							annonceId={selectedAnnonce.Id_CarAnnonce}
@@ -243,7 +243,7 @@ const ReadAnnonce = () => {
 							closeModal={handleCloseUpdateModal}
 						/>
 						<button
-							className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
 							onClick={handleCloseUpdateModal}
 						>
 							Fermer

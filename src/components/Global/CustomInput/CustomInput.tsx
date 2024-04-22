@@ -25,7 +25,10 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 		// Vérification du type et de la présence des options
 		return (
 			<div className="form-group mb-4">
-				<label htmlFor={name} className="block mb-2">
+				<label
+					htmlFor={name}
+					className="block mb-2 text-neutral-content"
+				>
 					{label}
 				</label>
 				<select
@@ -47,7 +50,10 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 	} else {
 		return (
 			<div className="form-group mb-4">
-				<label htmlFor={name} className="block mb-2">
+				<label
+					htmlFor={name}
+					className="block mb-2 text-neutral-content"
+				>
 					{label}
 				</label>
 				<input

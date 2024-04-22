@@ -81,9 +81,9 @@ const Contact = () => {
 	return (
 		<section
 			id="contact"
-			className="flex justify-center items-center h-3/4 p-4 mx-4 md:p-4 mt-10"
+			className="flex justify-center items-center h-3/4 p-4 mx-4 md:p-4 mt-10 relative"
 		>
-			{" "}
+			{/* Formulaire */}
 			<div className="p-6 rounded-lg shadow-lg w-full max-w-4xl mb-10 mt-4 md:mt-16 flex flex-col md:flex-row">
 				<div className="w-full md:w-2/3 pr-0 md:pr-4 mb-4 md:mb-0 font-bold">
 					<h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
