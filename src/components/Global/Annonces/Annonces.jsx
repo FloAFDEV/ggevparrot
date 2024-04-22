@@ -64,7 +64,6 @@ const Annonces = () => {
 	useEffect(() => {
 		handleSearch();
 	}, [
-		handleSearch,
 		priceMinFilter,
 		priceMaxFilter,
 		yearFilter,
