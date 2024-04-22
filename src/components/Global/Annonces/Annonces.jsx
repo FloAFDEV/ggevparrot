@@ -102,6 +102,7 @@ const Annonces = () => {
 		yearFilter,
 		brandFilter,
 		fuelTypeFilter,
+		handleSearch, // Pour que le callback change si l'une des dépendances change
 	]);
 
 	// Fonction handleBrandFilterChange pour mettre à jour le filtre de marque
