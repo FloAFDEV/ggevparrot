@@ -343,6 +343,31 @@ export async function fetchAllUsers() {
 	}
 }
 
+// Fonction pour se connecter
+export async function loginUser(email: string, password: string) {
+	try {
+		const response = await fetch(`${BASE_URL}admin`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+			}),
+		});
+		if (!response.ok) {
+			throw new Error("Failed to authenticate");
+		}
+		const data = await response.json();
+		const token = data.token;
+		return token;
+	} catch (error) {
+		console.error("Error logging in:", error);
+		throw error;
+	}
+}
+
 // Interface pour les données du message lié à une annonce par son Id
 export interface MessageAnnonceData {
 	userName: string;

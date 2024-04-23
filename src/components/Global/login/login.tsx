@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { setCookie } from "nookies";
-import { BASE_URL } from "@/components/utils/apiService";
+// Import des fonctions utilitaires depuis apiService
+import { loginUser } from "@/components/utils/apiService";
 
 const Login = () => {
 	const router = useRouter();
@@ -14,32 +15,17 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		try {
-			// Envoie les informations d'identification à votre endpoint d'authentification
-			const response = await fetch(`${BASE_URL}admin`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					email: email, // Récupére l'email de l'état local
-					password: password, // Récupére le mot de passe de l'état local
-				}),
-			});
-			// Vérifie si la requête s'est bien passée
-			if (!response.ok) {
-				throw new Error("Failed to authenticate");
-			}
-			// Extraire le jeton JWT de la réponse
-			const data = await response.json();
-			const token = data.token;
-			// Enregistre le jeton JWT dans les cookies
+			// Appel de la fonction login pour envoyer les informations d'identification
+			const token = await loginUser(email, password);
+			// Enregistrement du jeton JWT dans les cookies
 			setCookie(null, "jwtToken", token, {
 				maxAge: 3600, // Cookie expire après 1 heure
 				path: "/",
 				secure: process.env.NODE_ENV === "production",
 				sameSite: "strict",
 			});
-			// Redirige l'utilisateur vers la page d'administration
+			console.log("JWT token saved in cookies.");
+			// Redirection de l'utilisateur vers la page d'administration
 			router.push("/admin");
 		} catch (error) {
 			console.error("Error logging in:", error);
@@ -111,7 +97,7 @@ const Login = () => {
 					type="submit"
 					className="btn btn-primary w-full px-4 py-2 text-lg text-white rounded-lg"
 				>
-					Log In
+					Me connecter
 				</button>
 			</form>
 		</div>

@@ -61,8 +61,8 @@ const LoginModal = ({ closeModal }) => {
 						/>
 					</svg>
 				</button>
-				<h1 className="text-center text-3xl font-bold mb-4 text-gray-300">
-					Cet accès est réservé au personnel
+				<h1 className="text-center text-3xl font-bold mb-4 text-primary">
+					Cet accès est réservé au personnel de l'entreprise
 				</h1>
 				{error && <p className="text-red-500">{error}</p>}
 				<Login handleLogin={handleLogin} />
