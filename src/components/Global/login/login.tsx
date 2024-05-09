@@ -22,7 +22,7 @@ const Login = () => {
 		if (jwtToken) {
 			router.push("/admin");
 		}
-	}, []);
+	}, [router]);
 
 	const validatePassword = (password: string) => {
 		// Vérifie si le mot de passe contient au moins une majuscule
