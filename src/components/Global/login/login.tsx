@@ -43,6 +43,9 @@ const Login = () => {
 			const loginResponse = await loginUser(email, password);
 			const responseJson = JSON.parse(loginResponse);
 			const token = responseJson.token;
+			if (!token) {
+				throw new Error("Le jeton est manquant dans la réponse");
+			}
 			// Enregistrement du jeton JWT dans les cookies
 			setCookie(null, "jwtToken", token, {
 				maxAge: 3600, // Cookie expire après 1 heure
@@ -76,7 +79,6 @@ const Login = () => {
 			setLoading(false);
 			return;
 		}
-		await handleLogin();
 	};
 
 	// Vérifie si le nombre maximum de tentatives a été atteint
