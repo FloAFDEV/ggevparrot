@@ -1,5 +1,5 @@
 export const BASE_URL =
-	process.env.NODE_ENV === "production"
+	process.env.NODE_ENV === "development"
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
@@ -343,9 +343,13 @@ export async function fetchAllUsers() {
 	}
 }
 
-// Fonction pour se connecter
-export async function loginUser(email: string, password: string) {
+// Fonction pour gérer la connexion de l'utilisateur
+export async function loginUser(
+	email: string,
+	password: string
+): Promise<string> {
 	try {
+		console.log("Attempting login with email:", email);
 		const response = await fetch(`${BASE_URL}admin`, {
 			method: "POST",
 			headers: {
@@ -357,11 +361,21 @@ export async function loginUser(email: string, password: string) {
 			}),
 		});
 		if (!response.ok) {
-			throw new Error("Failed to authenticate");
+			const errorMessage = await response.text();
+			throw new Error(`Échec de l'authentification : ${errorMessage}`);
 		}
-		const data = await response.json();
-		const token = data.token;
-		return token;
+		const contentType = response.headers.get("content-type");
+		if (contentType && contentType.includes("application/json")) {
+			const data = await response.json(); // Parsage du JSON de la réponse
+			const token = data.token; // Extraction du token du JSON parsé
+			if (!token) {
+				throw new Error("Le jeton est manquant dans la réponse");
+			}
+			console.log("Login successful. Token:", token);
+			return token;
+		} else {
+			throw new Error("La réponse de l'API n'est pas un JSON valide");
+		}
 	} catch (error) {
 		console.error("Error logging in:", error);
 		throw error;

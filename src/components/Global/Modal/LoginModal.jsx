@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Login from "@/components/Global/login/login";
 import validator from "validator";
-import { signIn } from "next-auth/react";
 
 const LoginModal = ({ closeModal }) => {
 	const router = useRouter();

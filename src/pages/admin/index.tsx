@@ -29,6 +29,7 @@ const AdminPage = () => {
 				onAddAnnonce={() => {}}
 				onDeleteAnnonce={() => {}}
 				onUpdateAnnonce={() => {}}
+				userRole="admin"
 				// token du user connecté => rôle
 			/>
 			{showAnnonces && <ReadAnnonce />}

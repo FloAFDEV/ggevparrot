@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { setCookie } from "nookies";
-// Import des fonctions utilitaires depuis apiService
+import { parseCookies } from "nookies";
 import { loginUser } from "@/components/utils/apiService";
+import requireAuth from "@/components/utils/authMiddleware";
+
+const MAX_ATTEMPTS = 5;
 
 const Login = () => {
 	const router = useRouter();
@@ -12,24 +15,50 @@ const Login = () => {
 	const [error, setError] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [attemptCount, setAttemptCount] = useState(0);
+
+	useEffect(() => {
+		const { jwtToken } = parseCookies();
+		if (jwtToken) {
+			router.push("/admin");
+		}
+	}, []);
+
+	const validatePassword = (password: string) => {
+		// Vérifie si le mot de passe contient au moins une majuscule
+		const hasUpperCase = /[A-Z]/.test(password);
+		// Vérifie si le mot de passe contient au moins deux chiffres
+		const hasTwoDigits = (password.match(/\d/g) ?? []).length >= 2;
+		// Vérifie si le mot de passe a une longueur totale d'au moins 7 caractères
+		const hasMinimumLength = password.length >= 7;
+		return hasUpperCase && hasTwoDigits && hasMinimumLength;
+	};
 
 	const handleLogin = async () => {
 		try {
-			// Appel de la fonction login pour envoyer les informations d'identification
-			const token = await loginUser(email, password);
+			console.log("Email:", email);
+			console.log("Password:", password);
+			setLoading(true);
+			// Appel de la fonction loginUser pour envoyer les informations d'identification
+			const loginResponse = await loginUser(email, password);
+			const responseJson = JSON.parse(loginResponse);
+			const token = responseJson.token;
 			// Enregistrement du jeton JWT dans les cookies
 			setCookie(null, "jwtToken", token, {
 				maxAge: 3600, // Cookie expire après 1 heure
 				path: "/",
-				secure: process.env.NODE_ENV === "production",
+				secure:
+					process.env.NODE_ENV === "production"
+						? process.env.NEXT_PUBLIC_BASE_URL_PROD
+						: process.env.NEXT_PUBLIC_BASE_URL_DEV,
 				sameSite: "strict",
 			});
-			console.log("JWT token saved in cookies.");
-			// Redirection de l'utilisateur vers la page d'administration
+			// Redirection de l'utilisateur vers la page d'administration si auth ok
 			router.push("/admin");
 		} catch (error) {
 			console.error("Error logging in:", error);
-			setError("Une erreur est survenue");
+			setError("Identifiant ou mot de passe incorrect");
+			setAttemptCount(attemptCount + 1);
 		} finally {
 			setLoading(false);
 		}
@@ -39,14 +68,39 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 		await handleLogin();
+		// Valider le mot de passe
+		if (!validatePassword(password)) {
+			setError(
+				"Le mot de passe doit contenir au moins une majuscule, deux chiffres et avoir une longueur minimale de 7 caractères."
+			);
+			setLoading(false);
+			return;
+		}
+		await handleLogin();
+	};
+
+	// Vérifie si le nombre maximum de tentatives a été atteint
+	const isMaxAttemptsReached = () => {
+		return attemptCount >= MAX_ATTEMPTS;
 	};
 
 	return (
 		<div className="p-4 text-base-content space-y-4">
-			{loading && <div>Loading...</div>}{" "}
+			{loading && (
+				<div className="text-white font-extrabold text-2xl">
+					Loading...
+				</div>
+			)}
 			{error && (
 				<div className="bg-white p-2 rounded-lg text-2xl font-bold text-center">
 					<p style={{ color: "red" }}>{error}</p>
+				</div>
+			)}
+			{isMaxAttemptsReached() && (
+				<div className="bg-white p-2 rounded-lg text-2xl font-bold text-center">
+					<p style={{ color: "red" }}>
+						Nombre maximum de tentatives atteint.
+					</p>
 				</div>
 			)}
 			<form onSubmit={handleSubmit} className="space-y-4 font-bold">
@@ -61,6 +115,7 @@ const Login = () => {
 						onChange={(e) => setEmail(e.target.value)}
 						required
 						autoComplete="email"
+						aria-label="Adresse email"
 						className="w-full px-4 py-2 text-white bg-neutral rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 bg-opacity-60"
 					/>
 				</div>
@@ -73,6 +128,7 @@ const Login = () => {
 						onChange={(e) => setPassword(e.target.value)}
 						required
 						autoComplete="current-password"
+						aria-label="Mot de passe"
 						className="bg-neutral w-full px-4 py-2 text-white rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 bg-opacity-60"
 					/>
 					<button
@@ -93,15 +149,18 @@ const Login = () => {
 						/>
 					</button>
 				</div>
+				{/* Champ caché pour empêcher l'envoi du formulaire si non null */}
+				<input type="hidden" name="bot-field" />
 				<button
 					type="submit"
+					disabled={loading || isMaxAttemptsReached()}
 					className="btn btn-primary w-full px-4 py-2 text-lg text-white rounded-lg"
 				>
-					Me connecter
+					{loading ? "Chargement..." : "Me connecter"}
 				</button>
 			</form>
 		</div>
 	);
 };
 
-export default Login;
+export default requireAuth(Login);

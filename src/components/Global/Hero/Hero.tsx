@@ -1,6 +1,7 @@
 // components/Global/Hero.tsx
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero: React.FunctionComponent = () => {
 	return (
@@ -22,12 +23,12 @@ const Hero: React.FunctionComponent = () => {
 						Des véhicules d&apos;occasion exceptionnels, une
 						confiance inégalée
 					</h2>
-					<a
+					<Link
 						href="#annonces"
 						className="btn btn-primary rounded-box mb-5 text-lg"
 					>
 						Parcourez nos annonces
-					</a>
+					</Link>
 				</div>
 			</div>
 		</section>

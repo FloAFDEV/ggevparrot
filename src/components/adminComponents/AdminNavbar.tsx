@@ -2,28 +2,35 @@ import React, { useContext } from "react";
 import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
 import Image from "next/image";
+import { destroyCookie } from "nookies";
 import { ThemeContext } from "@/components/Global/Context/ThemeContext";
 
-// récupérer le props "rôle"
-interface AdmiNavbarProps {
+interface AdminNavbarProps {
 	onFetchAnnonces: () => Promise<void>;
 	onAddAnnonce: () => void;
 	onDeleteAnnonce: () => void;
 	onUpdateAnnonce: () => void;
 	onShowAnnonces: () => void;
+	userRole: string;
 }
 
-const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
+const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 	onFetchAnnonces,
 	onAddAnnonce,
 	onDeleteAnnonce,
 	onUpdateAnnonce,
 	onShowAnnonces,
+	userRole,
 }) => {
 	const { theme, changeTheme } = useContext(ThemeContext);
 
 	const handleToggle = () => {
 		changeTheme(theme === "garden" ? "emerald" : "garden");
+	};
+
+	const handleLogout = () => {
+		destroyCookie(null, "jwtToken");
+		window.location.href = "/";
 	};
 	return (
 		<div className="navbar bg-neutral text-neutral-content">
@@ -85,6 +92,36 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 								Modifier une Annonce
 							</button>
 						</li>
+						{(userRole === "admin" ||
+							userRole === "superAdmin") && (
+							<>
+								{/* Boutons à afficher pour admin et superadmin */}
+								<li>
+									<button
+										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+									>
+										Créer un Employé
+									</button>
+								</li>
+								<li>
+									<button
+										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+									>
+										Supprimer un Employé
+									</button>
+								</li>
+								<li>
+									<button
+										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+									>
+										Afficher les Employés
+									</button>
+								</li>
+							</>
+						)}
 					</ul>
 				</div>
 			</div>
@@ -96,12 +133,16 @@ const AdminNavbar: React.FunctionComponent<AdmiNavbarProps> = ({
 							className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
 						/>
 					</Link>
-					<a className="text-lg font-extrabold md:ml-2 md:block text-center md:text-left">
+					<p className="text-lg font-extrabold md:ml-2 md:block text-center md:text-left">
 						Bienvenue sur votre interface d'administration
-					</a>
+					</p>
 				</div>
 			</div>
 			<div className="navbar-end">
+				{" "}
+				<button className="btn btn-primary" onClick={handleLogout}>
+					Déconnexion
+				</button>
 				<Link href="/">
 					<Logo
 						src="/favicon.ico"

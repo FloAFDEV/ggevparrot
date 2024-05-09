@@ -169,7 +169,7 @@ const Navbar: React.FunctionComponent = () => {
 										</li>
 										<li>
 											<Link
-												href="/pages/404.tsx"
+												href="/404.tsx"
 												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 											>
 												404
