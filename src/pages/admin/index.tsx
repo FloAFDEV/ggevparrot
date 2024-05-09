@@ -6,6 +6,7 @@ import ReadAnnonce from "@/components/adminComponents/ReadAnnonce";
 
 const AdminPage = () => {
 	const [showAnnonces, setShowAnnonces] = useState(false);
+	const [userRole, setUserRole] = useState("");
 
 	useEffect(() => {
 		handleFetchAnnonces();
@@ -29,7 +30,7 @@ const AdminPage = () => {
 				onAddAnnonce={() => {}}
 				onDeleteAnnonce={() => {}}
 				onUpdateAnnonce={() => {}}
-				userRole="admin"
+				userRole={userRole}
 				// token du user connecté => rôle
 			/>
 			{showAnnonces && <ReadAnnonce />}
