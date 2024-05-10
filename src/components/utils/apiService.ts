@@ -1,5 +1,5 @@
 export const BASE_URL =
-	process.env.NODE_ENV === "production"
+	process.env.NODE_ENV === "development"
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
@@ -360,14 +360,20 @@ export async function loginUser(
 				password: password,
 			}),
 		});
+		console.log("Response status:", response.status); // Ajout du statut de la réponse
+		console.log("Response headers:", response.headers); // Ajout des en-têtes de la réponse
 		if (!response.ok) {
 			const errorMessage = await response.text();
+			console.error("Error message:", errorMessage); // Ajout du message d'erreur
 			throw new Error(`Échec de l'authentification : ${errorMessage}`);
 		}
 		const contentType = response.headers.get("content-type");
+		console.log("Content type of response:", contentType); // Ajout du type de contenu de la réponse
 		if (contentType && contentType.includes("application/json")) {
 			const data = await response.json(); // Parsage du JSON de la réponse
+			console.log("Data from API response:", data);
 			const token = data.token; // Extraction du token du JSON parsé
+			console.log("Token extracted from response:", token);
 			if (!token) {
 				throw new Error("Le jeton est manquant dans la réponse");
 			}
