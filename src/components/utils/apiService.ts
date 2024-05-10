@@ -360,19 +360,19 @@ export async function loginUser(
 				password: password,
 			}),
 		});
-		console.log("Response status:", response.status); // Ajout du statut de la réponse
-		console.log("Response headers:", response.headers); // Ajout des en-têtes de la réponse
+		console.log("Response status:", response.status);
+		console.log("Response headers:", response.headers);
 		if (!response.ok) {
 			const errorMessage = await response.text();
-			console.error("Error message:", errorMessage); // Ajout du message d'erreur
+			console.error("Error message:", errorMessage);
 			throw new Error(`Échec de l'authentification : ${errorMessage}`);
 		}
 		const contentType = response.headers.get("content-type");
-		console.log("Content type of response:", contentType); // Ajout du type de contenu de la réponse
+		console.log("Content type of response:", contentType);
 		if (contentType && contentType.includes("application/json")) {
-			const data = await response.json(); // Parsage du JSON de la réponse
+			const data = await response.json(); // Parsage du JSON
 			console.log("Data from API response:", data);
-			const token = data.token; // Extraction du token du JSON parsé
+			const token = data.token; // Extraction du token
 			console.log("Token extracted from response:", token);
 			if (!token) {
 				throw new Error("Le jeton est manquant dans la réponse");
