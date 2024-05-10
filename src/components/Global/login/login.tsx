@@ -51,7 +51,7 @@ const Login = () => {
 				maxAge: 3600, // Cookie expire après 1 heure
 				path: "/",
 				secure:
-					process.env.NODE_ENV === "development"
+					process.env.NODE_ENV === "production"
 						? process.env.NEXT_PUBLIC_BASE_URL_PROD
 						: process.env.NEXT_PUBLIC_BASE_URL_DEV,
 				sameSite: "strict",
