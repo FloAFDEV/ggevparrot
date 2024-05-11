@@ -354,6 +354,7 @@ export async function loginUser(
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				Accept: "application/json",
 			},
 			body: JSON.stringify({
 				email: email,

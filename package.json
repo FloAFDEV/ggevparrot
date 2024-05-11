@@ -18,7 +18,7 @@
 		"framer-motion": "^11.0.27",
 		"jsonwebtoken": "^9.0.2",
 		"jwt-decode": "^4.0.0",
-		"next": "14.1.0",
+		"next": "^14.2.3",
 		"nookies": "^2.5.2",
 		"path": "^0.12.7",
 		"react": "^18.2.0",

@@ -41,6 +41,7 @@ const ContactForm = ({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("Données du formulaire avant l'envoi :", formData);
+		console.log("Id_CarAnnonce:", formData.Id_CarAnnonce);
 		if (formData.userName.trim() === "") {
 			setError("Le nom est requis !");
 		} else if (

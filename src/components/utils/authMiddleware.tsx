@@ -12,7 +12,7 @@ const requireAuth = (WrappedComponent: React.ComponentType) => {
 				// Si le jeton JWT n'est pas présent dans les cookies, redirige l'utilisateur vers la page principale
 				router.push("/");
 			}
-		}, []);
+		}, [router]);
 		return <WrappedComponent {...props} />;
 	};
 
