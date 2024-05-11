@@ -61,6 +61,7 @@ const ContactForm = ({
 					userPhone: validator.escape(formData.userPhone),
 					message: validator.escape(formData.message),
 					botField: validator.escape(formData.botField),
+					createdAt: new Date().toISOString(),
 				};
 				await MessageAnnonce(escapedFormData);
 				setSuccess(true);
