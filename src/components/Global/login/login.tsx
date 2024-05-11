@@ -27,10 +27,13 @@ const Login = () => {
 	const handleLogin = async () => {
 		try {
 			setLoading(true);
+			console.log("Logging in with email:", email);
+			console.log("Logging in with password:", password);
 			const loginResponse: { token: string } | string = await loginUser(
 				email,
 				password
 			);
+			console.log("Login response:", loginResponse);
 			const { token } =
 				typeof loginResponse === "string"
 					? { token: loginResponse }
