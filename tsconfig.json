@@ -26,7 +26,6 @@
 		"src/components/Global/Header-Navbar.js",
 		"src/components/Global/FeaturesServices/FeaturesServices.jsx",
 		"src/components/Global/BossSection/BossSection.jsx",
-		"src/components/Global/Modal/LoginModal.jsx",
 		"src/components/Global/brandsData",
 		"src/components/Global/login/login.tsxx"
 	],
