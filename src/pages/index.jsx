@@ -22,16 +22,9 @@ export default function Home({
 	openingHours,
 	testimonials,
 }) {
-	const [showLoginModal, setShowLoginModal] = useState(false);
-
-	const toggleLoginModal = () => {
-		setShowLoginModal(!showLoginModal);
-	};
-
 	return (
 		<>
 			<Navbar />
-			<button onClick={toggleLoginModal}>Connexion</button>
 			<main>
 				<Hero />
 				<section>
@@ -58,7 +51,6 @@ export default function Home({
 			<footer>
 				<Footer garageInfo={garageData} openingHours={openingHours} />
 			</footer>
-			{showLoginModal && <LoginModal closeModal={toggleLoginModal} />}
 		</>
 	);
 }
