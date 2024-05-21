@@ -1,7 +1,7 @@
 import React from "react";
 
 const DeleteAnnoncePage = () => {
-	return <></>; // Composant vide
+	return <></>;
 };
 
 export default DeleteAnnoncePage;
