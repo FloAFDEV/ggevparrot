@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
 import Image from "next/image";
-import { destroyCookie } from "nookies";
+import { signOut, useSession } from "next-auth/react";
 import { ThemeContext } from "@/components/Global/Context/ThemeContext";
+import LoginButton from "../../../components/LoginButton/LoginButton";
 
 interface AdminNavbarProps {
 	onFetchAnnonces: () => Promise<void>;
@@ -20,21 +21,15 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 	onDeleteAnnonce,
 	onUpdateAnnonce,
 	onShowAnnonces,
-	userRole,
 }) => {
 	const { theme, changeTheme } = useContext(ThemeContext);
-
 	const handleToggle = () => {
 		changeTheme(theme === "garden" ? "emerald" : "garden");
 	};
 
-	const handleLogout = () => {
-		destroyCookie(null, "jwtToken");
-		window.location.href = "/";
-	};
 	return (
-		<div className="navbar bg-neutral text-neutral-content">
-			<div className="navbar-start">
+		<div className="navbar bg-neutral text-neutral-content p-4">
+			<div className="navbar-start flex items-center space-x-2">
 				<div className="dropdown">
 					<div
 						tabIndex={0}
@@ -92,63 +87,60 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 								Modifier une Annonce
 							</button>
 						</li>
-						{(userRole === "admin" ||
-							userRole === "superAdmin") && (
-							<>
-								{/* Boutons à afficher pour admin et superadmin */}
-								<li>
-									<button
-										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
-									>
-										Créer un Employé
-									</button>
-								</li>
-								<li>
-									<button
-										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
-									>
-										Supprimer un Employé
-									</button>
-								</li>
-								<li>
-									<button
-										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-										onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
-									>
-										Afficher les Employés
-									</button>
-								</li>
-							</>
-						)}
+						<>
+							{/* Boutons à afficher pour admin et superadmin */}
+							<li>
+								<button
+									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+									onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+								>
+									Créer un Employé
+								</button>
+							</li>
+							<li>
+								<button
+									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+									onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+								>
+									Supprimer un Employé
+								</button>
+							</li>
+							<li>
+								<button
+									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+									onClick={onUpdateAnnonce} // A MODIFIER !!!!!!!!!
+								>
+									Afficher les Employés
+								</button>
+							</li>
+						</>
 					</ul>
 				</div>
 			</div>
 			<div className="navbar-center flex items-center justify-center">
-				<div className="flex items-center justify-center">
+				<div className="flex items-center">
 					<Link href="/">
 						<Logo
 							src="/favicon.ico"
 							className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
 						/>
 					</Link>
-					<p className="text-lg font-extrabold md:ml-2 md:block text-center md:text-left">
+					<p className="text-xl font-extrabold md:ml-2 md:block text-center md:text-left">
 						Bienvenue sur votre interface d'administration
-					</p>
+					</p>{" "}
+					<Link href="/">
+						<Logo
+							src="/favicon.ico"
+							className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
+						/>
+					</Link>
 				</div>
 			</div>
 			<div className="navbar-end">
 				{" "}
-				<button className="btn btn-primary" onClick={handleLogout}>
-					Déconnexion
-				</button>
-				<Link href="/">
-					<Logo
-						src="/favicon.ico"
-						className="p-2 rounded-full h-10 w-10 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
-					/>
-				</Link>
+				<>
+					<LoginButton />
+				</>
 				<label className="swap swap-rotate p-2 cursor-pointer">
 					<input
 						type="checkbox"

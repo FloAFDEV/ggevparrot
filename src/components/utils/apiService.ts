@@ -343,52 +343,6 @@ export async function fetchAllUsers() {
 	}
 }
 
-// Fonction pour gérer la connexion de l'utilisateur
-export async function loginUser(
-	email: string,
-	password: string
-): Promise<string> {
-	try {
-		console.log("Attempting login with email:", email);
-		const response = await fetch(`${BASE_URL}admin`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-			}),
-		});
-		console.log("Response status:", response.status);
-		console.log("Response headers:", response.headers);
-		if (!response.ok) {
-			const errorMessage = await response.text();
-			console.error("Error message:", errorMessage);
-			throw new Error(`Échec de l'authentification : ${errorMessage}`);
-		}
-		const contentType = response.headers.get("content-type");
-		console.log("Content type of response:", contentType);
-		if (contentType && contentType.includes("application/json")) {
-			const data = await response.json(); // Parsage du JSON
-			console.log("Data from API response:", data);
-			const token = data.token; // Extraction du token
-			console.log("Token extracted from response:", token);
-			if (!token) {
-				throw new Error("Le jeton est manquant dans la réponse");
-			}
-			console.log("Login successful. Token:", token);
-			return token;
-		} else {
-			throw new Error("La réponse de l'API n'est pas un JSON valide");
-		}
-	} catch (error) {
-		console.error("Error logging in:", error);
-		throw error;
-	}
-}
-
 // Interface pour les données du message lié à une annonce par son Id
 export interface MessageAnnonceData {
 	userName: string;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { fetchAllAnnonces } from "@/components/utils/apiService";
-import UpdateAnnonce from "@/components/adminComponents/UpdateAnnonce";
+import UpdateAnnonce from "@/pages/admin/adminComponents/UpdateAnnonce";
 
 // Définition de l'interface
 interface Annonce {
@@ -68,7 +68,7 @@ const ReadAnnonce = () => {
 
 	return (
 		<div className="admin-page">
-			<table className="w-full border-collapse">
+			<table className="w-full border-collapse table-fixed">
 				<thead>
 					<tr className="bg-neutral text-neutral-content">
 						<th className="px-4 py-2">Titre de l'annonce</th>
@@ -82,7 +82,7 @@ const ReadAnnonce = () => {
 					{annonces.map((annonce) => (
 						<tr
 							key={annonce.Id_CarAnnonce}
-							className="border-b hover:bg-neutral-content  hover:text-green-400 cursor-pointer text-center"
+							className="border-b hover:bg-neutral-content  hover:text-accent-content cursor-pointer text-center"
 							onClick={() => handleSelectAnnonce(annonce)}
 						>
 							<td className="px-4 py-2 font-bold">

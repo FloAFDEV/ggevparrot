@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 import Logo from "@/components/Global/Logo/Logo";
+import LoginButton from "@/components/LoginButton/LoginButton";
 import Link from "next/link";
-import LoginModal from "@/components/Global/Modal/LoginModal";
 
 const Navbar: React.FunctionComponent = () => {
 	const { theme, changeTheme } = useContext(ThemeContext);
 	const [isMobile, setIsMobile] = useState(false);
-	const [showLoginModal, setShowLoginModal] = useState(false);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -25,14 +24,6 @@ const Navbar: React.FunctionComponent = () => {
 
 	const handleToggle = () => {
 		changeTheme(theme === "garden" ? "emerald" : "garden");
-	};
-
-	const openLoginModal = () => {
-		setShowLoginModal(true);
-	};
-
-	const closeLoginModal = () => {
-		setShowLoginModal(false);
 	};
 
 	return (
@@ -189,12 +180,7 @@ const Navbar: React.FunctionComponent = () => {
 						</ul>
 					</div>
 					<div className="navbar-end">
-						<button
-							onClick={openLoginModal}
-							className="btn px-3 m-5"
-						>
-							Connexion
-						</button>
+						<LoginButton />
 						<label className="swap swap-rotate p-2 cursor-pointer">
 							<input
 								type="checkbox"
@@ -223,7 +209,6 @@ const Navbar: React.FunctionComponent = () => {
 					</div>
 				</div>
 			</header>
-			{showLoginModal && <LoginModal closeModal={closeLoginModal} />}
 		</>
 	);
 };

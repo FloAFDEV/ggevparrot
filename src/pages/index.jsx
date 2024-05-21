@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Global/Navbar/Navbar";
-import LoginModal from "@/components/Global/Modal/LoginModal";
 import Hero from "@/components/Global/Hero/Hero";
 import FeaturesServices from "@/components/Global/FeaturesServices/FeaturesServices";
 import Annonces from "@/components/Global/Annonces/Annonces";

@@ -91,6 +91,7 @@ const UpdateAnnonce = ({
 			setRegistrationError(null);
 		}
 	};
+
 	// Je définis la fonction de gestion du changement de l'image sélectionnée
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -129,7 +130,6 @@ const UpdateAnnonce = ({
 			);
 			return;
 		}
-
 		try {
 			// Je mets à jour l'annonce
 			await updateAnnonce(annonceId, updatedAnnonce);

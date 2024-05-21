@@ -1,12 +1,20 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import Provider from "./Providers";
+import { ReactNode } from "react";
 
-export default function Document() {
+interface IProps {
+	children: ReactNode;
+}
+export default function Document({ children }: IProps) {
 	return (
 		<Html lang="fr">
 			<Head />
 			<body>
-				<Main />
-				<NextScript />
+				<Provider>
+					<Main />
+					<div className={""}>{children}</div>
+					<NextScript />
+				</Provider>
 			</body>
 		</Html>
 	);
