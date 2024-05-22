@@ -28,7 +28,7 @@ const LoginPage = () => {
 			const signInResponse = await signIn("credentials", {
 				email,
 				password,
-				callbackUrl: "/admin",
+				callbackUrl: "/",
 				redirect: true,
 			});
 			setLoading(false);
