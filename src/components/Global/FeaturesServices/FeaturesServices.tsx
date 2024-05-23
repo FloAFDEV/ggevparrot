@@ -25,9 +25,10 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 	}
 	return (
 		<section className="text-center mt-40 ">
-			<h3 className="text-5xl bg-base-100 font-bold m-8 p-6">
+			<h3 className="text-5xl bg-gradient-to-r from-orange-500 to-purple-700 font-bold m-8 p-6 text-transparent bg-clip-text">
 				Nos services
 			</h3>
+
 			<div
 				id="services"
 				className="flex flex-wrap justify-center md:justify-around"

@@ -159,9 +159,12 @@ const Annonces = () => {
 		<TracingBeam>
 			<div id="annonces" className="flex pb-10 pt-8 z-50 justify-center">
 				<div className="w-full px-2 max-w-[1500px]">
-					<h2 className="text-5xl bg-base-100 font-bold m-8 p-6">
-						Nos annonces
+					<h2 className="text-5xl font-bold m-8 p-6 relative bg-base-100">
+						<span className="bg-gradient-to-r from-red-500 via-orange-500 to-purple-700 text-transparent bg-clip-text">
+							Nos annonces
+						</span>
 					</h2>
+
 					<div className="w-full h-auto">
 						<SearchFilters
 							handleFilter={handleSearch}

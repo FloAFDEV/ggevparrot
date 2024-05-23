@@ -8,7 +8,7 @@ const BossSection = () => {
 		<div className="flex flex-col items-center m-10 rounded-lg pt-20">
 			{/* Titre et texte */}
 			<div className="w-full p-4">
-				<h2 className="text-5xl font-bold m-4 text-center">
+				<h2 className="text-5xl font-bold m-4 text-center bg-gradient-to-r from-orange-500 to-purple-700 text-transparent bg-clip-text">
 					Rencontrez le Boss
 				</h2>
 				{/* Image du boss */}
@@ -23,7 +23,7 @@ const BossSection = () => {
 						priority={true}
 					/>
 				</div>
-				<h3 className="text-3xl font-bold mb-2 text-center">
+				<h3 className="text-3xl font-bold mb-2 text-center ">
 					Vincent PARROT
 				</h3>
 				<p className="py-6 text-lg">

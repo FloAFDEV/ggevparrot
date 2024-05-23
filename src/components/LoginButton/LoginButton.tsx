@@ -1,25 +1,18 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
-import { JwtPayload } from "jwt-decode";
 
 const LoginButton = () => {
 	const { data: session, status } = useSession();
 	const router = useRouter();
-	const [user, setUser] = useState<JwtPayload | null>(null);
+	const [user, setUser] = useState(null);
 
+	console.log("Session:", session);
 	if (!user) session && setUser(jwtDecode((session as any)?.user.token));
 
-	useEffect(() => {
-		if (session && session.user && (session.user as any).token) {
-			const decodedUser = jwtDecode((session.user as any).token);
-			setUser(decodedUser);
-		}
-	}, [session]);
-	console.log("Session:", session);
+	console.log(user);
 
 	return (
 		<div className="ml-auto flex gap-2">
