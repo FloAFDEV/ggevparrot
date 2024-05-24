@@ -181,7 +181,7 @@ const Navbar: React.FunctionComponent = () => {
 					</div>
 					<div className="navbar-end">
 						<LoginButton />
-						<label className="swap swap-rotate p-2 cursor-pointer">
+						<label className="swap swap-rotate p-2 cursor-pointer ml-2">
 							<input
 								type="checkbox"
 								onClick={handleToggle}

@@ -113,11 +113,6 @@ const Footer: React.FunctionComponent = () => {
 								</Link>
 							</li>
 							<li>
-								<Link href="/" className="link link-hover">
-									Jobs
-								</Link>
-							</li>
-							<li>
 								<Link
 									href="/mentions_legales"
 									className="link link-hover"
@@ -138,7 +133,15 @@ const Footer: React.FunctionComponent = () => {
 				</Link>
 			</div>
 			<div className="text-center">
-				<p>Copyright © 2024 - All right reserved by AFDeVFlo</p>
+				<p>
+					Copyright © 2024 - All right reserved by{" "}
+					<Link
+						className="link link-hover text-primary"
+						href="https://portfolio-flo-afdev.vercel.app/"
+					>
+						AFDeVFlo
+					</Link>
+				</p>
 			</div>
 		</footer>
 	);
