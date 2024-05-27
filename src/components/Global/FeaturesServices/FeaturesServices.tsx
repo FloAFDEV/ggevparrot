@@ -26,7 +26,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 	return (
 		<section className="text-center mt-40 ">
 			<h3 className="text-5xl bg-gradient-to-r from-orange-500 to-purple-700 font-bold m-8 p-6 text-transparent bg-clip-text">
-				Nos services
+				Nos offres de services
 			</h3>
 
 			<div
@@ -47,7 +47,7 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 											alt={`Image de ${service.serviceName}`}
 											width={320}
 											height={320}
-											className="rounded-badge shadow-base-content w-full h-72 object-cover"
+											className="transition transform duration-500 ease-in-out hover:scale-110 hover:opacity-80 rounded-badge shadow-base-content w-full h-72 object-cover"
 											priority={true}
 										/>
 									</figure>

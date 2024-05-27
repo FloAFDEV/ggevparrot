@@ -99,10 +99,6 @@ const SearchFilters = ({
 									width={40}
 									height={40}
 									priority={true}
-									style={{
-										width: "auto",
-										height: "auto",
-									}}
 									alt={"logo de " + brand.name}
 								/>
 								<span className="text-sm">{brand.name}</span>
@@ -119,14 +115,10 @@ const SearchFilters = ({
 								style={{ cursor: "pointer" }}
 							>
 								<Image
-									className="mr-3 bg-gray-200 rounded-md bg-opacity-80 w-300"
+									className="mr-3 bg-gray-200 rounded-md bg-opacity-80"
 									src={brand.logo}
 									width={50}
 									height={50}
-									style={{
-										width: "40px",
-										height: "auto",
-									}}
 									alt={"logo de " + brand.name}
 									priority={true}
 								/>

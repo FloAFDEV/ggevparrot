@@ -160,11 +160,10 @@ const Annonces = () => {
 			<div id="annonces" className="flex pb-10 pt-8 z-50 justify-center">
 				<div className="w-full px-2 max-w-[1500px]">
 					<h2 className="text-5xl font-bold m-8 p-6 relative bg-base-100">
-						<span className="bg-gradient-to-r from-red-500 via-orange-500 to-purple-700 text-transparent bg-clip-text">
-							Nos annonces
+						<span className="bg-gradient-to-r from-orange-500 to-purple-700 text-transparent bg-clip-text">
+							Découvrez nos annonces
 						</span>
 					</h2>
-
 					<div className="w-full h-auto">
 						<SearchFilters
 							handleFilter={handleSearch}
@@ -193,11 +192,11 @@ const Annonces = () => {
 									annonce.annonce_valid === 1 && (
 										<div
 											key={annonce.annonce_title}
-											className={`max-w-[300px] cardrounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto rounded-lg ${
+											className={`max-w-[300px] card rounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto ${
 												isMobileScreen
 													? "p-2 text-sm"
 													: ""
-											}`}
+											} transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl`}
 										>
 											<figure>
 												<Image
@@ -284,6 +283,33 @@ const Annonces = () => {
 						imagesData={imagesData}
 					/>
 				)}
+			</div>
+			<div className="join">
+				<input
+					className="join-item btn btn-square"
+					type="radio"
+					name="options"
+					aria-label="1"
+					checked
+				/>
+				<input
+					className="join-item btn btn-square"
+					type="radio"
+					name="options"
+					aria-label="2"
+				/>
+				<input
+					className="join-item btn btn-square"
+					type="radio"
+					name="options"
+					aria-label="3"
+				/>
+				<input
+					className="join-item btn btn-square"
+					type="radio"
+					name="options"
+					aria-label="4"
+				/>
 			</div>
 		</TracingBeam>
 	);
