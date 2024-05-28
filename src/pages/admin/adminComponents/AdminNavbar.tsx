@@ -71,22 +71,6 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 								Ajouter une Annonce
 							</button>
 						</li>
-						<li>
-							<button
-								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-								onClick={onDeleteAnnonce}
-							>
-								Supprimer une Annonce
-							</button>
-						</li>
-						<li>
-							<button
-								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-								onClick={onUpdateAnnonce}
-							>
-								Modifier une Annonce
-							</button>
-						</li>
 						<>
 							{/* Boutons à afficher pour admin et superadmin */}
 							<li>

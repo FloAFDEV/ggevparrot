@@ -36,7 +36,6 @@ const UpdateAnnonce = ({
 	mainImageUrl: string;
 	closeModal: () => void;
 }) => {
-	// Je déclare les états nécessaires pour gérer les données du formulaire
 	const [updatedAnnonce, setUpdatedAnnonce] =
 		useState<Annonce>(initialAnnonce);
 	const [selectedImage, setSelectedImage] = useState<{
@@ -46,19 +45,14 @@ const UpdateAnnonce = ({
 	const [registrationError, setRegistrationError] = useState<string | null>(
 		null
 	);
-	// Je déclare un état pour gérer le message de soumission
 	const [submissionMessage, setSubmissionMessage] = useState<string>("");
 
-	// Je définis l'année actuelle
 	const currentYear = new Date().getFullYear();
-
-	//// Je génère un tableau des années depuis 2000 jusqu'à l'année actuelle
 	const years = Array.from(
 		{ length: currentYear - 1999 },
 		(_, index) => currentYear - index
 	);
 
-	// Je récupère l'annonce initiale lors du chargement du composant
 	useEffect(() => {
 		const fetchInitialAnnonce = async () => {
 			try {
@@ -75,10 +69,9 @@ const UpdateAnnonce = ({
 		fetchInitialAnnonce();
 	}, [annonceId]);
 
-	// Je définis la fonction de gestion du changement des champs du formulaire
 	const handleInputChange = (
 		e: React.ChangeEvent<
-			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+			HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
 		>
 	) => {
 		const { name, value } = e.target;
@@ -86,71 +79,71 @@ const UpdateAnnonce = ({
 			...prevState,
 			[name]: value,
 		}));
-		// Je réinitialise l'erreur de format d'immatriculation lors du changement de l'entrée "registration"
 		if (name === "registration") {
 			setRegistrationError(null);
 		}
 	};
 
-	// Je définis la fonction de gestion du changement de l'image sélectionnée
+	const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 Mo
+	const ACCEPTED_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
-		if (!file) {
-			return; // Si aucun fichier n'est sélectionné, ne rien faire
+		if (!file) return;
+		// controle la taille de l'image
+		if (file.size > MAX_IMAGE_SIZE) {
+			console.error(
+				"La taille de l'image dépasse la limite autorisée (5 Mo)."
+			);
+			alert("La taille de l'image dépasse la limite autorisée (5 Mo).");
+			return;
 		}
-		const extension = file.name.split(".").pop()?.toLowerCase(); // Récupérer l'extension du fichier
-		const acceptedExtensions = ["jpg", "jpeg", "png", "webp"]; // Liste des extensions d'image acceptées
-		if (extension && acceptedExtensions.includes(extension)) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				// Récupérer l'URL base64 de l'image
-				const imageDataURL = reader.result as string;
-				// Mettre à jour l'état avec l'URL de l'image et le nom du fichier
-				setSelectedImage({ url: imageDataURL, name: file.name });
-			};
-			reader.readAsDataURL(file); // Lire le fichier en tant que données URL
-		} else {
-			// Afficher un message d'erreur si le fichier n'est pas une image
+		// type de fichier autorisés
+		const extension = file.name.split(".").pop()?.toLowerCase();
+		if (!extension || !ACCEPTED_EXTENSIONS.includes(extension)) {
 			console.error(
 				"Veuillez sélectionner un fichier d'image valide (jpg, jpeg, png ou webp)."
 			);
 			alert(
 				"Veuillez sélectionner un fichier d'image valide (jpg, jpeg, png ou webp)."
 			);
+			return;
 		}
+
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			const imageDataURL = reader.result as string;
+			setSelectedImage({ url: imageDataURL, name: file.name });
+		};
+		reader.readAsDataURL(file);
 	};
 
-	// Je définis la fonction de soumission du formulaire
 	const handleUpdateAnnonce = async () => {
-		// Validation pour le format d'immatriculation
 		const registrationRegex = /^[A-Z]{2}-\d{3}-[A-Z]{2}$/;
 		if (!registrationRegex.test(updatedAnnonce.registration)) {
 			setRegistrationError(
-				"Format d'immatriculation invalide. Format attendu: AA-123-AA"
+				"Format d'immatriculation invalid! Format attendu: AA-123-AA"
 			);
 			return;
 		}
 		try {
-			// Je mets à jour l'annonce
 			await updateAnnonce(annonceId, updatedAnnonce);
-			// Je définis un message de succès
 			setSubmissionMessage("L'annonce a été mise à jour avec succès !");
 		} catch (error) {
 			console.error(
 				"Erreur lors de la mise à jour de l'annonce :",
 				error
 			);
-			// En cas d'erreur, je définis un message d'erreur
 			setSubmissionMessage(
 				"Une erreur s'est produite lors de la mise à jour de l'annonce."
 			);
 		}
 	};
-
 	return (
 		<div className="bg-neutral p-4 rounded-lg max-w-6xl h-[80vh] overflow-auto">
-			<div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 sm:gap-2 gap-4 font-bold text-sm md:text-base">
-				{/* Les champs du formulaire */}
+			<p className="right-2 text-neutral-content font-normal text-xl">
+				ID annonce n° {initialAnnonce.Id_CarAnnonce}
+			</p>
+			<div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 sm:gap-2 gap-4 text-sm md:text-base">
 				<div className="col-span-full">
 					<CustomInput
 						label="Titre de l'annonce"
@@ -208,6 +201,7 @@ const UpdateAnnonce = ({
 						</label>
 						{mainImageUrl && (
 							<Image
+								className="float-center object-fit: contain"
 								src={mainImageUrl}
 								alt={initialAnnonce.annonce_title}
 								style={{ objectFit: "contain" }}
@@ -216,9 +210,6 @@ const UpdateAnnonce = ({
 								priority={true}
 							/>
 						)}
-						<p className="absolute right-2 text-neutral-content">
-							ID annonce n° {initialAnnonce.Id_CarAnnonce}
-						</p>
 					</div>
 				</div>
 
@@ -228,12 +219,9 @@ const UpdateAnnonce = ({
 							<Image
 								src={selectedImage.url}
 								alt={updatedAnnonce.annonce_title}
-								style={{
-									objectFit: "contain",
-									maxWidth: "100%",
-									maxHeight: "100%",
-								}}
-								className="float-center"
+								width={200}
+								height={200}
+								className="float-center object-fit: contain"
 								onError={(e) =>
 									console.error(
 										"Erreur de chargement d'image :",
@@ -267,7 +255,6 @@ const UpdateAnnonce = ({
 					)}
 				</div>
 
-				{/* Update the input for Description to use a textarea */}
 				<div className="form-group mb-4 col-span-4 ">
 					<label
 						htmlFor="description"
@@ -384,13 +371,13 @@ const UpdateAnnonce = ({
 				>
 					Mettre l'annonce n°{initialAnnonce.Id_CarAnnonce} à jour
 				</button>
-				{/* Message de soumission */}
-				{submissionMessage && (
-					<p className="text-center font-bold text-green-500">
-						{submissionMessage}
-					</p>
-				)}
-			</div>
+			</div>{" "}
+			{/* Message de soumission */}
+			{submissionMessage && (
+				<p className="text-center text-3xl font-bold text-green-500">
+					{submissionMessage}
+				</p>
+			)}
 		</div>
 	);
 };
