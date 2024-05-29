@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
+import Avvvatars from "avvvatars-react";
 
 const LoginButton = () => {
 	const { data: session, status } = useSession();
@@ -28,9 +29,10 @@ const LoginButton = () => {
 		<div className="ml-auto flex items-center gap-2 p-4">
 			{status === "authenticated" && session ? (
 				<>
-					<div className="hidden sm:block">
-						<p className="text-primary font-bold text-lg content-center pl-2 m-1">
-							{(user as any)?.name} {(user as any)?.userRole}
+					<div className="hidden sm:flex items-center space-x-2 pl-2">
+						<Avvvatars value={(user as any)?.email} size={40} />
+						<p className="text-primary font-bold text-lg m-1">
+							{(user as any)?.userRole}
 						</p>
 					</div>
 					{isAdminPage ? (
