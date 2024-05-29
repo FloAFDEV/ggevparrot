@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
-import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
 import { ThemeContext } from "@/components/Global/Context/ThemeContext";
 import LoginButton from "../../../components/LoginButton/LoginButton";
 

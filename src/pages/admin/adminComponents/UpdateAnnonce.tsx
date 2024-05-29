@@ -121,7 +121,7 @@ const UpdateAnnonce = ({
 		const registrationRegex = /^[A-Z]{2}-\d{3}-[A-Z]{2}$/;
 		if (!registrationRegex.test(updatedAnnonce.registration)) {
 			setRegistrationError(
-				"Format d'immatriculation invalid! Format attendu: AA-123-AA"
+				"Format d'immatriculation invalide - Format attendu: AA-123-AA"
 			);
 			return;
 		}
@@ -139,8 +139,8 @@ const UpdateAnnonce = ({
 		}
 	};
 	return (
-		<div className="bg-neutral p-4 rounded-lg max-w-6xl h-[80vh] overflow-auto">
-			<p className="right-2 text-neutral-content font-normal text-xl">
+		<div className="bg-neutral p-2 rounded-lg max-w-6xl h-[80vh] overflow-auto">
+			<p className="right-2 text-neutral-content font-bold text-xl text-center">
 				ID annonce n° {initialAnnonce.Id_CarAnnonce}
 			</p>
 			<div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 sm:gap-2 gap-4 text-sm md:text-base">
@@ -201,7 +201,7 @@ const UpdateAnnonce = ({
 						</label>
 						{mainImageUrl && (
 							<Image
-								className="float-center object-fit: contain"
+								className="float-center object-fit: contain rounded-md"
 								src={mainImageUrl}
 								alt={initialAnnonce.annonce_title}
 								style={{ objectFit: "contain" }}
@@ -367,14 +367,14 @@ const UpdateAnnonce = ({
 				{/* Bouton de soumission du formulaire */}
 				<button
 					onClick={handleUpdateAnnonce}
-					className="bg-secondary font-bold text-xl text-white py-2 px-4 rounded hover:bg-accent col-span-4"
+					className="w-3/5 mx-auto py-2 px-4 bg-secondary text-white font-bold text-xl rounded hover:bg-accent col-span-4 transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
 				>
 					Mettre l'annonce n°{initialAnnonce.Id_CarAnnonce} à jour
 				</button>
 			</div>{" "}
 			{/* Message de soumission */}
 			{submissionMessage && (
-				<p className="text-center text-3xl font-bold text-green-500">
+				<p className="text-center text-3xl font-bold text-green-500 ">
 					{submissionMessage}
 				</p>
 			)}
