@@ -11,7 +11,6 @@ const LoginButton = () => {
 	const [user, setUser] = useState(null);
 	const [isAdminPage, setIsAdminPage] = useState(false);
 
-	console.log("Session:", session);
 	if (!user) session && setUser(jwtDecode((session as any)?.user.token));
 
 	const handleLogout = () => {
@@ -22,8 +21,6 @@ const LoginButton = () => {
 	useEffect(() => {
 		setIsAdminPage(router.pathname === "/admin");
 	}, [router.pathname]);
-
-	console.log(user);
 
 	return (
 		<div className="ml-auto flex items-center gap-2 p-4">
