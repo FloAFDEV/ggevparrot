@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MessageAnnonceData, MessageAnnonce } from "../../utils/apiService";
 import Link from "next/link";
 import validator from "validator";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactForm = ({
 	Id_CarAnnonce,
@@ -24,6 +25,7 @@ const ContactForm = ({
 		createdAt: new Date().toISOString(),
 		botField: "",
 	});
+	const [captchaValue, setCaptchaValue] = useState(null);
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
 
@@ -44,14 +46,14 @@ const ContactForm = ({
 		console.log("Id_CarAnnonce:", formData.Id_CarAnnonce);
 		if (formData.userName.trim() === "") {
 			setError("Le nom est requis !");
-		} else if (
-			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-				formData.userEmail
-			) === false
-		) {
+		} else if (!validator.isEmail(formData.userEmail)) {
 			setError("L'adresse e-mail est invalide !");
 		} else if (formData.userPhone.trim() === "") {
 			setError("Le numéro de téléphone est requis !");
+		} else if (formData.botField !== "") {
+			setError("Bot detected!");
+		} else if (!captchaValue) {
+			setError("Veuillez vérifier le reCAPTCHA !");
 		} else {
 			try {
 				const escapedFormData: MessageAnnonceData = {
@@ -76,6 +78,7 @@ const ContactForm = ({
 						botField: "",
 					});
 					setSuccess(false);
+					setCaptchaValue(null);
 				}, 6000);
 			} catch (err) {
 				console.error(err);
@@ -86,6 +89,9 @@ const ContactForm = ({
 		}
 	};
 
+	const handleRecaptchaChange = (value: any) => {
+		setCaptchaValue(value);
+	};
 	// console.log("formData:", formData);
 
 	return (
@@ -189,6 +195,15 @@ const ContactForm = ({
 								type="hidden"
 								name="createdAt"
 								value={formData.createdAt}
+							/>
+						</div>{" "}
+						<div className="mb-2">
+							<ReCAPTCHA
+								sitekey={
+									process.env
+										.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""
+								}
+								onChange={handleRecaptchaChange}
 							/>
 						</div>
 						<button

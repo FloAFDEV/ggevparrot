@@ -2,6 +2,7 @@ import { useState } from "react";
 import { sendMessage } from "../../utils/apiService";
 import Image from "next/image";
 import validator from "validator";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface ContactFormData {
 	name: string;
@@ -20,6 +21,7 @@ const Contact = () => {
 		botField: "", // Champ caché pour complétion par les robots.
 	});
 
+	const [captchaValue, setCaptchaValue] = useState<string | null>(null);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -40,6 +42,11 @@ const Contact = () => {
 		if (formData.botField.trim() !== "") {
 			console.log("Formulaire soumis par un robot !");
 			return; // N'envoie pas le forrulaire si le champ est rempli
+		} // Vérifie si le reCAPTCHA est rempli
+		if (!captchaValue) {
+			console.log("Veuillez compléter le reCAPTCHA !");
+			setSubmitMessage("Veuillez compléter le reCAPTCHA !");
+			return;
 		}
 		// Echappe les données saisies par l'utilisateur
 		const escapedFormData: ContactFormData = {
@@ -68,6 +75,7 @@ const Contact = () => {
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
+					setCaptchaValue(null); // Réinitialise reCAPTCHA
 				}, 6000); // -> après 6 secondes
 			} else {
 				throw new Error("Erreur lors de l'envoi du formulaire.");
@@ -76,6 +84,10 @@ const Contact = () => {
 			console.error(error);
 			// Gestion de l'erreur ici
 		}
+	};
+
+	const handleRecaptchaChange = (value: string | null) => {
+		setCaptchaValue(value);
 	};
 
 	return (
@@ -166,7 +178,17 @@ const Contact = () => {
 								value={formData.botField}
 								style={{ display: "none" }}
 								onChange={handleChange}
-							/>{" "}
+							/>
+							<div className="mb-2">
+								<ReCAPTCHA
+									sitekey={
+										process.env
+											.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ??
+										""
+									}
+									onChange={handleRecaptchaChange}
+								/>
+							</div>
 							<button
 								type="submit"
 								className="bg-primary text-black px-4 py-2 rounded-md hover:bg-accent w-full"
