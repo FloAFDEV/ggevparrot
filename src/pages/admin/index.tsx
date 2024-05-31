@@ -36,8 +36,7 @@ const AdminPage = () => {
 		return (
 			<div className="flex flex-col justify-center items-center min-h-screen bg-gray-900">
 				<p className="text-5xl font-bold bg-gradient-to-r from-orange-300 via-red-500 to-purple-600 bg-clip-text text-transparent mb-8 text-center px-4 sm:px-0">
-					Vous n'êtes pas autorisé à accéder à cette page! <br />
-					<span>Authentifiez-vous</span> ou quittez.
+					Vous n'êtes pas autorisé à accéder à cette page
 				</p>
 				<Link
 					href="/"

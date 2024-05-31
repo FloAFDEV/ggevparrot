@@ -91,7 +91,20 @@ const LoginPage = () => {
 			>
 				{loading && <div>Loading...</div>}
 				{error && (
-					<div className="w-full mx-auto text-center text-cyan-400">
+					<div className="w-full mx-auto text-center text-red-500 bg-red-100 p-4 rounded-md">
+						<svg
+							className="w-6 h-6 inline-block mr-2"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M12 4v16m0-16V4m0 12h.01M12 12h.01"
+							></path>
+						</svg>
 						{error}
 					</div>
 				)}

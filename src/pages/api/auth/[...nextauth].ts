@@ -78,4 +78,8 @@ export default NextAuth({
 			return session;
 		},
 	},
+	session: {
+		maxAge: 2 * 60 * 60, // 2 h
+		updateAge: 30 * 60, // 30 mins
+	},
 });
