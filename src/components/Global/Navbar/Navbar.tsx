@@ -63,6 +63,11 @@ const Navbar: React.FunctionComponent = () => {
 								<li>
 									<Link
 										href="/#annonces"
+										onClick={() =>
+											(
+												document.activeElement as HTMLElement
+											)?.blur()
+										}
 										className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 									>
 										Nos annonces
@@ -77,6 +82,11 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#services"
+													onClick={() =>
+														(
+															document.activeElement as HTMLElement
+														)?.blur()
+													}
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Mécanique
@@ -85,6 +95,11 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#services"
+													onClick={() =>
+														(
+															document.activeElement as HTMLElement
+														)?.blur()
+													}
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Expertises
@@ -93,6 +108,11 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#services"
+													onClick={() =>
+														(
+															document.activeElement as HTMLElement
+														)?.blur()
+													}
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Financement
@@ -101,6 +121,11 @@ const Navbar: React.FunctionComponent = () => {
 											<li>
 												<Link
 													href="/#contact"
+													onClick={() =>
+														(
+															document.activeElement as HTMLElement
+														)?.blur()
+													}
 													className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
 												>
 													Contact
@@ -128,48 +153,59 @@ const Navbar: React.FunctionComponent = () => {
 									Nos annonces
 								</Link>
 							</li>
-							<li>
-								<details>
-									<summary className="text-neutral-content hover:text-green-400">
-										Nos Services
-									</summary>
-									<ul className="p-2 bg-neutral text-neutral-content hover:text-green-400">
-										<li>
-											<Link
-												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
-											>
-												Mécanique
-											</Link>
-										</li>
-										<li>
-											<Link
-												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
-											>
-												Expertises
-											</Link>
-										</li>
-										<li>
-											<Link
-												href="/#services"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
-											>
-												Financement
-											</Link>
-										</li>
-										<li>
-											<Link
-												href="/404.tsx"
-												className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
-											>
-												404
-											</Link>
-										</li>
-									</ul>
-								</details>
+							<li className="dropdown dropdown-hover">
+								<summary
+									className="text-neutral-content hover:text-green-400"
+									onClick={() =>
+										(
+											document.activeElement as HTMLElement
+										)?.blur()
+									}
+								>
+									Nos Services
+								</summary>
+								<ul className="dropdown-content p-2 bg-neutral text-neutral-content shadow rounded-box w-52">
+									<li>
+										<Link
+											href="/#services"
+											className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
+										>
+											Mécanique
+										</Link>
+									</li>
+									<li>
+										<Link
+											href="/#services"
+											className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
+										>
+											Expertises
+										</Link>
+									</li>
+									<li>
+										<Link
+											href="/#services"
+											className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
+										>
+											Financement
+										</Link>
+									</li>
+									<li>
+										<Link
+											href="/404.tsx"
+											className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
+										>
+											404
+										</Link>
+									</li>
+								</ul>
 							</li>
-							<li>
+							<li
+								onClick={() =>
+									(
+										document.activeElement as HTMLElement
+									)?.blur()
+								}
+							>
 								<Link
 									href="/#contact"
 									className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400 cursor-pointer"
