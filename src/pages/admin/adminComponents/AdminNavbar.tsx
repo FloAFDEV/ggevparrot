@@ -28,7 +28,7 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 	return (
 		<div className="navbar bg-neutral text-neutral-content p-4">
 			<div className="navbar-start flex items-center space-x-2">
-				<div className="dropdown">
+				<div className="dropdown dropdown-hover">
 					<div
 						tabIndex={0}
 						role="button"
