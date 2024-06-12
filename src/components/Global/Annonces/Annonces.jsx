@@ -141,7 +141,10 @@ const Annonces = () => {
 
 	return (
 		<TracingBeam>
-			<div id="annonces" className="flex pb-10 pt-8 z-50 justify-center">
+			<div
+				id="annonces"
+				className="flex pb-10 pt-8 z-50 justify-center h-full"
+			>
 				<div className="w-full px-2 max-w-[1500px]">
 					<h2 className="text-5xl font-bold m-8 p-6 relative bg-base-100">
 						<span className="bg-gradient-to-r from-orange-500 to-purple-700 text-transparent bg-clip-text">
