@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { fetchAllAnnonces } from "@/components/utils/apiService";
 import UpdateAnnonce from "@/pages/admin/adminComponents/UpdateAnnonce";
+import DeleteAnnonce from "@/pages/admin/adminComponents/DeleteAnnonce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -72,15 +73,16 @@ const ReadAnnonce = () => {
 	};
 
 	// Confirme la suppression de l'annonce et la supprime
-	const handleConfirmDelete = () => {
-		if (deleteAnnonceId !== null) {
-			// Ajoutez ici votre logique de suppression
-			console.log(`Supprimer l'annonce avec l'ID ${deleteAnnonceId}`);
-			// Vous pourriez appeler une API de suppression et mettre à jour l'état en conséquence
-			// Après la suppression, fermez la modal de confirmation et réinitialisez l'ID de l'annonce à supprimer
-			setDeleteAnnonceId(null);
-			setShowDeleteModal(false);
-		}
+	const handleConfirmDelete = (annonceId: number) => {
+		// Ajoutez ici votre logique de suppression
+		console.log(`Supprimer l'annonce avec l'ID ${annonceId}`);
+		// Vous pourriez appeler une API de suppression et mettre à jour l'état en conséquence
+		setAnnonces((prevAnnonces) =>
+			prevAnnonces.filter(
+				(annonce) => annonce.Id_CarAnnonce !== annonceId
+			)
+		);
+		setShowDeleteModal(false);
 	};
 
 	// Ferme la modale des détails
@@ -291,30 +293,11 @@ const ReadAnnonce = () => {
 				</div>
 			)}
 			{showDeleteModal && (
-				<div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-					<div className="bg-neutral-content p-8 rounded-lg max-w-4xl overflow-auto">
-						<h2 className="text-2xl text-red-700 font-bold mb-4 text-center">
-							Confirmation de suppression
-						</h2>
-						<p className="mb-4 text-neutral text-lg">
-							Êtes-vous sûr de vouloir supprimer cette annonce ?
-						</p>
-						<div className="flex justify-around">
-							<button
-								className="mt-4 px-4 py-2 bg-red-500 text-white rounded mr-4 transform transition-transform hover:scale-110 active:scale-100"
-								onClick={handleConfirmDelete}
-							>
-								Supprimer
-							</button>
-							<button
-								className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
-								onClick={() => setShowDeleteModal(false)}
-							>
-								Annuler
-							</button>
-						</div>
-					</div>
-				</div>
+				<DeleteAnnonce
+					annonceId={deleteAnnonceId}
+					closeModal={() => setShowDeleteModal(false)}
+					onDelete={handleConfirmDelete}
+				/>
 			)}
 		</div>
 	);

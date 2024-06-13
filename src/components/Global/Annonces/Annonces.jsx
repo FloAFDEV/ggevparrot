@@ -141,10 +141,7 @@ const Annonces = () => {
 
 	return (
 		<TracingBeam>
-			<div
-				id="annonces"
-				className="flex pb-10 pt-8 z-50 justify-center h-full"
-			>
+			<div id="annonces" className="flex pb-10 pt-8 z-50 justify-center">
 				<div className="w-full px-2 max-w-[1500px]">
 					<h2 className="text-5xl font-bold m-8 p-6 relative bg-base-100">
 						<span className="bg-gradient-to-r from-orange-500 to-purple-700 text-transparent bg-clip-text">
@@ -180,102 +177,120 @@ const Annonces = () => {
 										<p>Chargement...</p>
 									</span>
 								) : (
-									filteredAnnonces.map((annonce) => (
-										<div
-											key={annonce.annonce_title}
-											className={`max-w-[300px] card rounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto ${
-												isMobileScreen
-													? "p-2 text-sm"
-													: ""
-											} transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl`}
-										>
-											<figure>
-												<Image
-													src={
-														annonce.main_image_url &&
-														annonce.main_image_url !==
-															""
-															? annonce.main_image_url
-															: "/assets/CarDefaultImage.webp"
-													}
-													alt={annonce.annonce_title}
-													className="rounded-t-md w-full h-full object-cover"
-													width={300}
-													height={150}
-													priority={true}
-												/>
-											</figure>
-											<div className="card-body p-1 w-full">
-												<h2
-													className={`card-title font-bold ${
+									filteredAnnonces.map(
+										(annonce) =>
+											annonce.annonce_valid === 1 && (
+												<div
+													key={annonce.annonce_title}
+													className={`max-w-[300px] card rounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto ${
 														isMobileScreen
-															? "text-base text-end"
-															: "text-lg text-end"
-													}`}
+															? "p-2 text-sm"
+															: ""
+													} transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl`}
 												>
-													{annonce.annonce_title}
-												</h2>
-												{isMobileScreen ? null : (
-													<div className="text-end font-light">
-														Année:{" "}
-														{
-															annonce.manufacture_year
-														}
-														<br />
-														{annonce.color} <br />
-														{annonce.fuel_type}
-														<br />
-														{annonce.mileage} km
-														<p>
-															Catégorie:{" "}
-															{
-																annonce.category_model
+													<figure>
+														<Image
+															src={
+																annonce.main_image_url &&
+																annonce.main_image_url !==
+																	""
+																	? annonce.main_image_url
+																	: "/assets/CarDefaultImage.webp"
 															}
+															alt={
+																annonce.annonce_title
+															}
+															className="rounded-t-md w-full h-full object-cover"
+															width={300}
+															height={150}
+															priority={true}
+														/>
+													</figure>
+													<div className="card-body p-1 w-full">
+														<h2
+															className={`card-title font-bold ${
+																isMobileScreen
+																	? "text-base text-end"
+																	: "text-lg text-end"
+															}`}
+														>
+															{
+																annonce.annonce_title
+															}
+														</h2>
+														{isMobileScreen ? null : (
+															<div className="text-end font-light">
+																Année:{" "}
+																{
+																	annonce.manufacture_year
+																}
+																<br />
+																{
+																	annonce.color
+																}{" "}
+																<br />
+																{
+																	annonce.fuel_type
+																}
+																<br />
+																{
+																	annonce.mileage
+																}{" "}
+																km
+																<p>
+																	Catégorie:{" "}
+																	{
+																		annonce.category_model
+																	}
+																</p>
+															</div>
+														)}
+														<p className="text-end font-semibold">
+															Prix:{" "}
+															{Math.round(
+																annonce.price
+															)}{" "}
+															€
+														</p>{" "}
+														<p className="text-xs font-thin text-end mt-2 mb-1">
+															À partir de{" "}
+															{(
+																(annonce.price -
+																	3000) /
+																60
+															).toFixed(2)}{" "}
+															€/mois
 														</p>
+														<div className="card-actions justify-end m-1 pt-2 ">
+															<button
+																onClick={() =>
+																	handleOpenModal(
+																		annonce
+																	)
+																}
+																className="btn btn-primary text-lg absolute bottom-0 right-0 m-1 p-1"
+															>
+																En savoir plus
+															</button>
+														</div>
 													</div>
-												)}
-												<p className="text-end font-semibold">
-													Prix:{" "}
-													{Math.round(annonce.price)}{" "}
-													€
-												</p>{" "}
-												<p className="text-xs font-thin text-end mt-2 mb-1">
-													À partir de{" "}
-													{(
-														(annonce.price - 3000) /
-														60
-													).toFixed(2)}{" "}
-													€/mois
-												</p>
-												<div className="card-actions justify-end m-1 pt-2 ">
-													<button
-														onClick={() =>
-															handleOpenModal(
-																annonce
-															)
-														}
-														className="btn btn-primary text-lg absolute bottom-0 right-0 m-1 p-1"
-													>
-														En savoir plus
-													</button>
+													<div className="h-7"></div>
 												</div>
-											</div>
-											<div className="h-7"></div>
-										</div>
-									))
+											)
+									)
 								)}
 							</div>
 						</div>
 					</div>
 				</div>
+				{showModal && (
+					<Modal
+						annonce={modalAnnonce}
+						handleCloseModal={handleCloseModal}
+						imagesData={imagesData}
+					/>
+				)}
 			</div>
-			{showModal && (
-				<Modal
-					annonce={modalAnnonce}
-					handleCloseModal={handleCloseModal}
-					imagesData={imagesData}
-				/>
-			)}
 			<div className="join">
 				<input
 					className="join-item btn btn-square"
