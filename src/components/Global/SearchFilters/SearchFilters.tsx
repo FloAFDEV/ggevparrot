@@ -28,12 +28,12 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 }) => {
 	const [priceMin, setPriceMin] = useState<string>("");
 	const [priceMax, setPriceMax] = useState<string>("");
-	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-	const [selectedFuelType, setSelectedFuelType] = useState<string>("");
 	const [yearMin, setYearMin] = useState<string>("");
 	const [yearMax, setYearMax] = useState<string>("");
 	const [kilometersMin, setKilometersMin] = useState<string>("");
 	const [kilometersMax, setKilometersMax] = useState<string>("");
+	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+	const [selectedFuelType, setSelectedFuelType] = useState<string>("");
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -74,6 +74,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 		yearMax,
 		kilometersMin,
 		kilometersMax,
+		selectedBrands,
 		handleFilter,
 	]);
 
