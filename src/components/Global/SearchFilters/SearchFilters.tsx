@@ -154,10 +154,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 	return (
 		<div className="flex flex-col md:flex-row p-4">
 			<div className="md:w-full text-left">
-				<label
-					htmlFor="brandSelect"
-					className="text-sm font-medium text-gray-700"
-				>
+				<label htmlFor="brandSelect" className="text-md p-5 mr-2">
 					Sélectionnez vos marques
 				</label>
 				<Select
