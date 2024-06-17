@@ -1,5 +1,5 @@
 // components/Global/Hero.tsx
-import React from "react";
+import React, { lazy } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,8 +11,8 @@ const Hero: React.FunctionComponent = () => {
 					className="w-3/4 pt-5 md:w-1/2 m-4 rounded-2xl shadow-2xl"
 					src="/assets/heroVParrot.jpeg"
 					alt="Image principale représentant un perroquet mécanicien"
-					width={1024}
-					height={1024}
+					width={512}
+					height={512}
 					priority={true}
 				/>
 				<div className="w-full md:w-1/2">

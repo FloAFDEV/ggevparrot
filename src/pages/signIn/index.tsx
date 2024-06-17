@@ -189,14 +189,14 @@ const LoginPage = () => {
 				<button
 					type="submit"
 					disabled={loading || isMaxAttemptsReached()}
-					className="btn btn-primary w-full px-4 py-2 rounded-xl text-lg shadow-xl"
+					className="btn btn-primary w-full px-4 py-2 rounded-xl text-lg shadow-xl transform transition-transform duration-300 hover:scale-110"
 				>
 					{loading ? "Chargement..." : "Me connecter"}
 				</button>
 			</form>
 			<div className="flex justify-end mt-10">
 				<button
-					className="btn text-gray-600 text-sm rounded-3xl"
+					className="btn text-secondary text-sm rounded-3xl transform transition-transform duration-300 hover:scale-110"
 					onClick={() => {
 						window.location.href = "/";
 					}}

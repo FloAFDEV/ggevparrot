@@ -160,6 +160,9 @@ const Contact = () => {
 								></textarea>
 							</div>
 							{/* Champ caché pour détecter les robots */}
+							<label htmlFor="botField" className="sr-only">
+								Ne pas remplir ce champ
+							</label>
 							<input
 								type="text"
 								name="botField"

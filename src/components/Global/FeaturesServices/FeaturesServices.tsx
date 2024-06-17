@@ -28,7 +28,6 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 			<h3 className="text-5xl bg-gradient-to-r from-orange-500 to-purple-700 font-bold m-8 p-6 text-transparent bg-clip-text">
 				Nos offres de services
 			</h3>
-
 			<div
 				id="services"
 				className="flex flex-wrap justify-center md:justify-around"
@@ -60,9 +59,9 @@ const FeaturesServices: React.FunctionComponent<FeaturesServicesProps> = ({
 								<p className="text-start">
 									{service.description}
 								</p>
-								<p className="font-bold text-lg pt-4">
+								<h4 className="font-bold text-lg pt-4">
 									Contacter le service {service.serviceName}:
-								</p>
+								</h4>
 								<p>
 									<Link
 										href={`tel:${service.phoneNumber}`}

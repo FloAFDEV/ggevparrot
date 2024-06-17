@@ -30,6 +30,10 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 	const [priceMax, setPriceMax] = useState<string>("");
 	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 	const [selectedFuelType, setSelectedFuelType] = useState<string>("");
+	const [yearMin, setYearMin] = useState<string>("");
+	const [yearMax, setYearMax] = useState<string>("");
+	const [kilometersMin, setKilometersMin] = useState<string>("");
+	const [kilometersMax, setKilometersMax] = useState<string>("");
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -62,7 +66,16 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 
 	useEffect(() => {
 		handleFilter();
-	}, [selectedFuelType, priceMin, priceMax, handleFilter]);
+	}, [
+		selectedFuelType,
+		priceMin,
+		priceMax,
+		yearMin,
+		yearMax,
+		kilometersMin,
+		kilometersMax,
+		handleFilter,
+	]);
 
 	const handlePriceChange = (value: string, type: string) => {
 		if (type === "min") {
@@ -81,9 +94,41 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 		handlePriceFilterChange(value, type);
 	};
 
+	const handleYearChange = (value: string, type: string) => {
+		if (type === "min") {
+			setYearMin(value);
+			if (yearMax && parseInt(value) > parseInt(yearMax)) {
+				setYearMax(value);
+			}
+		} else if (type === "max") {
+			setYearMax(value);
+			if (yearMin && parseInt(value) < parseInt(yearMin)) {
+				setYearMin(value);
+			}
+		}
+	};
+
+	const handleKilometersChange = (value: string, type: string) => {
+		if (type === "min") {
+			setKilometersMin(value);
+			if (kilometersMax && parseInt(value) > parseInt(kilometersMax)) {
+				setKilometersMax(value);
+			}
+		} else if (type === "max") {
+			setKilometersMax(value);
+			if (kilometersMin && parseInt(value) < parseInt(kilometersMin)) {
+				setKilometersMin(value);
+			}
+		}
+	};
+
 	const resetAllFilters = () => {
 		setPriceMin("");
 		setPriceMax("");
+		setYearMin("");
+		setYearMax("");
+		setKilometersMin("");
+		setKilometersMax("");
 		setSelectedBrands([]);
 		setSelectedFuelType("");
 		resetFilters();
@@ -108,9 +153,12 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 	return (
 		<div className="flex flex-col md:flex-row p-4">
 			<div className="md:w-full text-left">
-				<h3 className="text-lg font-semibold mb-8">
-					Sélectionnez vos marques :
-				</h3>
+				<label
+					htmlFor="brandSelect"
+					className="text-sm font-medium text-gray-700"
+				>
+					Sélectionnez vos marques
+				</label>
 				<Select
 					closeMenuOnSelect={false}
 					components={animatedComponents}
@@ -126,10 +174,16 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 								: []
 						)
 					}
+					placeholder="Toutes les marques"
 					className="mb-4"
+					id="brandSelect"
 				/>
 				<div className="mt-4 flex flex-col space-y-4">
+					<label htmlFor="priceMin" className="sr-only">
+						Prix minimum
+					</label>
 					<select
+						id="priceMin"
 						value={priceMin}
 						onChange={(e) =>
 							handlePriceChange(e.target.value, "min")
@@ -157,7 +211,11 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 						<option value="95000">95 000</option>
 						<option value="100000">100 000</option>
 					</select>
+					<label htmlFor="priceMax" className="sr-only">
+						Prix maximum
+					</label>
 					<select
+						id="priceMax"
 						value={priceMax}
 						onChange={(e) =>
 							handlePriceChange(e.target.value, "max")
@@ -185,7 +243,136 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 						<option value="95000">95 000</option>
 						<option value="100000">100 000</option>
 					</select>
+					<label htmlFor="yearMin" className="sr-only">
+						Année minimum
+					</label>
 					<select
+						id="yearMin"
+						value={yearMin}
+						onChange={(e) =>
+							handleYearChange(e.target.value, "min")
+						}
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm"
+					>
+						<option value="">Année minimum</option>
+						<option value="2000">2000</option>
+						<option value="2000">2001</option>
+						<option value="2000">2002</option>
+						<option value="2000">2003</option>
+						<option value="2000">2004</option>
+						<option value="2005">2005</option>
+						<option value="2005">2006</option>
+						<option value="2005">2007</option>
+						<option value="2005">2008</option>
+						<option value="2005">2009</option>
+						<option value="2010">2010</option>
+						<option value="2010">2011</option>
+						<option value="2010">2012</option>
+						<option value="2010">2013</option>
+						<option value="2010">2014</option>
+						<option value="2015">2015</option>
+						<option value="2015">2016</option>
+						<option value="2015">2017</option>
+						<option value="2015">2018</option>
+						<option value="2015">2019</option>
+						<option value="2020">2020</option>
+						<option value="2020">2021</option>
+						<option value="2020">2022</option>
+						<option value="2020">2023</option>
+						<option value="2020">2024</option>
+					</select>
+					<label htmlFor="yearMax" className="sr-only">
+						Année maximum
+					</label>
+					<select
+						id="yearMax"
+						value={yearMax}
+						onChange={(e) =>
+							handleYearChange(e.target.value, "max")
+						}
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm"
+					>
+						<option value="">Année maximum</option>
+						<option value="2000">2000</option>
+						<option value="2000">2001</option>
+						<option value="2000">2002</option>
+						<option value="2000">2003</option>
+						<option value="2000">2004</option>
+						<option value="2005">2005</option>
+						<option value="2005">2006</option>
+						<option value="2005">2007</option>
+						<option value="2005">2008</option>
+						<option value="2005">2009</option>
+						<option value="2010">2010</option>
+						<option value="2010">2011</option>
+						<option value="2010">2012</option>
+						<option value="2010">2013</option>
+						<option value="2010">2014</option>
+						<option value="2015">2015</option>
+						<option value="2015">2016</option>
+						<option value="2015">2017</option>
+						<option value="2015">2018</option>
+						<option value="2015">2019</option>
+						<option value="2020">2020</option>
+						<option value="2020">2021</option>
+						<option value="2020">2022</option>
+						<option value="2020">2023</option>
+						<option value="2020">2024</option>
+					</select>
+					<label htmlFor="kilometersMin" className="sr-only">
+						Kilomètres minimum
+					</label>
+					<select
+						id="kilometersMin"
+						value={kilometersMin}
+						onChange={(e) =>
+							handleKilometersChange(e.target.value, "min")
+						}
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm"
+					>
+						<option value="">Kilomètres minimum</option>
+						<option value="0">0</option>
+						<option value="50000">50 000</option>
+						<option value="100000">100 000</option>
+						<option value="150000">150 000</option>
+					</select>
+					<label htmlFor="kilometersMax" className="sr-only">
+						Kilomètres maximum
+					</label>
+					<select
+						id="kilometersMax"
+						value={kilometersMax}
+						onChange={(e) =>
+							handleKilometersChange(e.target.value, "max")
+						}
+						className="p-2 border border-gray-300 bg-gray-300 text-gray-700 rounded-md text-sm"
+					>
+						<option value="">Kilomètres maximum</option>
+						<option value="50000">20 000</option>
+						<option value="50000">30 000</option>
+						<option value="50000">40 000</option>
+						<option value="50000">50 000</option>
+						<option value="50000">60 000</option>
+						<option value="50000">70 000</option>
+						<option value="50000">80 000</option>
+						<option value="50000">90 000</option>
+						<option value="100000">100 000</option>
+						<option value="100000">110 000</option>
+						<option value="100000">120 000</option>
+						<option value="100000">130 000</option>
+						<option value="100000">140 000</option>
+						<option value="150000">150 000</option>
+						<option value="150000">160 000</option>
+						<option value="150000">170 000</option>
+						<option value="150000">180 000</option>
+						<option value="150000">190 000</option>
+						<option value="200000">200 000</option>
+					</select>
+					<label htmlFor="fuelType" className="sr-only">
+						Carburant
+					</label>
+					<select
+						id="fuelType"
 						value={selectedFuelType}
 						onChange={(e) => {
 							setSelectedFuelType(e.target.value);

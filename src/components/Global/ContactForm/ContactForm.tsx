@@ -156,6 +156,9 @@ const ContactForm = ({
 							/>
 						</div>
 						<div>
+							<label htmlFor="userPhone" className="sr-only">
+								Votre téléphone
+							</label>
 							<input
 								type="tel"
 								id="userPhone"
@@ -170,6 +173,9 @@ const ContactForm = ({
 							/>
 						</div>
 						<div>
+							<label htmlFor="userPhone" className="sr-only">
+								Votre message
+							</label>
 							<textarea
 								id="messageAnnonce"
 								name="message"
@@ -194,6 +200,7 @@ const ContactForm = ({
 						<button
 							type="submit"
 							className="w-full bg-primary text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
+							aria-label="Envoyer le formulaire"
 						>
 							Envoyer
 						</button>
