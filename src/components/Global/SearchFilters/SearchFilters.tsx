@@ -332,9 +332,25 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 					>
 						<option value="">Kilomètres minimum</option>
 						<option value="0">0</option>
+						<option value="50000">20 000</option>
+						<option value="50000">30 000</option>
+						<option value="50000">40 000</option>
 						<option value="50000">50 000</option>
+						<option value="50000">60 000</option>
+						<option value="50000">70 000</option>
+						<option value="50000">80 000</option>
+						<option value="50000">90 000</option>
 						<option value="100000">100 000</option>
+						<option value="100000">110 000</option>
+						<option value="100000">120 000</option>
+						<option value="100000">130 000</option>
+						<option value="100000">140 000</option>
 						<option value="150000">150 000</option>
+						<option value="150000">160 000</option>
+						<option value="150000">170 000</option>
+						<option value="150000">180 000</option>
+						<option value="150000">190 000</option>
+						<option value="200000">200 000</option>
 					</select>
 					<label htmlFor="kilometersMax" className="sr-only">
 						Kilomètres maximum

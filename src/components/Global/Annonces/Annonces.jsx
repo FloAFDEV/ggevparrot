@@ -20,9 +20,12 @@ const Annonces = () => {
 	const [isMobileScreen, setIsMobileScreen] = useState(false);
 	const [priceMaxFilter, setPriceMaxFilter] = useState("");
 	const [priceMinFilter, setPriceMinFilter] = useState("");
-	const [yearFilter, setYearFilter] = useState("");
+	const [yearMinFilter, setYearMinFilter] = useState("");
+	const [yearMaxFilter, setYearMaxFilter] = useState("");
 	const [brandFilter, setBrandFilter] = useState([]);
 	const [fuelTypeFilter, setFuelTypeFilter] = useState("");
+	const [kilometersMinFilter, setKilometersMinFilter] = useState("");
+	const [kilometersMaxFilter, setKilometersMaxFilter] = useState("");
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -58,7 +61,10 @@ const Annonces = () => {
 	}, [
 		priceMinFilter,
 		priceMaxFilter,
-		yearFilter,
+		yearMinFilter,
+		yearMaxFilter,
+		kilometersMinFilter,
+		kilometersMaxFilter,
 		brandFilter,
 		fuelTypeFilter,
 		allAnnonces,
@@ -72,8 +78,14 @@ const Annonces = () => {
 					annonce.price >= parseInt(priceMinFilter)) &&
 				(priceMaxFilter === "" ||
 					annonce.price <= parseInt(priceMaxFilter)) &&
-				(yearFilter === "" ||
-					annonce.manufacture_year === parseInt(yearFilter)) &&
+				(yearMinFilter === "" ||
+					annonce.manufacture_year >= parseInt(yearMinFilter)) &&
+				(yearMaxFilter === "" ||
+					annonce.manufacture_year <= parseInt(yearMaxFilter)) &&
+				(kilometersMinFilter === "" ||
+					annonce.mileage >= parseInt(kilometersMinFilter)) &&
+				(kilometersMaxFilter === "" ||
+					annonce.mileage <= parseInt(kilometersMaxFilter)) &&
 				(brandFilter.length === 0 ||
 					brandFilter.some((brand) =>
 						annonce.brand_name
@@ -90,7 +102,10 @@ const Annonces = () => {
 		allAnnonces,
 		priceMinFilter,
 		priceMaxFilter,
-		yearFilter,
+		yearMinFilter,
+		yearMaxFilter,
+		kilometersMinFilter,
+		kilometersMaxFilter,
 		brandFilter,
 		fuelTypeFilter,
 	]);
@@ -114,10 +129,29 @@ const Annonces = () => {
 		}
 	};
 
+	const handleYearFilterChange = (value, filterType) => {
+		if (filterType === "min") {
+			setYearMinFilter(value);
+		} else if (filterType === "max") {
+			setYearMaxFilter(value);
+		}
+	};
+
+	const handleKilometersFilterChange = (value, filterType) => {
+		if (filterType === "min") {
+			setKilometersMinFilter(value);
+		} else if (filterType === "max") {
+			setKilometersMaxFilter(value);
+		}
+	};
+
 	const handleResetFilters = () => {
 		setPriceMinFilter("");
 		setPriceMaxFilter("");
-		setYearFilter("");
+		setYearMinFilter("");
+		setYearMaxFilter("");
+		setKilometersMinFilter("");
+		setKilometersMaxFilter("");
 		setBrandFilter([]);
 		setFuelTypeFilter("");
 		handleSearch();
@@ -161,10 +195,17 @@ const Annonces = () => {
 								handleBrandFilterChange={
 									handleBrandFilterChange
 								}
+								handleYearFilterChange={handleYearFilterChange}
+								handleKilometersFilterChange={
+									handleKilometersFilterChange
+								}
 								resetFilters={handleResetFilters}
 								priceMinFilter={priceMinFilter}
 								priceMaxFilter={priceMaxFilter}
-								yearFilter={yearFilter}
+								yearMinFilter={yearMinFilter}
+								yearMaxFilter={yearMaxFilter}
+								kilometersMinFilter={kilometersMinFilter}
+								kilometersMaxFilter={kilometersMaxFilter}
 								brandFilter={brandFilter}
 								fuelTypeFilter={fuelTypeFilter}
 							/>
