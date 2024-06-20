@@ -16,6 +16,8 @@ interface SearchFiltersProps {
 	handleFuelTypeFilterChange: (value: string) => void;
 	handlePriceFilterChange: (value: string, type: string) => void;
 	handleBrandFilterChange: (value: string) => void;
+	handleYearFilterChange: (value: string, type: string) => void;
+	handleKilometersFilterChange: (value: string, type: string) => void;
 	resetFilters: () => void;
 }
 
@@ -24,6 +26,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 	handleFuelTypeFilterChange,
 	handlePriceFilterChange,
 	handleBrandFilterChange,
+	handleYearFilterChange,
+	handleKilometersFilterChange,
 	resetFilters,
 }) => {
 	const [priceMin, setPriceMin] = useState<string>("");
@@ -100,13 +104,16 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 			setYearMin(value);
 			if (yearMax && parseInt(value) > parseInt(yearMax)) {
 				setYearMax(value);
+				handleYearFilterChange(value, "max");
 			}
 		} else if (type === "max") {
 			setYearMax(value);
 			if (yearMin && parseInt(value) < parseInt(yearMin)) {
 				setYearMin(value);
+				handleYearFilterChange(value, "min");
 			}
 		}
+		handleYearFilterChange(value, type);
 	};
 
 	const handleKilometersChange = (value: string, type: string) => {
@@ -114,13 +121,16 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 			setKilometersMin(value);
 			if (kilometersMax && parseInt(value) > parseInt(kilometersMax)) {
 				setKilometersMax(value);
+				handleKilometersFilterChange(value, "max");
 			}
 		} else if (type === "max") {
 			setKilometersMax(value);
 			if (kilometersMin && parseInt(value) < parseInt(kilometersMin)) {
 				setKilometersMin(value);
+				handleKilometersFilterChange(value, "min");
 			}
 		}
+		handleKilometersFilterChange(value, type);
 	};
 
 	const resetAllFilters = () => {
@@ -150,7 +160,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 			</div>
 		),
 	}));
-
 	return (
 		<div className="flex flex-col md:flex-row p-4">
 			<div className="md:w-full text-left">
