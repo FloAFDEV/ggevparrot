@@ -88,15 +88,6 @@ const ReadAnnonce = () => {
 		}
 	};
 
-	const handleCreateAnnonce = async (newAnnonce: Annonce) => {
-		try {
-			const createdAnnonce = await addAnnonce(newAnnonce);
-			setAnnonces((prevAnnonces) => [...prevAnnonces, createdAnnonce]);
-		} catch (error) {
-			console.error("Erreur lors de la création de l'annonce :", error);
-		}
-	};
-
 	const handleUpdateAnnonce = async (
 		annonceId: number,
 		updatedAnnonce: Annonce
@@ -117,11 +108,8 @@ const ReadAnnonce = () => {
 		}
 	};
 
-	const handleCloseModal = () => {
-		setSelectedAnnonce(null);
-	};
-
 	const handleCloseUpdateModal = () => {
+		setSelectedAnnonce(null);
 		setShowUpdateModal(false);
 	};
 
@@ -206,9 +194,11 @@ const ReadAnnonce = () => {
 					))}
 				</tbody>
 			</table>
+
+			{/* Modal de mise à jour de l'annonce */}
 			{selectedAnnonce && (
 				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
-					<div className="modal-box">
+					<div className="bg-primary p-1 rounded-lg w-4/5 h-auto overflow-auto">
 						<UpdateAnnonce
 							annonceId={selectedAnnonce.Id_CarAnnonce}
 							initialAnnonce={selectedAnnonce}
@@ -217,7 +207,7 @@ const ReadAnnonce = () => {
 							onUpdate={handleUpdateAnnonce}
 						/>
 						<button
-							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
+							className="mx-2 my-2 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
 							onClick={handleCloseUpdateModal}
 						>
 							Fermer
@@ -225,6 +215,8 @@ const ReadAnnonce = () => {
 					</div>
 				</div>
 			)}
+
+			{/* Modal de suppression de l'annonce */}
 			{showDeleteModal && (
 				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
 					<div className="bg-primary-content p-4 rounded-lg max-w-4xl overflow-auto">

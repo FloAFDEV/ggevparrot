@@ -10,6 +10,7 @@ interface CustomInputProps {
 	) => void;
 	placeholder?: string;
 	selectOptions?: string[];
+	className?: string; // Ajout de la classe pour les styles si besoin
 	textarea?: boolean;
 }
 
@@ -20,11 +21,12 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 	value,
 	onChange,
 	placeholder,
-	textarea,
+	textarea = false,
 	selectOptions,
+	className,
 }) => {
 	if (type === "select" && selectOptions) {
-		// Si le type est "select" et selectOptions est défini  menu déroulant apparait
+		// Si le type est "select" et si selectOptions est défini =>  menu déroulant apparait
 		return (
 			<div className="form-group mb-4">
 				<label
