@@ -108,7 +108,7 @@ const Footer: React.FunctionComponent = () => {
 						</h3>
 						<ul className="text-lg font-thin">
 							<li>
-								<Link href="/" className="link link-hover">
+								<Link href="/about" className="link link-hover">
 									À propos
 								</Link>
 							</li>
