@@ -139,7 +139,7 @@ const Navbar: React.FunctionComponent = () => {
 						<Link href="/">
 							<Logo
 								src="/favicon.ico"
-								className="p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+								className="cursor-pointer p-2 rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
 							/>
 						</Link>
 					</div>

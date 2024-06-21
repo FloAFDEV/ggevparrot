@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { fetchAllAnnonces } from "@/components/utils/apiService";
+import {
+	fetchAllAnnonces,
+	deleteAnnonce,
+	addAnnonce,
+	updateAnnonce,
+} from "@/components/utils/apiService";
 import UpdateAnnonce from "@/pages/admin/adminComponents/UpdateAnnonce";
 import DeleteAnnonce from "@/pages/admin/adminComponents/DeleteAnnonce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-// Définition de l'interface
 interface Annonce {
 	Id_CarAnnonce: number;
 	annonce_title: string;
@@ -37,12 +41,10 @@ const ReadAnnonce = () => {
 	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 	const [deleteAnnonceId, setDeleteAnnonceId] = useState<number | null>(null);
 
-	// Récupère les annonces au montage
 	useEffect(() => {
 		handleFetchAnnonces();
 	}, []);
 
-	// Fonction pour récupérer les annonces depuis l'API
 	const handleFetchAnnonces = async () => {
 		try {
 			const annoncesData = await fetchAllAnnonces();
@@ -55,42 +57,70 @@ const ReadAnnonce = () => {
 		}
 	};
 
-	// Gère le clic pour sélectionner une annonce et afficher ses détails
 	const handleSelectAnnonce = (annonce: Annonce) => {
 		setSelectedAnnonce(annonce);
 	};
 
-	// Gère le clic pour modifier une annonce
 	const handleUpdateClick = (annonce: Annonce) => {
 		setSelectedAnnonce(annonce);
 		setShowUpdateModal(true);
 	};
 
-	// Gère le clic pour supprimer une annonce
 	const handleDeleteClick = (annonceId: number) => {
 		setDeleteAnnonceId(annonceId);
 		setShowDeleteModal(true);
 	};
 
-	// Confirme la suppression de l'annonce et la supprime
-	const handleConfirmDelete = (annonceId: number) => {
-		// Ajoutez ici votre logique de suppression
-		console.log(`Supprimer l'annonce avec l'ID ${annonceId}`);
-		// Vous pourriez appeler une API de suppression et mettre à jour l'état en conséquence
-		setAnnonces((prevAnnonces) =>
-			prevAnnonces.filter(
-				(annonce) => annonce.Id_CarAnnonce !== annonceId
-			)
-		);
-		setShowDeleteModal(false);
+	const handleConfirmDelete = async (annonceId: number) => {
+		try {
+			await deleteAnnonce(annonceId);
+			setAnnonces((prevAnnonces) =>
+				prevAnnonces.filter(
+					(annonce) => annonce.Id_CarAnnonce !== annonceId
+				)
+			);
+			setShowDeleteModal(false);
+		} catch (error) {
+			console.error(
+				"Erreur lors de la suppression de l'annonce :",
+				error
+			);
+		}
 	};
 
-	// Ferme la modale des détails
+	const handleCreateAnnonce = async (newAnnonce: Annonce) => {
+		try {
+			const createdAnnonce = await addAnnonce(newAnnonce);
+			setAnnonces((prevAnnonces) => [...prevAnnonces, createdAnnonce]);
+		} catch (error) {
+			console.error("Erreur lors de la création de l'annonce :", error);
+		}
+	};
+
+	const handleUpdateAnnonce = async (
+		annonceId: number,
+		updatedAnnonce: Annonce
+	) => {
+		try {
+			const updated = await updateAnnonce(annonceId, updatedAnnonce);
+			setAnnonces((prevAnnonces) =>
+				prevAnnonces.map((annonce) =>
+					annonce.Id_CarAnnonce === annonceId ? updated : annonce
+				)
+			);
+			setShowUpdateModal(false);
+		} catch (error) {
+			console.error(
+				"Erreur lors de la mise à jour de l'annonce :",
+				error
+			);
+		}
+	};
+
 	const handleCloseModal = () => {
 		setSelectedAnnonce(null);
 	};
 
-	// Ferme la modale de modification
 	const handleCloseUpdateModal = () => {
 		setShowUpdateModal(false);
 	};
@@ -178,110 +208,13 @@ const ReadAnnonce = () => {
 			</table>
 			{selectedAnnonce && (
 				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
-					<div className="bg-neutral text-neutral-content p-8 rounded-lg max-w-4xl overflow-auto">
-						<h2 className="text-xl font-bold mb-4">
-							Détails de l'annonce:{" "}
-							{selectedAnnonce.annonce_title}
-						</h2>
-						<div className="flex items-center mb-4">
-							{selectedAnnonce.brand_logo_url && (
-								<Image
-									src={selectedAnnonce.brand_logo_url}
-									alt={selectedAnnonce.brand_name}
-									width={100}
-									height={100}
-									className="mr-4"
-								/>
-							)}
-							<div className="flex-grow">
-								<div className="relative w-72 h-40 ml-auto">
-									<Image
-										src={selectedAnnonce.main_image_url}
-										alt={selectedAnnonce.annonce_title}
-										width="220"
-										height="200"
-									/>
-									<p className="absolute bottom-2 font-semibold text-xl right-20 text-white">
-										Annonce n°{" "}
-										{selectedAnnonce.Id_CarAnnonce}
-									</p>
-								</div>
-							</div>
-						</div>
-						<div className="flex flex-wrap mb-4">
-							<div className="w-1/3">
-								<p className="font-semibold">Marque :</p>
-								<p>{selectedAnnonce.brand_name}</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">Modèle :</p>
-								<p>{selectedAnnonce.model_name}</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">
-									Année de fabrication :
-								</p>
-								<p>{selectedAnnonce.manufacture_year}</p>
-							</div>
-						</div>
-						<div className="flex flex-wrap mb-4">
-							<div className="w-1/3">
-								<p className="font-semibold">Couleur :</p>
-								<p>{selectedAnnonce.color}</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">Carburant :</p>
-								<p>{selectedAnnonce.fuel_type}</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">Kilométrage :</p>
-								<p>{selectedAnnonce.mileage} km</p>
-							</div>
-						</div>
-						<div className="flex flex-wrap mb-4">
-							<div className="w-1/3">
-								<p className="font-semibold">
-									Immatriculation :
-								</p>
-								<p>{selectedAnnonce.registration}</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">Puissance :</p>
-								<p>
-									{selectedAnnonce.power}{" "}
-									{selectedAnnonce.power_unit}
-								</p>
-							</div>
-							<div className="w-1/3">
-								<p className="font-semibold">Prix :</p>
-								<p>{selectedAnnonce.price} €</p>
-							</div>
-						</div>
-						<div className="mb-4">
-							<p className="font-semibold">Options :</p>
-							<p>{selectedAnnonce.options_name}</p>
-						</div>
-						<div className="mb-4">
-							<p className="font-semibold">Description :</p>
-							<p>{selectedAnnonce.description}</p>
-						</div>
-						<button
-							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
-							onClick={handleCloseModal}
-						>
-							Fermer
-						</button>
-					</div>
-				</div>
-			)}
-			{showUpdateModal && selectedAnnonce && (
-				<div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-					<div className="bg-neutral p-8 rounded-lg max-w-4xl overflow-auto">
+					<div className="modal-box">
 						<UpdateAnnonce
 							annonceId={selectedAnnonce.Id_CarAnnonce}
 							initialAnnonce={selectedAnnonce}
 							mainImageUrl={selectedAnnonce.main_image_url}
 							closeModal={handleCloseUpdateModal}
+							onUpdate={handleUpdateAnnonce}
 						/>
 						<button
 							className="mt-4 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
@@ -293,11 +226,15 @@ const ReadAnnonce = () => {
 				</div>
 			)}
 			{showDeleteModal && (
-				<DeleteAnnonce
-					annonceId={deleteAnnonceId}
-					closeModal={() => setShowDeleteModal(false)}
-					onDelete={handleConfirmDelete}
-				/>
+				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
+					<div className="bg-primary-content p-4 rounded-lg max-w-4xl overflow-auto">
+						<DeleteAnnonce
+							annonceId={deleteAnnonceId}
+							closeModal={() => setShowDeleteModal(false)}
+							onDelete={handleConfirmDelete}
+						/>
+					</div>
+				</div>
 			)}
 		</div>
 	);

@@ -15,7 +15,7 @@ const About = () => {
 							alt="Vincent"
 							width={300}
 							height={300}
-							className="rounded-full"
+							className="rounded-full w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64"
 						/>
 					</div>
 					<h1 className="mb-4 text-3xl font-bold">

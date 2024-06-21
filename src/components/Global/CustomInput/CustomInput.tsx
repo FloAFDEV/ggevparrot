@@ -10,6 +10,7 @@ interface CustomInputProps {
 	) => void;
 	placeholder?: string;
 	selectOptions?: string[];
+	textarea?: boolean;
 }
 
 const CustomInput: React.FunctionComponent<CustomInputProps> = ({
@@ -19,10 +20,11 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 	value,
 	onChange,
 	placeholder,
+	textarea,
 	selectOptions,
 }) => {
 	if (type === "select" && selectOptions) {
-		// Vérification du type et de la présence des options
+		// Si le type est "select" et selectOptions est défini  menu déroulant apparait
 		return (
 			<div className="form-group mb-4">
 				<label
@@ -48,6 +50,7 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 			</div>
 		);
 	} else {
+		// Sinon, afficher un champ de texte par défaut
 		return (
 			<div className="form-group mb-4">
 				<label

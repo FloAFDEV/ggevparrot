@@ -54,20 +54,21 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box sm:w-40 md:w-48 lg:w-52 bg-neutral"
 					>
 						<li>
-							<button
+							<a
+								href="/show-annonces"
 								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 								onClick={onShowAnnonces}
 							>
 								Voir les Annonces
-							</button>
+							</a>
 						</li>
 						<li>
-							<button
+							<Link
+								href="/admin/adminComponents/CreateAnnonce"
 								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
-								onClick={onAddAnnonce}
 							>
 								Ajouter une Annonce
-							</button>
+							</Link>
 						</li>
 						<>
 							{/* Boutons à afficher pour admin et superadmin */}
