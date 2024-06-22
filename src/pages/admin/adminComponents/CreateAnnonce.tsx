@@ -4,99 +4,78 @@ import CustomInput from "@/components/Global/CustomInput/CustomInput";
 import { addAnnonce } from "@/components/utils/apiService";
 import { brandOptions } from "@/components/Global/brandsData/brandsData";
 
-type CreateAnnoncePageProps = {
-	onCreate: (createdAnnonce: any) => void; // Fonction appelée après la création de l'annonce
-};
-
-const CreateAnnoncePage: React.FC<CreateAnnoncePageProps> = ({ onCreate }) => {
-	// Je déclare les états locaux pour gérer les informations de la nouvelle annonce
+const CreateAnnoncePage: React.FC = () => {
 	const [newAnnonce, setNewAnnonce] = useState({
-		annonce_title: "", // Titre de l'annonce
-		brand_name: "", // Marque de l'annonce
-		registration: "", // Numéro d'immatriculation de l'annonce
-		price: "", // Prix de l'annonce
-		description: "", // Description de l'annonce
-		power: "", // Puissance de l'annonce
-		power_unit: "kW", // Unité de puissance par défaut
-		color: "", // Couleur de l'annonce
-		model_name: "", // Modèle de l'annonce
-		category_model: "", // Catégorie de modèle de l'annonce
-		manufacture_year: "", // Année de fabrication de l'annonce
-		fuel_type: "", // Type de carburant de l'annonce
-		options_name: "", // Options de l'annonce
+		annonce_title: "",
+		brand_name: "",
+		registration: "",
+		price: "",
+		description: "",
+		power: "",
+		power_unit: "kW",
+		color: "",
+		model_name: "",
+		category_model: "",
+		manufacture_year: "",
+		fuel_type: "",
+		options_name: "",
 	});
 
-	// Je déclare l'état local pour gérer l'image sélectionnée
 	const [selectedImage, setSelectedImage] = useState<null | {
 		url: string;
 		name: string;
 	}>(null);
 
-	// Je déclare l'état local pour gérer les erreurs de format d'immatriculation
 	const [registrationError, setRegistrationError] = useState<string | null>(
 		null
 	);
-
-	// Je déclare l'état local pour gérer le message de soumission du formulaire
 	const [submissionMessage, setSubmissionMessage] = useState("");
 
-	// Je définis la taille maximale et les extensions acceptées pour les images
-	const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 Mo
+	const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 	const ACCEPTED_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
-	// Je calcule les années disponibles pour la sélection de l'année de fabrication
 	const currentYear = new Date().getFullYear();
 	const years = Array.from(
 		{ length: currentYear - 1999 },
 		(_, index) => currentYear - index
 	);
 
-	// Je gère les changements dans les champs de saisie et de sélection
 	const handleInputChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
 		const { name, value } = e.target;
 
-		// Je vérifie si le champ modifié est "price" ou "power"
 		if (name === "price" || name === "power") {
-			// Je vérifie si la valeur est numérique et positive
 			if (!/^\d*\.?\d+$/.test(value) || parseFloat(value) < 0) {
-				return; // Je ne mets pas à jour l'état si la valeur n'est pas valide
+				return;
 			}
 		}
 
-		// Je vérifie si le champ modifié est "manufacture_year"
 		if (name === "manufacture_year") {
-			// Je vérifie si la valeur est numérique et contient au maximum 4 chiffres
 			if (!/^\d{0,4}$/.test(value)) {
-				return; // Je ne mets pas à jour l'état si la valeur n'est pas valide
+				return;
 			}
 		}
 
-		// Je mets à jour l'état de la nouvelle annonce en fonction du champ modifié
 		setNewAnnonce((prevState) => ({
 			...prevState,
 			[name]: value,
 		}));
 
-		// Si le champ modifié est "registration", je réinitialise l'erreur de format d'immatriculation
 		if (name === "registration") {
 			setRegistrationError(null);
 		}
 	};
 
-	// Je gère le changement de l'image sélectionnée
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
 
-		// Je vérifie que la taille de l'image est inférieure à la limite autorisée
 		if (file.size > MAX_IMAGE_SIZE) {
 			alert("La taille de l'image dépasse la limite autorisée (5 Mo).");
 			return;
 		}
 
-		// Je récupère l'extension du fichier pour vérifier la validité de l'image
 		const extension = file.name.split(".").pop()?.toLowerCase();
 		if (!extension || !ACCEPTED_EXTENSIONS.includes(extension)) {
 			alert(
@@ -105,7 +84,6 @@ const CreateAnnoncePage: React.FC<CreateAnnoncePageProps> = ({ onCreate }) => {
 			return;
 		}
 
-		// Je charge l'image sélectionnée pour l'affichage prévisualisé
 		const reader = new FileReader();
 		reader.onloadend = () => {
 			const imageDataURL = reader.result as string;
@@ -114,14 +92,11 @@ const CreateAnnoncePage: React.FC<CreateAnnoncePageProps> = ({ onCreate }) => {
 		reader.readAsDataURL(file);
 	};
 
-	// Je gère la suppression de l'image sélectionnée
 	const handleImageDelete = () => {
 		setSelectedImage(null);
 	};
 
-	// Je gère la création de l'annonce en envoyant les données au service d'API
 	const handleCreateAnnonce = async () => {
-		// Vérification des champs obligatoires
 		if (
 			!newAnnonce.annonce_title ||
 			!newAnnonce.brand_name ||
@@ -136,24 +111,40 @@ const CreateAnnoncePage: React.FC<CreateAnnoncePageProps> = ({ onCreate }) => {
 			!newAnnonce.fuel_type ||
 			!newAnnonce.options_name
 		) {
-			setSubmissionMessage("L'ensemble des champs est obligatoires.");
+			setSubmissionMessage("L'ensemble des champs est obligatoires !");
 			return;
 		}
-		// Je définis une expression régulière pour valider le format d'immatriculation
+
 		const registrationRegex = /^[A-Z]{2}-\d{3}-[A-Z]{2}$/;
-		// Je vérifie si le numéro d'immatriculation respecte le format attendu
 		if (!registrationRegex.test(newAnnonce.registration)) {
 			setRegistrationError(
 				"Format d'immatriculation invalide - Format attendu: AA-123-AA"
 			);
 			return;
 		}
+
 		try {
-			// J'envoie la nouvelle annonce au service d'API pour la création
 			const createdAnnonce = await addAnnonce(newAnnonce);
 			setSubmissionMessage("L'annonce a été créée avec succès !");
-			// J'appelle la fonction de rappel onCreate avec l'annonce créée
-			onCreate(createdAnnonce);
+			// Exemple de gestion interne de l'annonce créée (peut être ajusté selon vos besoins)
+			console.log("Nouvelle annonce créée :", createdAnnonce);
+			// Réinitialisation du formulaire ou autres actions nécessaires après la création
+			setNewAnnonce({
+				annonce_title: "",
+				brand_name: "",
+				registration: "",
+				price: "",
+				description: "",
+				power: "",
+				power_unit: "kW",
+				color: "",
+				model_name: "",
+				category_model: "",
+				manufacture_year: "",
+				fuel_type: "",
+				options_name: "",
+			});
+			setSelectedImage(null);
 		} catch (error) {
 			console.error("Erreur lors de la création de l'annonce :", error);
 			setSubmissionMessage(
@@ -446,7 +437,7 @@ const CreateAnnoncePage: React.FC<CreateAnnoncePageProps> = ({ onCreate }) => {
 
 				{/* Affichage du message de soumission */}
 				{submissionMessage && (
-					<p className="text-red-500 text-4xl text-center col-span-full mt-4 font-bold">
+					<p className="text-green-500 text-4xl text-center col-span-full mt-4 font-bold">
 						{submissionMessage}
 					</p>
 				)}

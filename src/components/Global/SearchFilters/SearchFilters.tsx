@@ -163,7 +163,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 	return (
 		<div className="flex flex-col md:flex-row p-4">
 			<div className="md:w-full text-left">
-				<label htmlFor="brandSelect" className="text-md p-5 mr-2">
+				<label htmlFor="brandSelect" className="text-sm p-5 mr-2">
 					Sélectionnez vos marques
 				</label>
 				<Select
@@ -182,7 +182,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 						)
 					}
 					placeholder="Toutes les marques"
-					className="mb-4"
+					className="mb-4 text-accent-content bg-gray-300"
 					id="brandSelect"
 				/>
 				<div className="mt-4 flex flex-col space-y-4">

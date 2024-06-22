@@ -221,7 +221,7 @@ const ReadAnnonce = () => {
 			{/* Modal de suppression de l'annonce */}
 			{showDeleteModal && (
 				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50 z-50 overflow-y-auto">
-					<div className="bg-primary-content p-4 rounded-lg w-11/12 md:max-w-xl h-auto max-h-screen overflow-y-auto">
+					<div className="bg-neutral p-4 rounded-lg md:max-w-xl h-auto max-h-screen overflow-y-auto">
 						<DeleteAnnonce
 							annonceId={deleteAnnonceId}
 							closeModal={() => setShowDeleteModal(false)}

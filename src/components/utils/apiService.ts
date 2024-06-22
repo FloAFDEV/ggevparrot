@@ -45,6 +45,7 @@ export async function updateAnnonce(annonceId: number, formData: any) {
 // Ajouter une annonce
 export async function addAnnonce(formData: any) {
 	try {
+		console.log("Contenu de formData :", formData);
 		const response = await fetch(`${BASE_URL}annonces`, {
 			method: "POST",
 			headers: {
