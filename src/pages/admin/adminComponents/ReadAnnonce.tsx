@@ -114,16 +114,18 @@ const ReadAnnonce = () => {
 	};
 
 	return (
-		<div className="admin-page">
+		<div className="admin-page px-4 md:px-8">
 			<table className="w-full border-collapse table-fixed">
 				<thead>
 					<tr className="bg-neutral text-neutral-content">
-						<th className="px-4 py-2">Titre de l'annonce</th>
-						<th className="px-4 py-2">Marque</th>
-						<th className="px-4 py-2">Date de création</th>
-						<th className="px-4 py-2">Photo Principale</th>
-						<th className="px-4 py-2">Id de l'annonce</th>
-						<th className="px-4 py-2">Actions</th>
+						<th className="px-4 py-2 md:px-4">
+							Titre de l'annonce
+						</th>
+						<th className="px-4 py-2 md:px-4">Marque</th>
+						<th className="px-4 py-2 md:px-4">Date de création</th>
+						<th className="px-4 py-2 md:px-4">Photo Principale</th>
+						<th className="px-4 py-2 md:px-4">Id de l'annonce</th>
+						<th className="px-4 py-2 md:px-4">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,7 +135,7 @@ const ReadAnnonce = () => {
 							className="border-b hover:bg-neutral-content hover:text-accent-content cursor-pointer text-center"
 							onClick={() => handleSelectAnnonce(annonce)}
 						>
-							<td className="px-4 py-2 font-bold">
+							<td className="px-2 py-2 md:px-4 font-bold">
 								<Image
 									src={annonce.brand_logo_url}
 									alt={annonce.annonce_title}
@@ -143,8 +145,8 @@ const ReadAnnonce = () => {
 								/>
 								{annonce.annonce_title}
 							</td>
-							<td className="p-4">{annonce.brand_name}</td>
-							<td className="px-4 py-2">
+							<td className="p-2 md:p-4">{annonce.brand_name}</td>
+							<td className="px-2 py-2 md:px-4">
 								{new Date(
 									annonce.annonce_createdAt
 								).toLocaleDateString("fr-FR", {
@@ -155,7 +157,7 @@ const ReadAnnonce = () => {
 									minute: "numeric",
 								})}
 							</td>
-							<td className="px-4 py-2 flex items-center justify-center">
+							<td className="px-2 py-2 md:px-4 flex items-center justify-center">
 								{annonce.main_image_url && (
 									<Image
 										src={annonce.main_image_url}
@@ -165,10 +167,10 @@ const ReadAnnonce = () => {
 									/>
 								)}
 							</td>
-							<td className="px-4 py-2 font-semibold">
+							<td className="px-2 py-2 md:px-4 font-semibold">
 								{annonce.Id_CarAnnonce}
 							</td>
-							<td className="px-4 py-2 space-x-10">
+							<td className="px-2 py-2 md:px-4 space-x-10">
 								<button
 									onClick={(e) => {
 										e.stopPropagation();
@@ -198,7 +200,7 @@ const ReadAnnonce = () => {
 			{/* Modal de mise à jour de l'annonce */}
 			{selectedAnnonce && (
 				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50 z-50 overflow-y-auto">
-					<div className="bg-neutral p-4 rounded-lg w-11/12 md:w-4/5 lg:w-3/5 h-auto max-h-screen overflow-y-auto">
+					<div className="bg-neutral p-4 rounded-lg w-11/12 md:w-3/5 lg:w-3/5 h-auto max-h-screen overflow-y-auto">
 						<UpdateAnnonce
 							annonceId={selectedAnnonce.Id_CarAnnonce}
 							initialAnnonce={selectedAnnonce}
@@ -207,7 +209,7 @@ const ReadAnnonce = () => {
 							onUpdate={handleUpdateAnnonce}
 						/>
 						<button
-							className="mt-4 px-4 py-2 bg-secondary text-neutral-content text-lg md:text-2xl hover:text-green-400 rounded"
+							className="mx-auto py-2 px-4 bg-secondary text-white font-bold text-xl rounded hover:bg-accent col-span-full transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
 							onClick={handleCloseUpdateModal}
 						>
 							Fermer
