@@ -197,8 +197,8 @@ const ReadAnnonce = () => {
 
 			{/* Modal de mise à jour de l'annonce */}
 			{selectedAnnonce && (
-				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
-					<div className="bg-primary p-1 rounded-lg w-4/5 h-auto overflow-auto">
+				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50 z-50 overflow-y-auto">
+					<div className="bg-neutral p-4 rounded-lg w-11/12 md:w-4/5 lg:w-3/5 h-auto max-h-screen overflow-y-auto">
 						<UpdateAnnonce
 							annonceId={selectedAnnonce.Id_CarAnnonce}
 							initialAnnonce={selectedAnnonce}
@@ -207,7 +207,7 @@ const ReadAnnonce = () => {
 							onUpdate={handleUpdateAnnonce}
 						/>
 						<button
-							className="mx-2 my-2 px-4 py-2 bg-neutral text-neutral-content hover:text-green-400 rounded"
+							className="mt-4 px-4 py-2 bg-secondary text-neutral-content text-lg md:text-2xl hover:text-green-400 rounded"
 							onClick={handleCloseUpdateModal}
 						>
 							Fermer
@@ -218,8 +218,8 @@ const ReadAnnonce = () => {
 
 			{/* Modal de suppression de l'annonce */}
 			{showDeleteModal && (
-				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50">
-					<div className="bg-primary-content p-4 rounded-lg max-w-4xl overflow-auto">
+				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50 z-50 overflow-y-auto">
+					<div className="bg-primary-content p-4 rounded-lg w-11/12 md:max-w-xl h-auto max-h-screen overflow-y-auto">
 						<DeleteAnnonce
 							annonceId={deleteAnnonceId}
 							closeModal={() => setShowDeleteModal(false)}
