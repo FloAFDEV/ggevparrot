@@ -69,6 +69,38 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 								Ajouter une Annonce
 							</Link>
 						</li>
+						<li>
+							<Link
+								href="/admin/adminComponents/AdminTestimonials"
+								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+							>
+								Gestion des témoignages
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/admin/adminComponents/"
+								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+							>
+								Gestion des messages
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/admin/adminComponents/"
+								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+							>
+								Gestion des services
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/admin/adminComponents/"
+								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
+							>
+								Gestion des coordonnées
+							</Link>
+						</li>
 						<>
 							{/* Boutons à afficher pour admin et superadmin */}
 							<li>

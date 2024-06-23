@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Testimonials {
+export interface Testimonials {
 	Id_Testimonials: number;
 	pseudo: string;
 	userEmail: string;

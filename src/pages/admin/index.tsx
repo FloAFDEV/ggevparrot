@@ -61,6 +61,7 @@ const AdminPage = () => {
 					onUpdateAnnonce={() => {}}
 					userRole={userRole}
 				/>
+
 				{showAnnonces && <ReadAnnonce />}
 			</div>
 		);

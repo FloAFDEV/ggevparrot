@@ -255,6 +255,9 @@ export async function fetchAllCars(): Promise<any[]> {
 
 // Interface pour les données des témoignages
 export interface TestimonialFormData {
+	id: any;
+	Id_Users: any;
+	valid: any;
 	pseudo: string;
 	userEmail: string;
 	message: string;
