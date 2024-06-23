@@ -3,27 +3,7 @@ import Image from "next/image";
 import CustomInput from "@/components/Global/CustomInput/CustomInput";
 import { fetchAnnonceById, updateAnnonce } from "@/components/utils/apiService";
 import { brandOptions } from "@/components/Global/brandsData/brandsData";
-
-interface Annonce {
-	Id_CarAnnonce: number;
-	annonce_title: string;
-	annonce_createdAt: string;
-	brand_name: string;
-	main_image_url: string;
-	mileage: number;
-	registration: string;
-	price: string;
-	description: string;
-	power: number;
-	power_unit: string;
-	color: string;
-	model_name: string;
-	category_model: string;
-	brand_logo_url: string;
-	manufacture_year: string;
-	fuel_type: string;
-	options_name: string;
-}
+import { Annonce } from "./ReadAnnonce";
 
 const UpdateAnnonce = ({
 	annonceId,

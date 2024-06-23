@@ -5,13 +5,14 @@ import {
 	deleteAnnonce,
 	addAnnonce,
 	updateAnnonce,
+	updateValidationStatus,
 } from "@/components/utils/apiService";
 import UpdateAnnonce from "@/pages/admin/adminComponents/UpdateAnnonce";
 import DeleteAnnonce from "@/pages/admin/adminComponents/DeleteAnnonce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-interface Annonce {
+export interface Annonce {
 	Id_CarAnnonce: number;
 	annonce_title: string;
 	annonce_createdAt: string;
@@ -30,6 +31,8 @@ interface Annonce {
 	manufacture_year: string;
 	fuel_type: string;
 	options_name: string;
+	valid: boolean;
+	annonce_valid?: number;
 }
 
 const ReadAnnonce = () => {
@@ -48,7 +51,15 @@ const ReadAnnonce = () => {
 	const handleFetchAnnonces = async () => {
 		try {
 			const annoncesData = await fetchAllAnnonces();
-			setAnnonces(annoncesData);
+			console.log(
+				"Annonces récupérées depuis la base de données :",
+				annoncesData
+			);
+			const adaptedAnnoncesData = annoncesData.map((annonce) => ({
+				...annonce,
+				valid: annonce.annonce_valid === 1,
+			}));
+			setAnnonces(adaptedAnnoncesData);
 		} catch (error) {
 			console.error(
 				"Erreur lors de la récupération des annonces :",
@@ -80,6 +91,7 @@ const ReadAnnonce = () => {
 				)
 			);
 			setShowDeleteModal(false);
+			console.log(`Annonce ${annonceId} supprimée avec succès !`);
 		} catch (error) {
 			console.error(
 				"Erreur lors de la suppression de l'annonce :",
@@ -88,12 +100,55 @@ const ReadAnnonce = () => {
 		}
 	};
 
-	const handleUpdateAnnonce = async (
+	const handleToggleValidity = async (
 		annonceId: number,
-		updatedAnnonce: Annonce
+		newValidity: boolean
 	) => {
 		try {
-			const updated = await updateAnnonce(annonceId, updatedAnnonce);
+			await updateValidationStatus(annonceId, newValidity);
+			// Met à jour l'état local avec le bon champ `valid`
+			setAnnonces((prevAnnonces) =>
+				prevAnnonces.map((annonce) =>
+					annonce.Id_CarAnnonce === annonceId
+						? { ...annonce, valid: newValidity }
+						: annonce
+				)
+			);
+			console.log(
+				`Statut de validité de l'annonce ${annonceId} mis à jour avec succès !`
+			);
+		} catch (error) {
+			console.error(
+				`Erreur lors de la mise à jour de l'annonce ${annonceId} :`,
+				error
+			);
+		}
+	};
+
+	const handleCloseUpdateModal = () => {
+		setSelectedAnnonce(null);
+		setShowUpdateModal(false);
+	};
+
+	const handleAddAnnonce = async (newAnnonce: Annonce) => {
+		try {
+			const addedAnnonce = await addAnnonce(newAnnonce);
+			setAnnonces((prevAnnonces) => [...prevAnnonces, addedAnnonce]);
+			console.log("Annonce ajoutée avec succès !");
+		} catch (error) {
+			console.error("Erreur lors de l'ajout de l'annonce :", error);
+		}
+	};
+
+	const handleUpdateAnnonce = async (
+		annonceId: number,
+		updatedAnnonce: Partial<Annonce>
+	) => {
+		try {
+			const updated = await updateAnnonce(
+				annonceId,
+				updatedAnnonce as Annonce
+			);
 			setAnnonces((prevAnnonces) =>
 				prevAnnonces.map((annonce) =>
 					annonce.Id_CarAnnonce === annonceId ? updated : annonce
@@ -108,11 +163,6 @@ const ReadAnnonce = () => {
 		}
 	};
 
-	const handleCloseUpdateModal = () => {
-		setSelectedAnnonce(null);
-		setShowUpdateModal(false);
-	};
-
 	return (
 		<div className="admin-page px-4 md:px-8">
 			<table className="w-full border-collapse table-fixed">
@@ -125,6 +175,7 @@ const ReadAnnonce = () => {
 						<th className="px-4 py-2 md:px-4">Date de création</th>
 						<th className="px-4 py-2 md:px-4">Photo Principale</th>
 						<th className="px-4 py-2 md:px-4">Id de l'annonce</th>
+						<th className="px-4 py-2 md:px-4">Statut</th>
 						<th className="px-4 py-2 md:px-4">Actions</th>
 					</tr>
 				</thead>
@@ -137,7 +188,7 @@ const ReadAnnonce = () => {
 						>
 							<td className="px-2 py-2 md:px-4 font-bold">
 								<Image
-									src={annonce.brand_logo_url}
+									src={annonce.main_image_url}
 									alt={annonce.annonce_title}
 									width={45}
 									height={45}
@@ -169,6 +220,24 @@ const ReadAnnonce = () => {
 							</td>
 							<td className="px-2 py-2 md:px-4 font-semibold">
 								{annonce.Id_CarAnnonce}
+							</td>
+							<td className="px-2 py-2 md:px-4">
+								<button
+									className={`px-2 py-1 rounded ${
+										annonce.valid
+											? "bg-green-500 text-white"
+											: "bg-red-500 text-white"
+									}`}
+									onClick={(e) => {
+										e.stopPropagation();
+										handleToggleValidity(
+											annonce.Id_CarAnnonce,
+											!annonce.valid
+										);
+									}}
+								>
+									{annonce.valid ? "Validée" : "Non validée"}
+								</button>
 							</td>
 							<td className="px-2 py-2 md:px-4 space-x-10">
 								<button

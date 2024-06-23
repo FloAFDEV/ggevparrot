@@ -3,8 +3,10 @@ export const BASE_URL =
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
+import { Annonce } from "@/pages/admin/adminComponents/ReadAnnonce";
+
 // Récupérer toutes les annonces
-export async function fetchAllAnnonces() {
+export async function fetchAllAnnonces(): Promise<Annonce[]> {
 	try {
 		const response = await fetch(`${BASE_URL}annonces`);
 		if (!response.ok) {
@@ -14,20 +16,52 @@ export async function fetchAllAnnonces() {
 		}
 		return await response.json();
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error as Error);
+		throw error as Error;
 	}
 }
 
+export const updateValidationStatus = async (
+	annonceId: number,
+	newValidity: boolean
+) => {
+	try {
+		const response = await fetch(
+			`${BASE_URL}annonces/${annonceId}/validite`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ valid: newValidity }),
+			}
+		);
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de la mise à jour de la validité de l'annonce ${annonceId}.`
+			);
+		}
+	} catch (error) {
+		console.error(
+			`Erreur lors de la mise à jour de l'annonce ${annonceId} :`,
+			error
+		);
+		throw error;
+	}
+};
+
 // Mettre à jour une annonce
-export async function updateAnnonce(annonceId: number, formData: any) {
+export async function updateAnnonce(
+	annonceId: number,
+	updatedFields: Partial<Annonce>
+): Promise<Annonce> {
 	try {
 		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(formData),
+			body: JSON.stringify(updatedFields),
 		});
 		if (!response.ok) {
 			throw new Error(
@@ -37,13 +71,16 @@ export async function updateAnnonce(annonceId: number, formData: any) {
 		console.log("Annonce mise à jour avec succès !");
 		return await response.json();
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(
+			"Erreur lors de la mise à jour de l'annonce :",
+			error as Error
+		);
+		throw error as Error;
 	}
 }
 
 // Ajouter une annonce
-export async function addAnnonce(formData: any) {
+export async function addAnnonce(formData: any): Promise<Annonce> {
 	try {
 		console.log("Contenu de formData :", formData);
 		const response = await fetch(`${BASE_URL}annonces`, {
@@ -61,13 +98,13 @@ export async function addAnnonce(formData: any) {
 		console.log("Annonce ajoutée avec succès !");
 		return await response.json();
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error as Error);
+		throw error as Error;
 	}
 }
 
 // Ssupprimer une annonce
-export async function deleteAnnonce(annonceId: number) {
+export async function deleteAnnonce(annonceId: number): Promise<void> {
 	try {
 		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
 			method: "DELETE",
@@ -79,13 +116,13 @@ export async function deleteAnnonce(annonceId: number) {
 		}
 		console.log("Annonce supprimée avec succès !");
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error as Error);
+		throw error as Error;
 	}
 }
 
 // Récupérer une annonce par son ID
-export async function fetchAnnonceById(annonceId: number) {
+export async function fetchAnnonceById(annonceId: number): Promise<Annonce> {
 	try {
 		const response = await fetch(`${BASE_URL}annonces/${annonceId}`);
 		if (!response.ok) {
@@ -95,13 +132,17 @@ export async function fetchAnnonceById(annonceId: number) {
 		}
 		return await response.json();
 	} catch (error) {
-		console.error(error);
+		if (error instanceof Error) {
+			console.error(error);
+		} else {
+			console.error("Une erreur inconnue s'est produite :", error);
+		}
 		throw error;
 	}
 }
 
 // Récupérer tous les services
-export async function fetchAllServices() {
+export async function fetchAllServices(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}services`);
 		if (!response.ok) {
@@ -111,13 +152,13 @@ export async function fetchAllServices() {
 		}
 		return await response.json();
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error as Error);
+		throw error as Error;
 	}
 }
 
 // Les services par ID
-export async function fetchServiceById(serviceId: number) {
+export async function fetchServiceById(serviceId: number): Promise<any> {
 	try {
 		const response = await fetch(`${BASE_URL}services/${serviceId}`);
 		if (!response.ok) {
@@ -133,7 +174,7 @@ export async function fetchServiceById(serviceId: number) {
 }
 
 // Récupérer les info du garage
-export async function fetchGarageInfo() {
+export async function fetchGarageInfo(): Promise<any> {
 	try {
 		const response = await fetch(`${BASE_URL}garage`);
 		if (!response.ok) {
@@ -149,7 +190,7 @@ export async function fetchGarageInfo() {
 }
 
 //Récupérer les modeles
-export async function fetchAllModels() {
+export async function fetchAllModels(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}models`);
 		if (!response.ok) {
@@ -163,8 +204,9 @@ export async function fetchAllModels() {
 		throw error;
 	}
 }
+
 // Récupérer les marques
-export async function fetchAllBrands() {
+export async function fetchAllBrands(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}brands`);
 		if (!response.ok) {
@@ -180,7 +222,7 @@ export async function fetchAllBrands() {
 }
 
 // Récupérer les images
-export async function fetchAllImages() {
+export async function fetchAllImages(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}images`);
 		if (!response.ok) {
@@ -196,7 +238,7 @@ export async function fetchAllImages() {
 }
 
 // Récupérer toutes les voitures
-export async function fetchAllCars() {
+export async function fetchAllCars(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}cars`);
 		if (!response.ok) {
@@ -249,7 +291,7 @@ export async function sendTestimonial(
 }
 
 // Récupérer tous les témoignages
-export async function fetchAllTestimonials() {
+export async function fetchAllTestimonials(): Promise<TestimonialFormData[]> {
 	try {
 		const response = await fetch(`${BASE_URL}testimonials`);
 		if (!response.ok) {
@@ -265,7 +307,7 @@ export async function fetchAllTestimonials() {
 }
 
 // Récupérer les horaires d'ouverture
-export async function fetchOpeningHours() {
+export async function fetchOpeningHours(): Promise<any> {
 	try {
 		const response = await fetch(`${BASE_URL}opening`);
 		if (!response.ok) {
@@ -281,7 +323,7 @@ export async function fetchOpeningHours() {
 }
 
 // Récupérer toutes les options
-export async function fetchAllOptions() {
+export async function fetchAllOptions(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}options`);
 		if (!response.ok) {
@@ -297,7 +339,7 @@ export async function fetchAllOptions() {
 }
 
 // Récupérer toutes les années de fabrication
-export async function fetchAllManufactureYears() {
+export async function fetchAllManufactureYears(): Promise<number[]> {
 	try {
 		const response = await fetch(`${BASE_URL}years`);
 		if (!response.ok) {
@@ -313,7 +355,7 @@ export async function fetchAllManufactureYears() {
 }
 
 // Récupérer tous les types d'énergie
-export async function fetchAllEnergyTypes() {
+export async function fetchAllEnergyTypes(): Promise<string[]> {
 	try {
 		const response = await fetch(`${BASE_URL}energy`);
 		if (!response.ok) {
@@ -329,7 +371,7 @@ export async function fetchAllEnergyTypes() {
 }
 
 // Récupérer tous les utilisateurs
-export async function fetchAllUsers() {
+export async function fetchAllUsers(): Promise<any[]> {
 	try {
 		const response = await fetch(`${BASE_URL}users`);
 		if (!response.ok) {
