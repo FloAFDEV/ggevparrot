@@ -83,7 +83,7 @@ const AdminTestimonials = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{testimonials.map((testimonial) => (
 					<div
-						key={testimonial.id}
+						key={testimonial.Id_Testimonials}
 						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4"
 					>
 						<h2 className="text-xl font-semibold mb-2">
@@ -126,7 +126,7 @@ const AdminTestimonials = () => {
 							onClick={(e) => {
 								e.stopPropagation();
 								handleToggleValidity(
-									testimonial.id,
+									testimonial.Id_Testimonials,
 									!testimonial.valid
 								);
 							}}
