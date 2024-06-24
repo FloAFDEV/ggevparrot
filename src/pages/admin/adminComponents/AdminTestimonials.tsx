@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchAllTestimonials } from "@/components/utils/apiService";
+import {
+	fetchAllTestimonials,
+	updateTestimonialValidationStatus,
+} from "@/components/utils/apiService";
 import { Testimonials } from "@/components/Global/Testimonials/Testimonials";
 
 interface TestimonialFormData {
@@ -20,7 +23,6 @@ const AdminTestimonials = () => {
 		fetchTestimonials();
 	}, []);
 
-	// Fonction pour décoder les entités HTML
 	const decodeHTMLEntities = (text: string) => {
 		const textArea = document.createElement("textarea");
 		textArea.innerHTML = text;
@@ -51,14 +53,38 @@ const AdminTestimonials = () => {
 		}
 	};
 
+	const handleToggleValidity = async (
+		testimonialId: number,
+		newValidity: boolean
+	) => {
+		try {
+			await updateTestimonialValidationStatus(testimonialId, newValidity);
+			setTestimonials((prevTestimonials) =>
+				prevTestimonials.map((testimonial) =>
+					testimonial.Id_Testimonials === testimonialId
+						? { ...testimonial, valid: newValidity }
+						: testimonial
+				)
+			);
+			console.log(
+				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
+			);
+		} catch (error) {
+			console.error(
+				`Erreur lors de la mise à jour du témoignage ${testimonialId} :`,
+				error
+			);
+		}
+	};
+
 	return (
 		<div className="admin-page px-4 md:px-8">
 			<h1 className="text-5xl font-bold m-10">Gestion des Témoignages</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{testimonials.map((testimonial) => (
 					<div
-						key={testimonial.Id_Testimonials}
-						className="bg-neutral  text-neutral-content rounded-lg shadow-md p-4"
+						key={testimonial.id}
+						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4"
 					>
 						<h2 className="text-xl font-semibold mb-2">
 							{testimonial.pseudo}
@@ -91,6 +117,22 @@ const AdminTestimonials = () => {
 								</svg>
 							)}
 						</div>
+						<button
+							className={`px-2 py-1 rounded ${
+								testimonial.valid
+									? "bg-green-500 text-white"
+									: "bg-red-500 text-white"
+							}`}
+							onClick={(e) => {
+								e.stopPropagation();
+								handleToggleValidity(
+									testimonial.id,
+									!testimonial.valid
+								);
+							}}
+						>
+							{testimonial.valid ? "Validé" : "Non validé"}
+						</button>
 					</div>
 				))}
 			</div>

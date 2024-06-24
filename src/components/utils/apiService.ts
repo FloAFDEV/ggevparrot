@@ -309,6 +309,24 @@ export async function fetchAllTestimonials(): Promise<TestimonialFormData[]> {
 	}
 }
 
+// Modifie le statut des témoignages
+export const updateTestimonialValidationStatus = async (
+	testimonialId: number,
+	newValidity: boolean
+) => {
+	const response = await fetch(`/api/testimonials/${testimonialId}/valid`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ valid: newValidity }),
+	});
+	if (!response.ok) {
+		throw new Error("Failed to update testimonial validation status");
+	}
+	return response.json();
+};
+
 // Récupérer les horaires d'ouverture
 export async function fetchOpeningHours(): Promise<any> {
 	try {

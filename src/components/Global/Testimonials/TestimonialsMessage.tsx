@@ -1,24 +1,20 @@
 import { useState } from "react";
-import { sendTestimonial } from "../../utils/apiService";
+import { sendTestimonial, TestimonialFormData } from "../../utils/apiService";
 import Image from "next/image";
 import validator from "validator";
 
-interface TestimonialFormData {
-	pseudo: string;
-	userEmail: string;
-	message: string;
-	botField: string; // Champ caché pour complétion par les robots.
-	note: number;
-	userId?: number;
-}
-
 const TestimonialsMessage = () => {
 	const [formData, setFormData] = useState<TestimonialFormData>({
+		id: null,
+		Id_Users: null,
+		valid: null,
 		pseudo: "",
 		userEmail: "",
 		message: "",
 		botField: "", // Champ caché pour complétion par les robots.
 		note: 0,
+		createdAt: "",
+		userId: undefined,
 	});
 
 	const [submitMessage, setSubmitMessage] = useState("");
@@ -41,8 +37,9 @@ const TestimonialsMessage = () => {
 		// Vérifie si le champ botField est rempli
 		if (formData.botField.trim() !== "") {
 			console.log("Formulaire soumis par un robot !");
-			return; // N'envoie pas le forrulaire si le champ est rempli
-		} // Vérifie si la note est sélectionnée
+			return; // N'envoie pas le formulaire si le champ est rempli
+		}
+		// Vérifie si la note est sélectionnée
 		if (formData.note === 0) {
 			console.log("La note est obligatoire !");
 			return; // N'envoie pas le formulaire si la note n'est pas sélectionnée
@@ -58,22 +55,24 @@ const TestimonialsMessage = () => {
 		try {
 			console.log("Données du formulaire à envoyer:", formData);
 			const createdAt = new Date().toISOString();
-			const dataToSend = {
+			const dataToSend: TestimonialFormData = {
 				...formData,
 				createdAt,
-				userId: formData.userId as number,
+				userId: formData.userId || 0,
 				valid: false,
+				id: formData.id,
+				Id_Users: formData.Id_Users,
 			};
 
-			// Échappement des cractères avant de les envoyer à l'API
-			const escapedData = Object.fromEntries(
+			// Échappement des caractères avant de les envoyer à l'API
+			const escapedData: TestimonialFormData = Object.fromEntries(
 				Object.entries(dataToSend).map(([key, value]) => [
 					key,
 					typeof value === "string" ? validator.escape(value) : value,
 				])
-			);
+			) as TestimonialFormData;
 
-			const success = await sendTestimonial(dataToSend);
+			const success = await sendTestimonial(escapedData);
 			if (success) {
 				setSubmitMessage(
 					"Merci pour votre témoignage, nous l'afficherons après modération. À bientôt!"
@@ -82,15 +81,20 @@ const TestimonialsMessage = () => {
 				// Réinitialise le formulaire après quelques secondes
 				setTimeout(() => {
 					setFormData({
+						id: null,
+						Id_Users: null,
+						valid: null,
 						pseudo: "",
 						userEmail: "",
 						message: "",
 						botField: "",
 						note: 0,
+						createdAt: "",
+						userId: undefined,
 					});
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
-				}, 60000); // -> après 6 secondes
+				}, 60000); // -> après 60 secondes
 			} else {
 				throw new Error("Erreur lors de l'envoi du formulaire.");
 			}
@@ -225,45 +229,35 @@ const TestimonialsMessage = () => {
 											className="w-full p-2 border border-neutral-light rounded-md"
 											required
 										>
-											<option value="">
+											<option value={0}>
 												Sélectionnez une note
 											</option>
-											<option value="0.5">0.5</option>
-											<option value="1">1</option>
-											<option value="1.5">1.5</option>
-											<option value="2">2</option>
-											<option value="2.5">2.5</option>
-											<option value="3">3</option>
-											<option value="3.5">3.5</option>
-											<option value="4">4</option>
-											<option value="4.5">4.5</option>
-											<option value="5">5</option>
+											<option value={1}>1</option>
+											<option value={2}>2</option>
+											<option value={3}>3</option>
+											<option value={4}>4</option>
+											<option value={5}>5</option>
 										</select>
-										{formData.note === 0 && (
-											<div className="text-red-500 text-sm ml-2">
-												La note est obligatoire
-											</div>
-										)}
 									</div>
 									<button
 										type="submit"
-										className="bg-accent text-white px-4 py-2 rounded-md hover:bg-primary w-full"
+										className="bg-primary text-white py-2 px-4 rounded-md mt-4 hover:bg-primary-dark"
 									>
 										Envoyer
 									</button>
 								</form>
 							)}
 						</div>
-						<div className="w-full md:w-1/3 hidden md:flex justify-center items-center">
+						<div className="w-full md:w-1/3 flex justify-center md:justify-end">
 							<Image
-								src="/assets/testimoForm.webp"
-								alt="Une personne levant le pouce de satisfaction pour la note donnée"
-								className="w-full h-auto object-cover rounded-lg"
-								width={400}
-								height={400}
+								src="/assets/rocket_startup_monitor_screen_computer_icon.svg"
+								alt="icone rocket_monitor_screen_computer"
+								width={200}
+								height={200}
+								className="h-full object-contain"
 							/>
 						</div>
-					</div>{" "}
+					</div>
 				</div>
 			)}
 		</div>
