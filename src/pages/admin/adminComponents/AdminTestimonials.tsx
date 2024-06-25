@@ -59,20 +59,16 @@ const AdminTestimonials: React.FC = () => {
 			console.log(
 				`Tentative de mise à jour du témoignage ${testimonialId} avec validité ${newValidity}`
 			);
+			// Appel à l'API pour mettre à jour la validation
 			await updateTestimonialValidation(testimonialId, newValidity);
-			setTestimonials((prevTestimonials) => {
-				const updatedTestimonials = prevTestimonials.map(
-					(testimonial) =>
-						testimonial.Id_Testimonials === testimonialId
-							? { ...testimonial, valid: newValidity }
-							: testimonial
-				);
-				console.log(
-					"Témoignages mis à jour après modification :",
-					updatedTestimonials
-				);
-				return updatedTestimonials;
-			});
+			// Mise à jour de l'état local des témoignages
+			setTestimonials((prevTestimonials) =>
+				prevTestimonials.map((testimonial) =>
+					testimonial.Id_Testimonials === testimonialId
+						? { ...testimonial, valid: newValidity }
+						: testimonial
+				)
+			);
 			console.log(
 				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
 			);
