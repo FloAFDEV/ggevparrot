@@ -1,22 +1,36 @@
 import { useState } from "react";
-import { sendTestimonial, TestimonialFormData } from "../../utils/apiService";
+import { sendTestimonial } from "../../utils/apiService";
 import Image from "next/image";
 import validator from "validator";
 
+interface TestimonialFormData {
+	id: string;
+	Id_Users: string | number;
+	valid: boolean;
+	pseudo: string;
+	userEmail: string;
+	message: string;
+	botField: string;
+	note: number;
+	createdAt: string;
+	userId?: number;
+}
+
 const TestimonialsMessage = () => {
-	const [formData, setFormData] = useState<TestimonialFormData>({
-		id: null,
-		Id_Users: null,
-		valid: null,
+	const initialFormData: TestimonialFormData = {
+		id: "", // Valeur initiale
+		Id_Users: "", // Valeur initiale
+		valid: false, // Valeur initiale
 		pseudo: "",
 		userEmail: "",
 		message: "",
-		botField: "", // Champ caché pour complétion par les robots.
+		botField: "",
 		note: 0,
-		createdAt: "",
-		userId: undefined,
-	});
+		createdAt: "", // Valeur initiale
+	};
 
+	const [formData, setFormData] =
+		useState<TestimonialFormData>(initialFormData);
 	const [submitMessage, setSubmitMessage] = useState("");
 	const [formSubmitted, setFormSubmitted] = useState(false);
 	const [formVisible, setFormVisible] = useState(false);
@@ -58,19 +72,25 @@ const TestimonialsMessage = () => {
 			const dataToSend: TestimonialFormData = {
 				...formData,
 				createdAt,
-				userId: formData.userId || 0,
-				valid: false,
-				id: formData.id,
-				Id_Users: formData.Id_Users,
+				userId: formData.userId as number,
+				valid: false, // Mettez la valeur initiale appropriée ici
+				id: "", // Mettez la valeur initiale appropriée ici
+				Id_Users: "", // Mettez la valeur initiale appropriée ici
 			};
 
 			// Échappement des caractères avant de les envoyer à l'API
-			const escapedData: TestimonialFormData = Object.fromEntries(
-				Object.entries(dataToSend).map(([key, value]) => [
-					key,
-					typeof value === "string" ? validator.escape(value) : value,
-				])
-			) as TestimonialFormData;
+			const escapedData: TestimonialFormData = {
+				id: validator.escape(dataToSend.id),
+				Id_Users: validator.escape(String(dataToSend.Id_Users)),
+				valid: dataToSend.valid,
+				pseudo: validator.escape(dataToSend.pseudo),
+				userEmail: validator.escape(dataToSend.userEmail),
+				message: validator.escape(dataToSend.message),
+				botField: validator.escape(dataToSend.botField),
+				note: dataToSend.note,
+				createdAt: validator.escape(dataToSend.createdAt),
+				userId: dataToSend.userId,
+			};
 
 			const success = await sendTestimonial(escapedData);
 			if (success) {
@@ -80,18 +100,7 @@ const TestimonialsMessage = () => {
 				setFormSubmitted(true);
 				// Réinitialise le formulaire après quelques secondes
 				setTimeout(() => {
-					setFormData({
-						id: null,
-						Id_Users: null,
-						valid: null,
-						pseudo: "",
-						userEmail: "",
-						message: "",
-						botField: "",
-						note: 0,
-						createdAt: "",
-						userId: undefined,
-					});
+					setFormData(initialFormData);
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
 				}, 60000); // -> après 60 secondes
@@ -205,7 +214,7 @@ const TestimonialsMessage = () => {
 											maxLength={200}
 											required
 										></textarea>
-									</div>{" "}
+									</div>
 									{/* Champ caché pour détecter les robots */}
 									<input
 										type="text"
@@ -216,45 +225,55 @@ const TestimonialsMessage = () => {
 									/>
 									<div className="mb-2">
 										<label
-											htmlFor="rating"
+											htmlFor="note"
 											className="block mb-1"
 										>
 											Note :
 										</label>
 										<select
-											id="rating"
-											name="rating"
+											id="note"
+											name="note"
 											value={formData.note}
 											onChange={handleRatingChange}
 											className="w-full p-2 border border-neutral-light rounded-md"
 											required
 										>
-											<option value={0}>
+											<option value="">
 												Sélectionnez une note
 											</option>
-											<option value={1}>1</option>
-											<option value={2}>2</option>
-											<option value={3}>3</option>
-											<option value={4}>4</option>
-											<option value={5}>5</option>
+											<option value="0.5">0.5</option>
+											<option value="1">1</option>
+											<option value="1.5">1.5</option>
+											<option value="2">2</option>
+											<option value="2.5">2.5</option>
+											<option value="3">3</option>
+											<option value="3.5">3.5</option>
+											<option value="4">4</option>
+											<option value="4.5">4.5</option>
+											<option value="5">5</option>
 										</select>
+										{formData.note === 0 && (
+											<div className="text-red-500 text-sm ml-2">
+												La note est obligatoire
+											</div>
+										)}
 									</div>
 									<button
 										type="submit"
-										className="bg-primary text-white py-2 px-4 rounded-md mt-4 hover:bg-primary-dark"
+										className="bg-accent text-white px-4 py-2 rounded-md hover:bg-primary w-full"
 									>
 										Envoyer
 									</button>
 								</form>
 							)}
 						</div>
-						<div className="w-full md:w-1/3 flex justify-center md:justify-end">
+						<div className="w-full md:w-1/3 hidden md:flex justify-center items-center">
 							<Image
-								src="/assets/rocket_startup_monitor_screen_computer_icon.svg"
-								alt="icone rocket_monitor_screen_computer"
-								width={200}
-								height={200}
-								className="h-full object-contain"
+								src="/assets/testimoForm.webp"
+								alt="Une personne levant le pouce de satisfaction pour la note donnée"
+								className="w-full h-auto object-cover rounded-lg"
+								width={400}
+								height={400}
 							/>
 						</div>
 					</div>

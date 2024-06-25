@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import {
 	fetchAllTestimonials,
-	updateTestimonialValidationStatus,
+	updateTestimonialValidation,
 } from "@/components/utils/apiService";
-import { Testimonials } from "@/components/Global/Testimonials/Testimonials";
 
-interface TestimonialFormData {
-	id: number;
+interface Testimonial {
+	Id_Testimonials: number;
 	pseudo: string;
 	userEmail: string;
 	message: string;
 	valid: boolean;
 	note: number;
 	createdAt: string;
-	Id_Users: number;
+	Id_Users?: number | null;
 }
 
-const AdminTestimonials = () => {
-	const [testimonials, setTestimonials] = useState<Testimonials[]>([]);
+const AdminTestimonials: React.FC = () => {
+	const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
 	useEffect(() => {
 		fetchTestimonials();
 	}, []);
 
-	const decodeHTMLEntities = (text: string) => {
+	const decodeHTMLEntities = (text: string): string => {
 		const textArea = document.createElement("textarea");
 		textArea.innerHTML = text;
 		return textArea.value;
@@ -32,17 +31,16 @@ const AdminTestimonials = () => {
 	const fetchTestimonials = async () => {
 		try {
 			const testimonialsData = await fetchAllTestimonials();
-			const transformedTestimonials: Testimonials[] =
-				testimonialsData.map((data) => ({
-					Id_Testimonials: data.id,
-					pseudo: decodeHTMLEntities(data.pseudo),
-					userEmail: decodeHTMLEntities(data.userEmail),
-					message: decodeHTMLEntities(data.message),
-					valid: data.valid,
-					note: data.note,
-					createdAt: data.createdAt,
-					Id_Users: data.Id_Users,
-				}));
+			const transformedTestimonials = testimonialsData.map((data) => ({
+				Id_Testimonials: data.id,
+				pseudo: decodeHTMLEntities(data.pseudo),
+				userEmail: decodeHTMLEntities(data.userEmail),
+				message: decodeHTMLEntities(data.message),
+				valid: data.valid,
+				note: data.note,
+				createdAt: data.createdAt,
+				Id_Users: data.Id_Users,
+			}));
 			setTestimonials(transformedTestimonials);
 			console.log("Témoignages récupérés :", transformedTestimonials);
 		} catch (error) {
@@ -58,14 +56,23 @@ const AdminTestimonials = () => {
 		newValidity: boolean
 	) => {
 		try {
-			await updateTestimonialValidationStatus(testimonialId, newValidity);
-			setTestimonials((prevTestimonials) =>
-				prevTestimonials.map((testimonial) =>
-					testimonial.Id_Testimonials === testimonialId
-						? { ...testimonial, valid: newValidity }
-						: testimonial
-				)
+			console.log(
+				`Tentative de mise à jour du témoignage ${testimonialId} avec validité ${newValidity}`
 			);
+			await updateTestimonialValidation(testimonialId, newValidity);
+			setTestimonials((prevTestimonials) => {
+				const updatedTestimonials = prevTestimonials.map(
+					(testimonial) =>
+						testimonial.Id_Testimonials === testimonialId
+							? { ...testimonial, valid: newValidity }
+							: testimonial
+				);
+				console.log(
+					"Témoignages mis à jour après modification :",
+					updatedTestimonials
+				);
+				return updatedTestimonials;
+			});
 			console.log(
 				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
 			);
