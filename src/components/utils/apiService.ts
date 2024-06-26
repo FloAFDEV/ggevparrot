@@ -4,6 +4,7 @@ export const BASE_URL =
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
 import { Annonce } from "@/pages/admin/adminComponents/ReadAnnonce";
+import axios from "axios";
 
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces(): Promise<Annonce[]> {
@@ -294,37 +295,59 @@ export async function sendTestimonial(
 }
 
 // Récupérer tous les témoignages
-export async function fetchAllTestimonials(): Promise<TestimonialFormData[]> {
+export const fetchAllTestimonials = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}testimonials`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des témoignages : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}/testimonials`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de la récupération des témoignages:", error);
 		throw error;
 	}
-}
+};
 
 export const updateTestimonialValidation = async (
 	testimonialId: number,
 	newValidity: boolean
 ) => {
-	const url = `${BASE_URL}/testimonials/${testimonialId}`;
-	const response = await fetch(url, {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ valid: newValidity }),
-	});
-	if (!response.ok) {
-		throw new Error("Failed to update testimonial validation status");
+	try {
+		const response = await axios.put(
+			`${BASE_URL}/testimonials/${testimonialId}`,
+			{ valid: newValidity },
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.error("Error updating testimonial:", error);
+		throw error;
 	}
-	return response.json();
+};
+
+// Supprimer les témoignages
+export const deleteTestimonial = async (
+	testimonialId: number
+): Promise<void> => {
+	try {
+		const url = `${BASE_URL}/testimonials/${testimonialId}`;
+		const response = await fetch(url, {
+			method: "DELETE",
+		});
+		if (!response.ok) {
+			throw new Error(
+				`Erreur lors de la suppression du témoignage ${testimonialId}`
+			);
+		}
+		console.log(`Témoignage ${testimonialId} supprimé avec succès !`);
+	} catch (error) {
+		console.error(
+			`Erreur lors de la suppression du témoignage ${testimonialId} :`,
+			error
+		);
+		throw error;
+	}
 };
 
 // Récupérer les horaires d'ouverture

@@ -24,7 +24,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 			? testimonials.filter((testimonial) => testimonial.valid)
 			: [];
 	// On récupère les 3 derniers témoignages valides
-	const recentTestimonials = validTestimonials.slice(-6);
+	const recentTestimonials = validTestimonials.slice(-3);
 
 	return (
 		<section className="px-4 py-6 md:py-12 lg:py-24 mt-24">

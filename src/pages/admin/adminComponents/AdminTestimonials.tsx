@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faTrash,
+	faStar,
+	faStarHalfAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import {
 	fetchAllTestimonials,
 	updateTestimonialValidation,
+	deleteTestimonial,
 } from "@/components/utils/apiService";
 
 interface Testimonial {
@@ -15,8 +22,11 @@ interface Testimonial {
 	Id_Users?: number | null;
 }
 
-const AdminTestimonials: React.FC = () => {
+const AdminTestimonials: React.FunctionComponent = () => {
 	const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+	const [deleteTestimonialId, setDeleteTestimonialId] = useState<
+		number | null
+	>(null);
 
 	useEffect(() => {
 		fetchTestimonials();
@@ -31,16 +41,18 @@ const AdminTestimonials: React.FC = () => {
 	const fetchTestimonials = async () => {
 		try {
 			const testimonialsData = await fetchAllTestimonials();
-			const transformedTestimonials = testimonialsData.map((data) => ({
-				Id_Testimonials: data.id,
-				pseudo: decodeHTMLEntities(data.pseudo),
-				userEmail: decodeHTMLEntities(data.userEmail),
-				message: decodeHTMLEntities(data.message),
-				valid: data.valid,
-				note: data.note,
-				createdAt: data.createdAt,
-				Id_Users: data.Id_Users,
-			}));
+			const transformedTestimonials = testimonialsData.map(
+				(data: any) => ({
+					Id_Testimonials: data.Id_Testimonials ?? data.id,
+					pseudo: decodeHTMLEntities(data.pseudo),
+					userEmail: decodeHTMLEntities(data.userEmail),
+					message: decodeHTMLEntities(data.message),
+					valid: data.valid,
+					note: data.note,
+					createdAt: data.createdAt,
+					Id_Users: data.Id_Users,
+				})
+			);
 			setTestimonials(transformedTestimonials);
 			console.log("Témoignages récupérés :", transformedTestimonials);
 		} catch (error) {
@@ -55,13 +67,17 @@ const AdminTestimonials: React.FC = () => {
 		testimonialId: number,
 		newValidity: boolean
 	) => {
+		console.log("Updating testimonial with ID:", testimonialId);
+		console.log("New validity:", newValidity);
 		try {
 			console.log(
-				`Tentative de mise à jour du témoignage ${testimonialId} avec validité ${newValidity}`
+				`Attempting to update testimonial ${testimonialId} with validity ${newValidity}`
 			);
-			// Appel à l'API pour mettre à jour la validation
-			await updateTestimonialValidation(testimonialId, newValidity);
-			// Mise à jour de l'état local des témoignages
+			const updatedTestimonial = await updateTestimonialValidation(
+				testimonialId,
+				newValidity
+			);
+			// Update locally the testimonial's validity status after successful backend response
 			setTestimonials((prevTestimonials) =>
 				prevTestimonials.map((testimonial) =>
 					testimonial.Id_Testimonials === testimonialId
@@ -70,14 +86,51 @@ const AdminTestimonials: React.FC = () => {
 				)
 			);
 			console.log(
-				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
+				`Validity status of testimonial ${testimonialId} updated successfully!`
 			);
 		} catch (error) {
 			console.error(
-				`Erreur lors de la mise à jour du témoignage ${testimonialId} :`,
+				`Error updating testimonial ${testimonialId}:`,
 				error
 			);
 		}
+	};
+
+	const handleDeleteClick = (testimonialId: number) => {
+		console.log("Clicked to delete testimonial with ID:", testimonialId);
+		setDeleteTestimonialId(testimonialId);
+	};
+
+	const handleConfirmDelete = async () => {
+		if (deleteTestimonialId !== null) {
+			console.log(
+				"Confirming deletion of testimonial ID:",
+				deleteTestimonialId
+			);
+			try {
+				await deleteTestimonial(deleteTestimonialId);
+				// Met à jour localement l'état des témoignages après une réponse ok du backend
+				setTestimonials((prevTestimonials) =>
+					prevTestimonials.filter(
+						(testimonial) =>
+							testimonial.Id_Testimonials !== deleteTestimonialId
+					)
+				);
+				setDeleteTestimonialId(null);
+				console.log(
+					`Témoignage ${deleteTestimonialId} supprimé avec succès !`
+				);
+			} catch (error) {
+				console.error(
+					`Erreur lors de la suppression du témoignage ${deleteTestimonialId} :`,
+					error
+				);
+			}
+		}
+	};
+
+	const handleCancelDelete = () => {
+		setDeleteTestimonialId(null);
 	};
 
 	return (
@@ -87,55 +140,64 @@ const AdminTestimonials: React.FC = () => {
 				{testimonials.map((testimonial) => (
 					<div
 						key={testimonial.Id_Testimonials}
-						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4"
+						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4 flex flex-col justify-between"
 					>
-						<h2 className="text-xl font-semibold mb-2">
-							{testimonial.pseudo}
-						</h2>
-						<p className="font-semibold">{testimonial.message}</p>
-						<div className="flex items-center justify-center space-x-2 mt-4">
-							{testimonial.note}
-							{[...Array(Math.floor(testimonial.note))].map(
-								(_, index) => (
-									<svg
-										key={index}
-										className="w-4 h-4 text-yellow-300 ms-1"
-										xmlns="http://www.w3.org/2000/svg"
-										fill="currentColor"
-										viewBox="0 0 16 16"
-									>
-										<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-									</svg>
-								)
-							)}
-							{testimonial.note % 1 === 0.5 && (
-								<svg
-									key="half"
-									className="w-4 h-4 text-yellow-300 ms-1"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="currentColor"
-									viewBox="0 0 16 16"
-								>
-									<path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
-								</svg>
-							)}
+						<div>
+							<h2 className="text-xl font-semibold mb-2">
+								{testimonial.pseudo}
+							</h2>
+							<p className="font-semibold">
+								{testimonial.message}
+							</p>
+							<div className="flex items-center justify-center space-x-2 mt-4">
+								{testimonial.note}
+								{[...Array(Math.floor(testimonial.note))].map(
+									(_, index) => (
+										<FontAwesomeIcon
+											key={index}
+											icon={faStar}
+											className="text-yellow-300"
+										/>
+									)
+								)}
+								{testimonial.note % 1 === 0.5 && (
+									<FontAwesomeIcon
+										key="half"
+										icon={faStarHalfAlt}
+										className="text-yellow-300"
+									/>
+								)}
+							</div>
 						</div>
-						<button
-							className={`px-2 py-1 rounded ${
-								testimonial.valid
-									? "bg-green-500 text-white"
-									: "bg-red-500 text-white"
-							}`}
-							onClick={(e) => {
-								e.stopPropagation();
-								handleToggleValidity(
-									testimonial.Id_Testimonials,
-									!testimonial.valid
-								);
-							}}
-						>
-							{testimonial.valid ? "Validé" : "Non validé"}
-						</button>
+						<div className="flex justify-end mt-4 space-x-2">
+							<button
+								className={`px-2 py-1 rounded ${
+									testimonial.valid
+										? "bg-green-500 text-white"
+										: "bg-red-500 text-white"
+								}`}
+								onClick={(e) => {
+									e.stopPropagation();
+									handleToggleValidity(
+										testimonial.Id_Testimonials,
+										!testimonial.valid
+									);
+								}}
+							>
+								{testimonial.valid ? "Validé" : "Non validé"}
+							</button>
+							<button
+								className="px-2 py-1 ml-2 rounded bg-red-500 text-white"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleDeleteClick(
+										testimonial.Id_Testimonials
+									);
+								}}
+							>
+								<FontAwesomeIcon icon={faTrash} />
+							</button>
+						</div>
 					</div>
 				))}
 			</div>
@@ -147,6 +209,36 @@ const AdminTestimonials: React.FC = () => {
 			>
 				Retour
 			</button>
+
+			{deleteTestimonialId !== null && (
+				<div className="fixed inset-0 flex justify-center items-center bg-neutral-content bg-opacity-50 z-50 overflow-y-auto">
+					<div className="bg-neutral-content p-4 rounded-lg md:max-w-xl h-auto max-h-screen overflow-y-auto">
+						<div className="text-center text-primary-content">
+							<h2 className="text-2xl font-bold mb-4">
+								Confirmation de suppression
+							</h2>
+							<p>
+								Êtes-vous sûr de vouloir supprimer ce témoignage
+								?
+							</p>
+							<div className="flex justify-center mt-4">
+								<button
+									onClick={handleConfirmDelete}
+									className="px-4 py-2 bg-red-500 text-white rounded mr-2"
+								>
+									Supprimer
+								</button>
+								<button
+									onClick={handleCancelDelete}
+									className="px-4 py-2 bg-gray-500 text-white rounded"
+								>
+									Annuler
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
