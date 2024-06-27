@@ -1,4 +1,9 @@
 import React from "react";
+import axios from "axios";
+import {
+	fetchAllTestimonials,
+	deleteTestimonial,
+} from "@/components/utils/apiService";
 
 export interface Testimonials {
 	Id_Testimonials: number;
@@ -25,6 +30,19 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 			: [];
 	// On récupère les 3 derniers témoignages valides
 	const recentTestimonials = validTestimonials.slice(-3);
+
+	const handleDelete = async (testimonialId: number) => {
+		try {
+			await deleteTestimonial(testimonialId);
+			// Rafraîchir la liste des témoignages après la suppression si nécessaire
+		} catch (error) {
+			console.error(
+				`Erreur lors de la suppression du témoignage ${testimonialId} :`,
+				error
+			);
+			// Gérer l'erreur de suppression
+		}
+	};
 
 	return (
 		<section className="px-4 py-6 md:py-12 lg:py-24 mt-24">

@@ -1,5 +1,5 @@
 export const BASE_URL =
-	process.env.NODE_ENV === "production"
+	process.env.NODE_ENV === "development"
 		? process.env.NEXT_PUBLIC_BASE_URL_PROD
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
@@ -9,16 +9,11 @@ import axios from "axios";
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces(): Promise<Annonce[]> {
 	try {
-		const response = await fetch(`${BASE_URL}annonces`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur dans la récupération des annonces: ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}annonces`);
+		return response.data;
 	} catch (error) {
-		console.error(error as Error);
-		throw error as Error;
+		console.error("Erreur dans la récupération des annonces:", error);
+		throw error;
 	}
 }
 
@@ -27,24 +22,15 @@ export const updateValidationStatus = async (
 	newValidity: boolean
 ) => {
 	try {
-		const response = await fetch(
+		const response = await axios.put(
 			`${BASE_URL}annonces/${annonceId}/validite`,
 			{
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ valid: newValidity }),
+				valid: newValidity,
 			}
 		);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la mise à jour de la validité de l'annonce ${annonceId}.`
-			);
-		}
 	} catch (error) {
 		console.error(
-			`Erreur lors de la mise à jour de l'annonce ${annonceId} :`,
+			`Erreur lors de la mise à jour de la validité de l'annonce ${annonceId} :`,
 			error
 		);
 		throw error;
@@ -57,26 +43,15 @@ export async function updateAnnonce(
 	updatedFields: Partial<Annonce>
 ): Promise<Annonce> {
 	try {
-		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(updatedFields),
-		});
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la mise à jour de l'annonce : ${response.status}`
-			);
-		}
-		console.log("Annonce mise à jour avec succès !");
-		return await response.json();
-	} catch (error) {
-		console.error(
-			"Erreur lors de la mise à jour de l'annonce :",
-			error as Error
+		const response = await axios.put(
+			`${BASE_URL}annonces/${annonceId}`,
+			updatedFields
 		);
-		throw error as Error;
+		console.log("Annonce mise à jour avec succès !");
+		return response.data;
+	} catch (error) {
+		console.error("Erreur lors de la mise à jour de l'annonce :", error);
+		throw error;
 	}
 }
 
@@ -84,60 +59,36 @@ export async function updateAnnonce(
 export async function addAnnonce(formData: any): Promise<Annonce> {
 	try {
 		console.log("Contenu de formData :", formData);
-		const response = await fetch(`${BASE_URL}annonces`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
-		});
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de l'ajout de l'annonce : ${response.status}`
-			);
-		}
+		const response = await axios.post(`${BASE_URL}annonces`, formData);
 		console.log("Annonce ajoutée avec succès !");
-		return await response.json();
+		return response.data;
 	} catch (error) {
-		console.error(error as Error);
-		throw error as Error;
+		console.error("Erreur lors de l'ajout de l'annonce :", error);
+		throw error;
 	}
 }
 
 // Ssupprimer une annonce
 export async function deleteAnnonce(annonceId: number): Promise<void> {
 	try {
-		const response = await fetch(`${BASE_URL}annonces/${annonceId}`, {
-			method: "DELETE",
-		});
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la suppression de l'annonce : ${response.status}`
-			);
-		}
+		await axios.delete(`${BASE_URL}annonces/${annonceId}`);
 		console.log("Annonce supprimée avec succès !");
 	} catch (error) {
-		console.error(error as Error);
-		throw error as Error;
+		console.error(`Erreur lors de la suppression de l'annonce :`, error);
+		throw error;
 	}
 }
 
 // Récupérer une annonce par son ID
 export async function fetchAnnonceById(annonceId: number): Promise<Annonce> {
 	try {
-		const response = await fetch(`${BASE_URL}annonces/${annonceId}`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur dans la récupération de l'annonce ${annonceId}: ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}annonces/${annonceId}`);
+		return response.data;
 	} catch (error) {
-		if (error instanceof Error) {
-			console.error(error);
-		} else {
-			console.error("Une erreur inconnue s'est produite :", error);
-		}
+		console.error(
+			`Erreur dans la récupération de l'annonce ${annonceId}:`,
+			error
+		);
 		throw error;
 	}
 }
@@ -145,31 +96,24 @@ export async function fetchAnnonceById(annonceId: number): Promise<Annonce> {
 // Récupérer tous les services
 export async function fetchAllServices(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}services`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur dans la récupération des services : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}services`);
+		return response.data;
 	} catch (error) {
-		console.error(error as Error);
-		throw error as Error;
+		console.error(`Erreur dans la récupération des services:`, error);
+		throw error;
 	}
 }
 
 // Les services par ID
 export async function fetchServiceById(serviceId: number): Promise<any> {
 	try {
-		const response = await fetch(`${BASE_URL}services/${serviceId}`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération du service ${serviceId}: ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}services/${serviceId}`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(
+			`Erreur lors de la récupération du service ${serviceId}:`,
+			error
+		);
 		throw error;
 	}
 }
@@ -177,15 +121,10 @@ export async function fetchServiceById(serviceId: number): Promise<any> {
 // Récupérer les info du garage
 export async function fetchGarageInfo(): Promise<any> {
 	try {
-		const response = await fetch(`${BASE_URL}garage`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des garages : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}garage`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(`Erreur lors de la récupération des garages :`, error);
 		throw error;
 	}
 }
@@ -193,15 +132,10 @@ export async function fetchGarageInfo(): Promise<any> {
 //Récupérer les modeles
 export async function fetchAllModels(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}models`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur dans la récupération des modèles : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}models`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(`Erreur dans la récupération des modèles :`, error);
 		throw error;
 	}
 }
@@ -209,15 +143,10 @@ export async function fetchAllModels(): Promise<any[]> {
 // Récupérer les marques
 export async function fetchAllBrands(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}brands`);
-		if (!response.ok) {
-			throw new Error(
-				`Impossible d'accéder aux marques : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}brands`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(`Impossible d'accéder aux marques :`, error);
 		throw error;
 	}
 }
@@ -225,15 +154,10 @@ export async function fetchAllBrands(): Promise<any[]> {
 // Récupérer les images
 export async function fetchAllImages(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}images`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des images : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}images`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(`Impossible d'accéder aux marques :`, error);
 		throw error;
 	}
 }
@@ -241,15 +165,10 @@ export async function fetchAllImages(): Promise<any[]> {
 // Récupérer toutes les voitures
 export async function fetchAllCars(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}cars`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des voitures : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}cars`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error(`Impossible d'accéder aux marques :`, error);
 		throw error;
 	}
 }
@@ -273,23 +192,20 @@ export async function sendTestimonial(
 	formData: TestimonialFormData
 ): Promise<boolean> {
 	try {
-		const response = await fetch(`${BASE_URL}testimonials`, {
-			method: "POST",
+		const response = await axios.post(`${BASE_URL}testimonials`, formData, {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(formData),
 		});
-		if (!response.ok) {
-			console.error(
-				`Erreur lors de l'envoi du message : ${response.status}`
+		if (!response.data.success) {
+			throw new Error(
+				`Erreur lors de l'envoi du témoignage : ${response.status}`
 			);
-			return false;
 		}
-		console.log("Message envoyé avec succès !");
+		console.log("Témoignage envoyé avec succès !");
 		return true;
 	} catch (error) {
-		console.error("Erreur lors de l'envoi du message :", error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
@@ -305,41 +221,36 @@ export const fetchAllTestimonials = async () => {
 	}
 };
 
-export const updateTestimonialValidation = async (
+// Mise à jour d'un témoignage
+export const updateTestimonial = async (
 	testimonialId: number,
-	newValidity: boolean
-) => {
+	data: any
+): Promise<void> => {
 	try {
 		const response = await axios.put(
 			`${BASE_URL}/testimonials/${testimonialId}`,
-			{ valid: newValidity },
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
+			data
 		);
-		return response.data;
+		console.log(
+			`Témoignage ${testimonialId} mis à jour avec succès :`,
+			response.data
+		);
 	} catch (error) {
-		console.error("Error updating testimonial:", error);
+		console.error(
+			`Erreur lors de la mise à jour du témoignage ${testimonialId} :`,
+			error
+		);
 		throw error;
 	}
 };
 
-// Supprimer les témoignages
+// Supprimer un témoignage
 export const deleteTestimonial = async (
 	testimonialId: number
 ): Promise<void> => {
 	try {
 		const url = `${BASE_URL}/testimonials/${testimonialId}`;
-		const response = await fetch(url, {
-			method: "DELETE",
-		});
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la suppression du témoignage ${testimonialId}`
-			);
-		}
+		await axios.delete(url);
 		console.log(`Témoignage ${testimonialId} supprimé avec succès !`);
 	} catch (error) {
 		console.error(
@@ -353,15 +264,10 @@ export const deleteTestimonial = async (
 // Récupérer les horaires d'ouverture
 export async function fetchOpeningHours(): Promise<any> {
 	try {
-		const response = await fetch(`${BASE_URL}opening`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des horaires d'ouverture : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}opening`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
@@ -369,47 +275,30 @@ export async function fetchOpeningHours(): Promise<any> {
 // Récupérer toutes les options
 export async function fetchAllOptions(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}options`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des options : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}options`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
-
 // Récupérer toutes les années de fabrication
 export async function fetchAllManufactureYears(): Promise<number[]> {
 	try {
-		const response = await fetch(`${BASE_URL}years`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des années de fabrication : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}years`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
-
 // Récupérer tous les types d'énergie
 export async function fetchAllEnergyTypes(): Promise<string[]> {
 	try {
-		const response = await fetch(`${BASE_URL}energy`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des types d'énergie : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}energy`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
@@ -417,15 +306,10 @@ export async function fetchAllEnergyTypes(): Promise<string[]> {
 // Récupérer tous les utilisateurs
 export async function fetchAllUsers(): Promise<any[]> {
 	try {
-		const response = await fetch(`${BASE_URL}users`);
-		if (!response.ok) {
-			throw new Error(
-				`Erreur lors de la récupération des utilisateurs : ${response.status}`
-			);
-		}
-		return await response.json();
+		const response = await axios.get(`${BASE_URL}users`);
+		return response.data;
 	} catch (error) {
-		console.error(error);
+		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
 	}
 }
@@ -447,19 +331,21 @@ export async function MessageAnnonce(
 	messageData: MessageAnnonceData
 ): Promise<any> {
 	try {
-		const response = await fetch(`${BASE_URL}message_annonce`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(messageData),
-		});
-		if (!response.ok) {
+		const response = await axios.post(
+			`${BASE_URL}message_annonce`,
+			messageData,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		if (response.status !== 200) {
 			throw new Error(
 				`Erreur lors de l'envoi du message : ${response.status}`
 			);
 		}
-		return response;
+		return response.data;
 	} catch (error) {
 		console.error("Erreur lors de l'envoi du message :", error);
 		throw error;
@@ -478,14 +364,12 @@ export interface ContactFormData {
 // Envoie du message
 export async function sendMessage(formData: ContactFormData): Promise<boolean> {
 	try {
-		const response = await fetch(`${BASE_URL}contact_message`, {
-			method: "POST",
+		const response = await axios.post(`${BASE_URL}contact_message`, {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(formData),
 		});
-		if (!response.ok) {
+		if (response.status !== 200) {
 			console.error(
 				`Erreur lors de l'envoi du message : ${response.status}`
 			);

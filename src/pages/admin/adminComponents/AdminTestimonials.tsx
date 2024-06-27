@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {
 	fetchAllTestimonials,
-	updateTestimonialValidation,
+	updateTestimonial,
 	deleteTestimonial,
 } from "@/components/utils/apiService";
 
@@ -73,7 +73,7 @@ const AdminTestimonials: React.FunctionComponent = () => {
 			console.log(
 				`Attempting to update testimonial ${testimonialId} with validity ${newValidity}`
 			);
-			const updatedTestimonial = await updateTestimonialValidation(
+			const updatedTestimonial = await updateTestimonial(
 				testimonialId,
 				newValidity
 			);
