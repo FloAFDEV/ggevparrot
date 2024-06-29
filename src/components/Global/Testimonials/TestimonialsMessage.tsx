@@ -103,7 +103,7 @@ const TestimonialsMessage = () => {
 					setFormData(initialFormData);
 					setSubmitMessage("");
 					setFormSubmitted(false); // Réinitialise l'état pour afficher à nouveau les champs du formulaire
-				}, 60000); // -> après 60 secondes
+				}, 40000); // -> après 60 secondes
 			} else {
 				throw new Error("Erreur lors de l'envoi du formulaire.");
 			}

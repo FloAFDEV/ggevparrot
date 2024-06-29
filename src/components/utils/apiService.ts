@@ -23,7 +23,7 @@ export async function updateValidationStatus(
 	newValidity: boolean
 ) {
 	try {
-		await axios.put(`${BASE_URL}/annonces/${annonceId}/validite`, {
+		await axios.put(`${BASE_URL}annonces/${annonceId}/validite`, {
 			valid: newValidity,
 		});
 	} catch (error) {
@@ -69,7 +69,7 @@ export async function addAnnonce(formData: any): Promise<Annonce> {
 // Supprimer une annonce
 export async function deleteAnnonce(annonceId: number): Promise<void> {
 	try {
-		await axios.delete(`${BASE_URL}/annonces/${annonceId}`);
+		await axios.delete(`${BASE_URL}annonce/${annonceId}`);
 		console.log("Annonce supprimée avec succès !");
 	} catch (error) {
 		console.error(`Erreur lors de la suppression de l'annonce :`, error);
@@ -173,7 +173,6 @@ export async function fetchAllCars(): Promise<any[]> {
 
 // Interface pour les données des témoignages
 export interface TestimonialFormData {
-	id: any;
 	Id_Users: any;
 	valid: boolean;
 	pseudo: string;
@@ -195,13 +194,14 @@ export async function sendTestimonial(
 				"Content-Type": "application/json",
 			},
 		});
-		if (!response.data.success) {
-			throw new Error(
-				`Erreur lors de l'envoi du témoignage : ${response.status}`
-			);
+		console.log(response);
+		if (response.status === 200) {
+			console.log("Témoignage envoyé avec succès !");
+			return true;
 		}
-		console.log("Témoignage envoyé avec succès !");
-		return true;
+		throw new Error(
+			`Erreur lors de l'envoi du témoignage : ${response.status}`
+		);
 	} catch (error) {
 		console.error("Erreur lors de l'envoi du témoignage :", error);
 		throw error;
@@ -219,25 +219,24 @@ export const fetchAllTestimonials = async () => {
 	}
 };
 
-// Fonction pour mettre à jour la validité d'un témoignage
-export const updateTestimonial = async (
+export const updateTestimonialValidation = async (
 	testimonialId: number,
 	newValidity: boolean
-): Promise<void> => {
+) => {
 	try {
 		const response = await axios.put(
-			`${BASE_URL}testimonials/${testimonialId}`,
-			{ valid: newValidity }
+			`${BASE_URL}testimonial/${testimonialId}`,
+			{ valid: newValidity },
+
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
 		);
-		console.log(
-			`Témoignage ${testimonialId} mis à jour avec succès :`,
-			response.data
-		);
+		return response.data;
 	} catch (error) {
-		console.error(
-			`Erreur lors de la mise à jour du témoignage ${testimonialId}:`,
-			error
-		);
+		console.error("Error updating testimonial:", error);
 		throw error;
 	}
 };
@@ -247,7 +246,7 @@ export const deleteTestimonial = async (
 	testimonialId: number
 ): Promise<void> => {
 	try {
-		const url = `${BASE_URL}testimonials/${testimonialId}`;
+		const url = `${BASE_URL}testimonial/${testimonialId}`;
 		await axios.delete(url);
 		console.log(`Témoignage ${testimonialId} supprimé avec succès !`);
 	} catch (error) {
@@ -381,6 +380,26 @@ export async function sendMessage(formData: ContactFormData): Promise<boolean> {
 		return true;
 	} catch (error) {
 		console.error("Erreur lors de l'envoi du message :", error);
+		throw error;
+	}
+}
+
+export interface ContactMessage {
+	id: number;
+	name: string;
+	email: string;
+	phone: string;
+	message: string;
+	created_at: string;
+}
+
+// Récupérer tous les messages
+export async function fetchAllMessages(): Promise<ContactMessage[]> {
+	try {
+		const response = await axios.get(`${BASE_URL}contact_message`);
+		return response.data;
+	} catch (error) {
+		console.error("Erreur dans la récupération des annonces:", error);
 		throw error;
 	}
 }

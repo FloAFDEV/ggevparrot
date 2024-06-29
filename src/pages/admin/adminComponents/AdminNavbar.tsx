@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Logo from "@/components/Global/Logo/Logo";
 import Link from "next/link";
 import { ThemeContext } from "@/components/Global/Context/ThemeContext";
-import LoginButton from "../../../components/LoginButton/LoginButton";
+import LoginButton from "@/components/LoginButton/LoginButton";
 
 interface AdminNavbarProps {
 	onFetchAnnonces: () => Promise<void>;
@@ -79,7 +79,7 @@ const AdminNavbar: React.FunctionComponent<AdminNavbarProps> = ({
 						</li>
 						<li>
 							<Link
-								href="/admin/adminComponents/"
+								href="/admin/adminComponents/AdminMessage"
 								className="text-neutral-content hover:text-green-400 active:text-green-400 focus:text-green-400"
 							>
 								Gestion des messages

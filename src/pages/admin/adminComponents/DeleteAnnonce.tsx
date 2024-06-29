@@ -6,7 +6,7 @@ interface DeleteAnnonceProps {
 	onDelete: (annonceId: number) => void;
 }
 
-const DeleteAnnonce: React.FC<DeleteAnnonceProps> = ({
+const DeleteAnnonce: React.FunctionComponent<DeleteAnnonceProps> = ({
 	annonceId,
 	closeModal,
 	onDelete,
