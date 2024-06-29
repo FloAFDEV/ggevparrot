@@ -4,7 +4,7 @@ export const BASE_URL =
 		: process.env.NEXT_PUBLIC_BASE_URL_DEV;
 
 import { Annonce } from "@/pages/admin/adminComponents/ReadAnnonce";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 // Récupérer toutes les annonces
 export async function fetchAllAnnonces(): Promise<Annonce[]> {
@@ -17,17 +17,15 @@ export async function fetchAllAnnonces(): Promise<Annonce[]> {
 	}
 }
 
-export const updateValidationStatus = async (
+// Mettre à jour le statut de validation d'une annonce
+export async function updateValidationStatus(
 	annonceId: number,
 	newValidity: boolean
-) => {
+) {
 	try {
-		const response = await axios.put(
-			`${BASE_URL}annonces/${annonceId}/validite`,
-			{
-				valid: newValidity,
-			}
-		);
+		await axios.put(`${BASE_URL}/annonces/${annonceId}/validite`, {
+			valid: newValidity,
+		});
 	} catch (error) {
 		console.error(
 			`Erreur lors de la mise à jour de la validité de l'annonce ${annonceId} :`,
@@ -35,7 +33,7 @@ export const updateValidationStatus = async (
 		);
 		throw error;
 	}
-};
+}
 
 // Mettre à jour une annonce
 export async function updateAnnonce(
@@ -49,7 +47,7 @@ export async function updateAnnonce(
 		);
 		console.log("Annonce mise à jour avec succès !");
 		return response.data;
-	} catch (error) {
+	} catch (error: any) {
 		console.error("Erreur lors de la mise à jour de l'annonce :", error);
 		throw error;
 	}
@@ -68,10 +66,10 @@ export async function addAnnonce(formData: any): Promise<Annonce> {
 	}
 }
 
-// Ssupprimer une annonce
+// Supprimer une annonce
 export async function deleteAnnonce(annonceId: number): Promise<void> {
 	try {
-		await axios.delete(`${BASE_URL}annonces/${annonceId}`);
+		await axios.delete(`${BASE_URL}/annonces/${annonceId}`);
 		console.log("Annonce supprimée avec succès !");
 	} catch (error) {
 		console.error(`Erreur lors de la suppression de l'annonce :`, error);
@@ -177,7 +175,7 @@ export async function fetchAllCars(): Promise<any[]> {
 export interface TestimonialFormData {
 	id: any;
 	Id_Users: any;
-	valid: any;
+	valid: boolean;
 	pseudo: string;
 	userEmail: string;
 	message: string;
@@ -213,7 +211,7 @@ export async function sendTestimonial(
 // Récupérer tous les témoignages
 export const fetchAllTestimonials = async () => {
 	try {
-		const response = await axios.get(`${BASE_URL}/testimonials`);
+		const response = await axios.get(`${BASE_URL}testimonials`);
 		return response.data;
 	} catch (error) {
 		console.error("Erreur lors de la récupération des témoignages:", error);
@@ -221,15 +219,15 @@ export const fetchAllTestimonials = async () => {
 	}
 };
 
-// Mise à jour d'un témoignage
+// Fonction pour mettre à jour la validité d'un témoignage
 export const updateTestimonial = async (
 	testimonialId: number,
-	data: any
+	newValidity: boolean
 ): Promise<void> => {
 	try {
 		const response = await axios.put(
-			`${BASE_URL}/testimonials/${testimonialId}`,
-			data
+			`${BASE_URL}testimonials/${testimonialId}`,
+			{ valid: newValidity }
 		);
 		console.log(
 			`Témoignage ${testimonialId} mis à jour avec succès :`,
@@ -237,7 +235,7 @@ export const updateTestimonial = async (
 		);
 	} catch (error) {
 		console.error(
-			`Erreur lors de la mise à jour du témoignage ${testimonialId} :`,
+			`Erreur lors de la mise à jour du témoignage ${testimonialId}:`,
 			error
 		);
 		throw error;
@@ -249,7 +247,7 @@ export const deleteTestimonial = async (
 	testimonialId: number
 ): Promise<void> => {
 	try {
-		const url = `${BASE_URL}/testimonials/${testimonialId}`;
+		const url = `${BASE_URL}testimonials/${testimonialId}`;
 		await axios.delete(url);
 		console.log(`Témoignage ${testimonialId} supprimé avec succès !`);
 	} catch (error) {
@@ -364,11 +362,15 @@ export interface ContactFormData {
 // Envoie du message
 export async function sendMessage(formData: ContactFormData): Promise<boolean> {
 	try {
-		const response = await axios.post(`${BASE_URL}contact_message`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const response = await axios.post(
+			`${BASE_URL}contact_message`,
+			formData,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
 		if (response.status !== 200) {
 			console.error(
 				`Erreur lors de l'envoi du message : ${response.status}`

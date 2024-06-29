@@ -6,9 +6,9 @@ import {
 	faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-	fetchAllTestimonials,
 	updateTestimonial,
 	deleteTestimonial,
+	fetchAllTestimonials,
 } from "@/components/utils/apiService";
 
 interface Testimonial {
@@ -67,17 +67,10 @@ const AdminTestimonials: React.FunctionComponent = () => {
 		testimonialId: number,
 		newValidity: boolean
 	) => {
-		console.log("Updating testimonial with ID:", testimonialId);
-		console.log("New validity:", newValidity);
+		console.log("Mise à jour du témoignage avec ID:", testimonialId);
+		console.log("Nouvelle valeur :", newValidity);
 		try {
-			console.log(
-				`Attempting to update testimonial ${testimonialId} with validity ${newValidity}`
-			);
-			const updatedTestimonial = await updateTestimonial(
-				testimonialId,
-				newValidity
-			);
-			// Update locally the testimonial's validity status after successful backend response
+			await updateTestimonial(testimonialId, newValidity);
 			setTestimonials((prevTestimonials) =>
 				prevTestimonials.map((testimonial) =>
 					testimonial.Id_Testimonials === testimonialId
@@ -86,30 +79,32 @@ const AdminTestimonials: React.FunctionComponent = () => {
 				)
 			);
 			console.log(
-				`Validity status of testimonial ${testimonialId} updated successfully!`
+				`Statut de validation du témoignage ${testimonialId} mis à jour avec succès !`
 			);
 		} catch (error) {
 			console.error(
-				`Error updating testimonial ${testimonialId}:`,
+				`Erreur lors de la mise à jour du témoignage ${testimonialId}:`,
 				error
 			);
 		}
 	};
 
 	const handleDeleteClick = (testimonialId: number) => {
-		console.log("Clicked to delete testimonial with ID:", testimonialId);
+		console.log(
+			"Cliquez pour supprimer le témoignage avec l'ID:",
+			testimonialId
+		);
 		setDeleteTestimonialId(testimonialId);
 	};
 
 	const handleConfirmDelete = async () => {
 		if (deleteTestimonialId !== null) {
 			console.log(
-				"Confirming deletion of testimonial ID:",
+				"Confirmez la suppression du témoignage avec l'ID:",
 				deleteTestimonialId
 			);
 			try {
 				await deleteTestimonial(deleteTestimonialId);
-				// Met à jour localement l'état des témoignages après une réponse ok du backend
 				setTestimonials((prevTestimonials) =>
 					prevTestimonials.filter(
 						(testimonial) =>
