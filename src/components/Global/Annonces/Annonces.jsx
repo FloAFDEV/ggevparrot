@@ -43,7 +43,7 @@ const Annonces = () => {
 			try {
 				setIsLoading(true);
 				const annoncesData = await fetchAllAnnonces(BASE_URL);
-				setAllAnnonces(annoncesData[1]);
+				setAllAnnonces(annoncesData);
 				setFilteredAnnonces(annoncesData);
 			} catch (error) {
 				setError(error.message);
