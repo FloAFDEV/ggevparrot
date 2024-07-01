@@ -54,7 +54,7 @@ const Annonces = () => {
 		if (allAnnonces.length === 0) {
 			fetchData();
 		}
-	}, []);
+	}, [allAnnonces]);
 	console.log(allAnnonces);
 	useEffect(() => {
 		handleSearch();

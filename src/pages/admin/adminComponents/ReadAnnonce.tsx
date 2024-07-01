@@ -53,7 +53,7 @@ const ReadAnnonce = () => {
 			const annoncesData = await fetchAllAnnonces();
 			console.log(
 				"Annonces récupérées depuis la base de données :",
-				annoncesData
+				annoncesData[1]
 			);
 			const adaptedAnnoncesData = annoncesData?.map((annonce) => ({
 				...annonce,
