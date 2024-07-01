@@ -55,7 +55,7 @@ const Annonces = () => {
 			fetchData();
 		}
 	}, [allAnnonces]);
-	console.log(allAnnonces);
+
 	useEffect(() => {
 		handleSearch();
 	}, [
