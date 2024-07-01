@@ -95,18 +95,14 @@ const Annonces = () => {
 				(kilometersMaxFilter === "" ||
 					annonce.mileage <= parseInt(kilometersMaxFilter)) &&
 				(brandFilter.length === 0 ||
-					brandFilter.some(
-						(brand) =>
-							annonce.brand_name &&
-							brand &&
-							annonce.brand_name
-								.toLowerCase()
-								.includes(brand.toLowerCase())
+					brandFilter.some((brand) =>
+						annonce.brand_name
+							.toLowerCase()
+							.includes(brand.toLowerCase())
 					)) &&
 				(!fuelTypeFilter ||
-					(annonce.fuel_type &&
-						annonce.fuel_type.toLowerCase() ===
-							fuelTypeFilter.toLowerCase()))
+					annonce.fuel_type.toLowerCase() ===
+						fuelTypeFilter.toLowerCase())
 			);
 		});
 		setFilteredAnnonces(filtered);
