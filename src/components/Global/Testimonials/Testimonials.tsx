@@ -29,7 +29,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 			? testimonials.filter((testimonial) => testimonial.valid)
 			: [];
 	// On récupère les 3 derniers témoignages valides
-	const recentTestimonials = validTestimonials.slice(-6);
+	const recentTestimonials = validTestimonials.slice(-3);
 
 	const handleDelete = async (testimonialId: number) => {
 		try {
