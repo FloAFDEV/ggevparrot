@@ -150,7 +150,7 @@ const UpdateAnnonce = ({
 						className="w-full px-3 py-2 rounded border-gray-300 focus:border-primary focus:outline-none cursor-pointer"
 					>
 						<option value="">Sélectionnez une marque</option>
-						{brandOptions.map((brand, index) => (
+						{brandOptions?.map((brand, index) => (
 							<option key={index} value={brand.name}>
 								{brand.name}
 							</option>
@@ -310,7 +310,7 @@ const UpdateAnnonce = ({
 						type="number"
 						value={updatedAnnonce.manufacture_year}
 						onChange={handleInputChange}
-						selectOptions={years.map(String)}
+						selectOptions={years?.map(String)}
 					/>
 				</div>
 

@@ -247,7 +247,7 @@ const CreateAnnoncePage: React.FC = () => {
 					>
 						<option value="">Sélectionnez une marque</option>
 						{/* Options de marque disponibles */}
-						{brandOptions.map((brand, index) => (
+						{brandOptions?.map((brand, index) => (
 							<option key={index} value={brand.name}>
 								{brand.name}
 							</option>
@@ -382,7 +382,7 @@ const CreateAnnoncePage: React.FC = () => {
 					>
 						<option value="">Sélectionnez une année</option>
 						{/* Options pour les années */}
-						{years.map((year) => (
+						{years?.map((year) => (
 							<option key={year} value={year}>
 								{year}
 							</option>
@@ -526,7 +526,7 @@ const CreateAnnoncePage: React.FC = () => {
 						</option>
 					</select>{" "}
 					<div className="mt-2">
-						{selectedOptions.map((option, index) => (
+						{selectedOptions?.map((option, index) => (
 							<span
 								key={index}
 								className="inline-block bg-primary text-white px-2 py-1 rounded-full text-xs mr-2 mb-2"

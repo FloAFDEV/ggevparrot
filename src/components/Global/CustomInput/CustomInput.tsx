@@ -43,7 +43,7 @@ const CustomInput: React.FunctionComponent<CustomInputProps> = ({
 					className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none"
 				>
 					<option value="">{placeholder}</option>
-					{selectOptions.map((option, index) => (
+					{selectOptions?.map((option, index) => (
 						<option key={index} value={option}>
 							{option}
 						</option>

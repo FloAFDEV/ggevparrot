@@ -51,7 +51,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 					Ce que disent nos clients
 				</h2>
 				<div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4 relative">
-					{recentTestimonials.map((testimonial) => (
+					{recentTestimonials?.map((testimonial) => (
 						<div
 							key={testimonial.Id_Testimonials}
 							className="bg-secondary-content rounded-lg p-8 text-center md:w-1/3"

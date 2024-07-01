@@ -232,7 +232,7 @@ const Annonces = () => {
 								) : filteredAnnonces.length === 0 ? (
 									<p>Aucune annonce trouvée.</p>
 								) : (
-									filteredAnnonces.map((annonce) =>
+									filteredAnnonces?.map((annonce) =>
 										annonce.annonce_valid === 1 ? (
 											<div
 												key={annonce.annonce_title}

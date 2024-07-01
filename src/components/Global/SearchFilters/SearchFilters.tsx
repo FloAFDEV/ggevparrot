@@ -145,7 +145,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 		resetFilters();
 	};
 
-	const brandOptionsFormatted = brandOptions.map((brand) => ({
+	const brandOptionsFormatted = brandOptions?.map((brand) => ({
 		value: brand.name,
 		label: (
 			<div className="flex items-center">
@@ -419,7 +419,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 				<div className="flex items-center justify-start mt-2">
 					<p className="text-md p-5 mr-2">Marques sélectionnées:</p>
 					<ul className="flex flex-wrap">
-						{selectedBrands.map((brand, index) => (
+						{selectedBrands?.map((brand, index) => (
 							<li
 								key={index}
 								className="mr-2 mb-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-lg text-xs"

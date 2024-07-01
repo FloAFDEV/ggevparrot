@@ -107,12 +107,13 @@ const ReadAnnonce = () => {
 		try {
 			await updateValidationStatus(annonceId, newValidity);
 			// Met à jour l'état local avec le bon champ `valid`
-			setAnnonces((prevAnnonces) =>
-				prevAnnonces.map((annonce) =>
-					annonce.Id_CarAnnonce === annonceId
-						? { ...annonce, valid: newValidity }
-						: annonce
-				)
+			setAnnonces(
+				(prevAnnonces) =>
+					prevAnnonces?.map((annonce) =>
+						annonce.Id_CarAnnonce === annonceId
+							? { ...annonce, valid: newValidity }
+							: annonce
+					)
 			);
 			console.log(
 				`Statut de validité de l'annonce ${annonceId} mis à jour avec succès !`
@@ -149,10 +150,11 @@ const ReadAnnonce = () => {
 				annonceId,
 				updatedAnnonce as Annonce
 			);
-			setAnnonces((prevAnnonces) =>
-				prevAnnonces.map((annonce) =>
-					annonce.Id_CarAnnonce === annonceId ? updated : annonce
-				)
+			setAnnonces(
+				(prevAnnonces) =>
+					prevAnnonces?.map((annonce) =>
+						annonce.Id_CarAnnonce === annonceId ? updated : annonce
+					)
 			);
 			setShowUpdateModal(false);
 		} catch (error) {
@@ -180,7 +182,7 @@ const ReadAnnonce = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{annonces.map((annonce) => (
+					{annonces?.map((annonce) => (
 						<tr
 							key={annonce.Id_CarAnnonce}
 							className="border-b hover:bg-neutral-content hover:text-accent-content cursor-pointer text-center"

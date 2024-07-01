@@ -60,7 +60,7 @@ const Footer: React.FunctionComponent = () => {
 						Horaires d'ouverture :
 					</h3>
 					<ul className="font-thin">
-						{openingHours.map(
+						{openingHours?.map(
 							(hour: OpeningHour, index: number) => (
 								<li key={index} className="mb-2">
 									<strong>{hour.dayOfWeek} :</strong>{" "}

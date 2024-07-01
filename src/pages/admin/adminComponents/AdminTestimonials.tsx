@@ -78,12 +78,13 @@ const AdminTestimonials: React.FunctionComponent = () => {
 				newValidity
 			);
 			// Met à jour localement le statut de validité du témoignage après une réponse réussie du backend
-			setTestimonials((prevTestimonials) =>
-				prevTestimonials.map((testimonial) =>
-					testimonial.Id_Testimonials === testimonialId
-						? { ...testimonial, valid: newValidity }
-						: testimonial
-				)
+			setTestimonials(
+				(prevTestimonials) =>
+					prevTestimonials?.map((testimonial) =>
+						testimonial.Id_Testimonials === testimonialId
+							? { ...testimonial, valid: newValidity }
+							: testimonial
+					)
 			);
 			console.log(
 				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
@@ -141,7 +142,7 @@ const AdminTestimonials: React.FunctionComponent = () => {
 		<div className="admin-page px-4 md:px-8">
 			<h1 className="text-5xl font-bold m-10">Gestion des Témoignages</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{testimonials.map((testimonial) => (
+				{testimonials?.map((testimonial) => (
 					<div
 						key={testimonial.Id_Testimonials}
 						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4 flex flex-col justify-between"
