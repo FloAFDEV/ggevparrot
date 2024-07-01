@@ -43,7 +43,6 @@ const Annonces = () => {
 			try {
 				setIsLoading(true);
 				const annoncesData = await fetchAllAnnonces(BASE_URL);
-				console.log("annoncesData", annoncesData);
 				setAllAnnonces(annoncesData);
 				setFilteredAnnonces(annoncesData);
 			} catch (error) {
@@ -56,8 +55,6 @@ const Annonces = () => {
 			fetchData();
 		}
 	}, [allAnnonces]);
-	console.log("allAnnonces :", allAnnonces);
-	console.log("filteredAnnonces :", filteredAnnonces);
 
 	useEffect(() => {
 		handleSearch();
