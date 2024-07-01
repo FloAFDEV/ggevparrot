@@ -95,14 +95,18 @@ const Annonces = () => {
 				(kilometersMaxFilter === "" ||
 					annonce.mileage <= parseInt(kilometersMaxFilter)) &&
 				(brandFilter.length === 0 ||
-					brandFilter.some((brand) =>
-						annonce.brand_name
-							.toLowerCase()
-							.includes(brand.toLowerCase())
+					brandFilter.some(
+						(brand) =>
+							annonce.brand_name &&
+							brand &&
+							annonce.brand_name
+								.toLowerCase()
+								.includes(brand.toLowerCase())
 					)) &&
 				(!fuelTypeFilter ||
-					annonce.fuel_type.toLowerCase() ===
-						fuelTypeFilter.toLowerCase())
+					(annonce.fuel_type &&
+						annonce.fuel_type.toLowerCase() ===
+							fuelTypeFilter.toLowerCase()))
 			);
 		});
 		setFilteredAnnonces(filtered);
@@ -225,107 +229,101 @@ const Annonces = () => {
 									<span className="loading loading-spinner loading-lg h-40">
 										<p>Chargement...</p>
 									</span>
+								) : filteredAnnonces.length === 0 ? (
+									<p>Aucune annonce trouvée.</p>
 								) : (
-									filteredAnnonces.map(
-										(annonce) =>
-											annonce.annonce_valid === 1 && (
-												<div
-													key={annonce.annonce_title}
-													className={`max-w-[300px] card rounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto ${
-														isMobileScreen
-															? "p-2 text-sm"
-															: ""
-													} transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl`}
-												>
-													<figure>
-														<Image
-															src={
-																annonce.main_image_url &&
-																annonce.main_image_url !==
-																	""
-																	? annonce.main_image_url
-																	: "/assets/CarDefaultImage.webp"
-															}
-															alt={
-																annonce.annonce_title
-															}
-															className="rounded-t-md w-full h-full object-cover"
-															width={300}
-															height={150}
-															priority={true}
-														/>
-													</figure>
-													<div className="card-body p-1 w-full">
-														<h2
-															className={`card-title font-bold ${
-																isMobileScreen
-																	? "text-base text-end"
-																	: "text-lg text-end"
-															}`}
-														>
+									filteredAnnonces.map((annonce) =>
+										annonce.annonce_valid === 1 ? (
+											<div
+												key={annonce.annonce_title}
+												className={`max-w-[300px] card rounded-lg border-4 shadow-lg flex flex-col justify-around items-center relative sm:max-w-sm mx-auto ${
+													isMobileScreen
+														? "p-2 text-sm"
+														: ""
+												} transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl`}
+											>
+												<figure>
+													<Image
+														src={
+															annonce.main_image_url &&
+															annonce.main_image_url !==
+																""
+																? annonce.main_image_url
+																: "/assets/CarDefaultImage.webp"
+														}
+														alt={
+															annonce.annonce_title
+														}
+														className="rounded-t-md w-full h-full object-cover"
+														width={300}
+														height={150}
+														priority={true}
+													/>
+												</figure>
+												<div className="card-body p-1 w-full">
+													<h2
+														className={`card-title font-bold ${
+															isMobileScreen
+																? "text-base text-end"
+																: "text-lg text-end"
+														}`}
+													>
+														{annonce.annonce_title}
+													</h2>
+													{isMobileScreen ? null : (
+														<div className="text-end font-light">
+															Année:{" "}
 															{
-																annonce.annonce_title
+																annonce.manufacture_year
 															}
-														</h2>
-														{isMobileScreen ? null : (
-															<div className="text-end font-light">
-																Année:{" "}
+															<br />
+															{annonce.color}{" "}
+															<br />
+															{
+																annonce.fuel_type
+															}{" "}
+															<br />
+															{annonce.mileage} km
+															<p>
+																Catégorie:{" "}
 																{
-																	annonce.manufacture_year
+																	annonce.category_model
 																}
-																<br />
-																{
-																	annonce.color
-																}{" "}
-																<br />
-																{
-																	annonce.fuel_type
-																}
-																<br />
-																{
-																	annonce.mileage
-																}{" "}
-																km
-																<p>
-																	Catégorie:{" "}
-																	{
-																		annonce.category_model
-																	}
-																</p>
-															</div>
-														)}
-														<p className="text-end font-semibold">
-															Prix:{" "}
-															{Math.round(
-																annonce.price
-															)}{" "}
-															€
-														</p>{" "}
-														<p className="text-xs font-thin text-end mt-2 mb-1">
-															À partir de{" "}
-															{(
-																(annonce.price -
-																	3000) /
-																60
-															).toFixed(2)}{" "}
-															€/mois
-														</p>
-														<div className="card-actions justify-end m-1 pt-2 ">
-															<button
-																onClick={() =>
-																	handleOpenModal(
-																		annonce
-																	)
-																}
-																className="btn btn-primary text-lg absolute bottom-0 right-0 m-1 p-1"
-															>
-																En savoir plus
-															</button>
+															</p>
 														</div>
+													)}
+													<p className="text-end font-semibold">
+														Prix:{" "}
+														{Math.round(
+															annonce.price
+														)}{" "}
+														€
+													</p>{" "}
+													<p className="text-xs font-thin text-end mt-2 mb-1">
+														À partir de{" "}
+														{(
+															(annonce.price -
+																3000) /
+															60
+														).toFixed(2)}{" "}
+														€/mois
+													</p>
+													<div className="card-actions justify-end m-1 pt-2 ">
+														<button
+															onClick={() =>
+																handleOpenModal(
+																	annonce
+																)
+															}
+															className="btn btn-primary text-lg absolute bottom-0 right-0 m-1 p-1"
+														>
+															En savoir plus
+														</button>
 													</div>
-													<div className="h-7"></div>
 												</div>
-											)
+												<div className="h-7"></div>
+											</div>
+										) : null
 									)
 								)}
 							</div>
