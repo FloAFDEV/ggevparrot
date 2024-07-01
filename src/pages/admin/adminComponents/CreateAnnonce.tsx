@@ -19,7 +19,7 @@ const CreateAnnoncePage: React.FC = () => {
 		category_model: "",
 		manufacture_year: "",
 		fuel_type: "",
-		options_name: "",
+		options_name: [] as string[], // Update the type of options_name to string[]
 		main_image_url: "",
 	});
 
@@ -34,6 +34,7 @@ const CreateAnnoncePage: React.FC = () => {
 		null
 	);
 	const [submissionMessage, setSubmissionMessage] = useState("");
+	const [selectedOptions, setSelectedOptions] = useState<string[]>([]); // Tableau pour stocker les options selectionnées
 
 	// Taille maximale de l'image en octets (5 Mo)
 	const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -123,13 +124,13 @@ const CreateAnnoncePage: React.FC = () => {
 			!newAnnonce.registration ||
 			!newAnnonce.price ||
 			!newAnnonce.power ||
-			!newAnnonce.power_unit || // Vérification de l'unité de puissance ajoutée
+			!newAnnonce.power_unit ||
 			!newAnnonce.color ||
 			!newAnnonce.model_name ||
 			!newAnnonce.category_model ||
 			!newAnnonce.manufacture_year ||
 			!newAnnonce.fuel_type ||
-			!newAnnonce.options_name
+			newAnnonce.options_name.length === 0
 		) {
 			setSubmissionMessage("L'ensemble des champs est obligatoire !");
 			return;
@@ -162,16 +163,46 @@ const CreateAnnoncePage: React.FC = () => {
 				category_model: "",
 				manufacture_year: "",
 				fuel_type: "",
-				options_name: "",
+				options_name: [],
 				main_image_url: "",
 			});
 			setSelectedImage(null);
+			setSelectedOptions([]); // remet à zéro les selections
 		} catch (error) {
 			console.error("Erreur lors de la création de l'annonce :", error);
 			setSubmissionMessage(
 				"Une erreur s'est produite lors de la création de l'annonce."
 			);
 		}
+	};
+
+	const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedOption = e.target.value;
+		if (
+			selectedOption &&
+			!newAnnonce.options_name.includes(selectedOption)
+		) {
+			setNewAnnonce((prevState) => ({
+				...prevState,
+				options_name: [...prevState.options_name, selectedOption],
+			}));
+			setSelectedOptions((prevOptions) => [
+				...prevOptions,
+				selectedOption,
+			]);
+		}
+	};
+
+	const handleRemoveOption = (option: string) => {
+		setNewAnnonce((prevState) => ({
+			...prevState,
+			options_name: prevState.options_name.filter(
+				(opt) => opt !== option
+			),
+		}));
+		setSelectedOptions((prevOptions) =>
+			prevOptions.filter((opt) => opt !== option)
+		);
 	};
 
 	return (
@@ -379,39 +410,144 @@ const CreateAnnoncePage: React.FC = () => {
 					/>
 				</div>
 
+				{/* Champ personnalisé pour la catégorie */}
 				<div>
-					{/* Champ personnalisé pour la catégorie */}
-					<CustomInput
-						label="Catégorie"
+					<label
+						htmlFor="category_model"
+						className="block mb-2 text-neutral-content"
+					>
+						Catégorie
+					</label>
+					<select
+						id="category_model"
 						name="category_model"
 						value={newAnnonce.category_model}
 						onChange={handleInputChange}
-					/>
+						className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none cursor-pointer"
+					>
+						<option value="">Sélectionnez une catégorie</option>
+						<option value="SUV">SUV</option>
+						<option value="Berline">Berline</option>
+						<option value="Coupé">Coupé</option>
+						<option value="Cabriolet">Cabriolet</option>
+						<option value="Break">Break</option>
+						<option value="Monospace">Monospace</option>
+					</select>
 				</div>
 
+				{/* Champ personnalisé pour le type de carburant */}
 				<div>
-					{/* Champ personnalisé pour le type de carburant */}
-					<CustomInput
-						label="Type de carburant"
+					<label
+						htmlFor="fuel_type"
+						className="block mb-2 text-neutral-content"
+					>
+						Type de carburant
+					</label>
+					<select
+						id="fuel_type"
 						name="fuel_type"
 						value={newAnnonce.fuel_type}
 						onChange={handleInputChange}
-					/>
+						className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none cursor-pointer"
+					>
+						<option value="">
+							Sélectionnez un type de carburant
+						</option>
+						<option value="Essence">Essence</option>
+						<option value="Hybride">Hybride</option>
+						<option value="Electrique">Electrique</option>
+						<option value="Diesel">Diesel</option>
+					</select>
 				</div>
 
 				<div>
 					{/* Champ personnalisé pour les options */}
-					<CustomInput
-						label="Options"
+					<label
+						htmlFor="options_name"
+						className="block mb-2 text-neutral-content"
+					>
+						Options
+					</label>
+					<select
+						id="options_name"
 						name="options_name"
-						value={newAnnonce.options_name}
-						onChange={handleInputChange}
-					/>
+						value=""
+						onChange={handleOptionChange}
+						className="w-full px-3 py-2 pr-10 rounded border-gray-300 focus:border-primary focus:outline-none cursor-pointer"
+					>
+						<option value="">Sélectionnez des options</option>
+						<option value="">Sélectionnez une option</option>
+						<option value="Fermeture centralisée">
+							Fermeture centralisée
+						</option>
+						<option value="Boîte manuelle">Boîte manuelle</option>
+						<option value="Boîte automatique">
+							Boîte automatique
+						</option>
+						<option value="Caméra de recul">Caméra de recul</option>
+						<option value="Détecteurs d'angle mort">
+							Détecteurs d'angle mort
+						</option>
+						<option value="Régulateur de vitesse adaptatif">
+							Régulateur de vitesse adaptatif
+						</option>
+						<option value="Système de freinage d'urgence">
+							Système de freinage d'urgence
+						</option>
+						<option value="Assistance au stationnement">
+							Assistance au stationnement
+						</option>
+						<option value="Connexion Bluetooth">
+							Connexion Bluetooth
+						</option>
+						<option value="Phares à LED ou Xenon">
+							Phares à LED ou Xenon
+						</option>
+						<option value="Climatisation automatique">
+							Climatisation automatique
+						</option>
+						<option value="Système audio">Système audio</option>
+						<option value="Toit ouvrant">Toit ouvrant</option>
+						<option value="ABS">ABS</option>
+						<option value="Airbags">Airbags</option>
+						<option value="Contrôle de stabilité ESP">
+							Contrôle de stabilité ESP
+						</option>
+						<option value="Intérieur cuir">Intérieur cuir</option>
+						<option value="Intérieur velour">
+							Intérieur velour
+						</option>
+						<option value="Intérieur tissu">Intérieur tissu</option>
+						<option value="Système de navigation GPS">
+							Système de navigation GPS
+						</option>
+						<option value="Attelage de remorque">
+							Attelage de remorque
+						</option>
+					</select>{" "}
+					<div className="mt-2">
+						{selectedOptions.map((option, index) => (
+							<span
+								key={index}
+								className="inline-block bg-primary text-white px-2 py-1 rounded-full text-xs mr-2 mb-2"
+							>
+								{option}
+								<button
+									className="ml-1 text-white"
+									onClick={() => handleRemoveOption(option)}
+								>
+									x
+								</button>
+							</span>
+						))}
+					</div>
 				</div>
 			</div>
 			{/* Message de soumission pour informer l'utilisateur */}
 			{submissionMessage && (
-				<p className="text-neutral-content mt-4">{submissionMessage}</p>
+				<p className="text-red-600 text-xl font-bold text-center mt-4">
+					{submissionMessage}
+				</p>
 			)}
 			{/* Bouton pour créer l'annonce */}
 			<button

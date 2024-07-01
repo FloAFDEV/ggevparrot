@@ -71,13 +71,13 @@ const AdminTestimonials: React.FunctionComponent = () => {
 		console.log("New validity:", newValidity);
 		try {
 			console.log(
-				`Attempting to update testimonial ${testimonialId} with validity ${newValidity}`
+				`Tentative de mise à jour du témoignage ${testimonialId} avec la validité ${newValidity}`
 			);
 			const updatedTestimonial = await updateTestimonialValidation(
 				testimonialId,
 				newValidity
 			);
-			// Update locally the testimonial's validity status after successful backend response
+			// Met à jour localement le statut de validité du témoignage après une réponse réussie du backend
 			setTestimonials((prevTestimonials) =>
 				prevTestimonials.map((testimonial) =>
 					testimonial.Id_Testimonials === testimonialId
@@ -86,27 +86,31 @@ const AdminTestimonials: React.FunctionComponent = () => {
 				)
 			);
 			console.log(
-				`Validity status of testimonial ${testimonialId} updated successfully!`
+				`Statut de validité du témoignage ${testimonialId} mis à jour avec succès !`
 			);
 		} catch (error) {
 			console.error(
-				`Error updating testimonial ${testimonialId}:`,
+				`Erreur lors de la mise à jour du témoignage ${testimonialId} :`,
 				error
 			);
 		}
 	};
 
 	const handleDeleteClick = (testimonialId: number) => {
-		console.log("Clicked to delete testimonial with ID:", testimonialId);
+		console.log(
+			"Clique pour supprimer le témoignage avec l'ID :",
+			testimonialId
+		);
 		setDeleteTestimonialId(testimonialId);
 	};
 
 	const handleConfirmDelete = async () => {
 		if (deleteTestimonialId !== null) {
 			console.log(
-				"Confirming deletion of testimonial ID:",
+				"Confirmation de la suppression du témoignage avec l'ID :",
 				deleteTestimonialId
 			);
+
 			try {
 				await deleteTestimonial(deleteTestimonialId);
 				// Met à jour localement l'état des témoignages après une réponse ok du backend

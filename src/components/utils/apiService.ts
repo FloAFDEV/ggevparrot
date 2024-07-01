@@ -56,7 +56,7 @@ export async function updateAnnonce(
 // Ajouter une annonce
 export async function addAnnonce(formData: any): Promise<Annonce> {
 	try {
-		console.log("Contenu de formData :", formData);
+		// console.log("Contenu de formData :", formData);
 		const response = await axios.post(`${BASE_URL}annonces`, formData);
 		console.log("Annonce ajoutée avec succès !");
 		return response.data;

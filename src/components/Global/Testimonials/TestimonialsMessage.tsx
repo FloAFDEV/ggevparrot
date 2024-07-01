@@ -67,7 +67,7 @@ const TestimonialsMessage = () => {
 			return; // N'envoie pas le formulaire si le champ message ne contient pas uniquement du texte
 		}
 		try {
-			console.log("Données du formulaire à envoyer:", formData);
+			// console.log("Données du formulaire à envoyer:", formData);
 			const createdAt = new Date().toISOString();
 			const dataToSend: TestimonialFormData = {
 				...formData,

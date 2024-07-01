@@ -28,13 +28,13 @@ export default NextAuth({
 						email: string;
 						password: string;
 					};
-					console.log(
-						"Credentials entering authorize function:",
-						JSON.stringify({
-							email: email,
-							password: password,
-						})
-					);
+					// console.log(
+					// 	"Entrée des identifiants dans la fonction d'autorisation :",
+					// 	JSON.stringify({
+					// 		email: email,
+					// 		password: "*******",
+					// 	})
+					// );
 					const res = await fetch(`${BASE_URL}/admin`, {
 						method: "POST",
 						headers: {

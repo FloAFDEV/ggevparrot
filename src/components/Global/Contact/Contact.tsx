@@ -50,7 +50,7 @@ const Contact = () => {
 			message: validator.escape(formData.message),
 		};
 		try {
-			console.log("Données du formulaire à envoyer:", escapedFormData);
+			// console.log("Données du formulaire à envoyer:", escapedFormData);
 			const success = await sendMessage(formData);
 			if (success) {
 				setSubmitMessage(
