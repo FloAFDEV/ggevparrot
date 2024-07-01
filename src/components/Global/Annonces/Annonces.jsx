@@ -71,6 +71,14 @@ const Annonces = () => {
 	]);
 
 	const handleSearch = useCallback(() => {
+		if (!Array.isArray(allAnnonces)) {
+			console.error(
+				"Erreur: allAnnonces n'est pas un tableau valide.",
+				allAnnonces
+			);
+			return;
+		}
+
 		let filtered = [...allAnnonces];
 		filtered = filtered.filter((annonce) => {
 			return (
