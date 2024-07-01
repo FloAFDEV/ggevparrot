@@ -206,7 +206,7 @@ const CreateAnnoncePage: React.FC = () => {
 	};
 
 	return (
-		<div className="bg-neutral p-4 sm:p-6 md:p-8 rounded-lg max-w-6xl mx-auto">
+		<div className="bg-neutral text-red-500 p-4 sm:p-6 md:p-8 rounded-lg max-w-6xl mx-auto">
 			<p className="text-neutral-content font-bold text-xl text-center mb-4">
 				Création d'une nouvelle annonce
 			</p>
