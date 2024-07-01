@@ -64,7 +64,7 @@ const Testimonials: React.FunctionComponent<TestimonialsProps> = ({
 							</p>
 							<div className="flex items-center justify-center space-x-2 mt-4">
 								{testimonial.note}{" "}
-								{[...Array(Math.floor(testimonial.note))].map(
+								{[...Array(Math.floor(testimonial.note))]?.map(
 									(_, index) => (
 										<svg
 											key={index}

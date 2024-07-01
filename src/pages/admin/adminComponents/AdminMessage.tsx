@@ -33,7 +33,7 @@ const AdminMessage: React.FunctionComponent = () => {
 		<div className="admin-page px-4 md:px-8">
 			<h1 className="text-5xl font-bold m-10">Messages de Contact</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{messages.map((message) => (
+				{messages?.map((message) => (
 					<div
 						key={message.id}
 						className="bg-neutral text-neutral-content rounded-lg shadow-md p-4 flex flex-col justify-between"

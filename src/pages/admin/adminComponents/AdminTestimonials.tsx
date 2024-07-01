@@ -41,7 +41,7 @@ const AdminTestimonials: React.FunctionComponent = () => {
 	const fetchTestimonials = async () => {
 		try {
 			const testimonialsData = await fetchAllTestimonials();
-			const transformedTestimonials = testimonialsData.map(
+			const transformedTestimonials = testimonialsData?.map(
 				(data: any) => ({
 					Id_Testimonials: data.Id_Testimonials ?? data.id,
 					pseudo: decodeHTMLEntities(data.pseudo),

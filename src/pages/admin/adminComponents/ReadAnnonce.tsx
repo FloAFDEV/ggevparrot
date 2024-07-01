@@ -55,7 +55,7 @@ const ReadAnnonce = () => {
 				"Annonces récupérées depuis la base de données :",
 				annoncesData
 			);
-			const adaptedAnnoncesData = annoncesData.map((annonce) => ({
+			const adaptedAnnoncesData = annoncesData?.map((annonce) => ({
 				...annonce,
 				valid: annonce.annonce_valid === 1,
 			}));
