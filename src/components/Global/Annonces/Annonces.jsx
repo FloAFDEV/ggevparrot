@@ -43,7 +43,7 @@ const Annonces = () => {
 			try {
 				setIsLoading(true);
 				const annoncesData = await fetchAllAnnonces(BASE_URL);
-				setAllAnnonces(annoncesData);
+				setAllAnnonces(annoncesData[1]);
 				setFilteredAnnonces(annoncesData);
 			} catch (error) {
 				setError(error.message);
@@ -54,8 +54,8 @@ const Annonces = () => {
 		if (allAnnonces.length === 0) {
 			fetchData();
 		}
-	}, [allAnnonces]);
-
+	}, []);
+	console.log(allAnnonces);
 	useEffect(() => {
 		handleSearch();
 	}, [
@@ -121,7 +121,7 @@ const Annonces = () => {
 		brandFilter,
 		fuelTypeFilter,
 	]);
-
+	console.log(filteredAnnonces);
 	const handleBrandFilterChange = useCallback(
 		(brands) => {
 			setBrandFilter(brands.split(","));
