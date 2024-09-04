@@ -6,8 +6,7 @@ import { ThemeProvider } from "@/components/Global/Context/ThemeContext";
 import ClientThemeWrapper from "@/components/Global/Context/ClientThemeWrapper";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
-import Logo from "@/components/Global/Logo/Logo";
-import Link from "next/link";
+import Banner from "@/components/utils/banner";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -20,21 +19,21 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	useEffect(() => {
 		const consent = localStorage.getItem("cookieConsent");
-		if (consent === "true") {
+		if (consent === "accepted") {
 			setHasConsented(true);
-		} else if (consent === "false") {
+		} else if (consent === "declined") {
 			setHasNoConsented(true);
 		}
 	}, []);
 
 	const handleConsent = () => {
-		localStorage.setItem("cookieConsent", "true");
+		localStorage.setItem("cookieConsent", "accepted");
 		setHasConsented(true);
 		setHasNoConsented(false);
 	};
 
 	const handleNoConsent = () => {
-		localStorage.setItem("cookieConsent", "false");
+		localStorage.setItem("cookieConsent", "declined");
 		setHasNoConsented(true);
 		setHasConsented(false);
 	};
@@ -69,34 +68,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ThemeProvider>
 				<ClientThemeWrapper>
 					{!hasConsented && !hasNoConsented && (
-						<div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 text-center z-50 flex flex-col sm:flex-row items-center justify-center space-x-4 space-y-4 sm:space-y-0">
-							<Link href="/">
-								<Logo
-									src="/favicon.ico"
-									className="cursor-pointer rounded-full h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 hidden sm:block"
-								/>
-							</Link>
-							<p className="text-center sm:text-left">
-								Ce site utilise des cookies afin de garantir une
-								expérience optimale.
-							</p>
-							<div className="flex space-x-4">
-								<button
-									onClick={handleConsent}
-									className="mt-2 px-4 py-2 bg-info text-gray-800 rounded hover:bg-success transition-colors"
-									aria-label="Accepter les cookies"
-								>
-									Accepter les Cookies
-								</button>
-								<button
-									onClick={handleNoConsent}
-									className="mt-2 ml-4 px-4 py-2 bg-warning-content rounded hover:bg-neutral transition-colors"
-									aria-label="Refuser les cookies"
-								>
-									Refuser les cookies
-								</button>
-							</div>
-						</div>
+						<Banner
+							onAccept={handleConsent}
+							onDecline={handleNoConsent}
+						/>
 					)}
 					<Component {...pageProps} />
 				</ClientThemeWrapper>
